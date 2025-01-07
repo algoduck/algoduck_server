@@ -20,3 +20,8 @@ $ git config --add checkstyle.checkfile config/checkstyle/google_checks.xml
 ```bash
 $ git config --local core.hookspath hooks
 ```
+
+## Project Structure
+
+### ER Diagram
+![image](./images/erdiagram.png)
