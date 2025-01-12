@@ -29,5 +29,5 @@ public class Algorithm {
 
   @Column(name = "algorithm_name", nullable = false)
   @Setter
-  private String algorithmName;
+  private String AlgorithmName;
 }
