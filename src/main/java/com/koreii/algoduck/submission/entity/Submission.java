@@ -46,6 +46,13 @@ public class Submission {
   @JoinColumn(name = "problem_id")
   private Problem problem;
 
+  @Column(name = "code_name", nullable = false)
+  @Setter
+  private String codeName;
+
+  @Column(name = "code_url", nullable = false, columnDefinition = "TEXT")
+  private String codeUrl;
+
   @OneToOne
   @JoinColumn(name = "version_id")
   private Version version;

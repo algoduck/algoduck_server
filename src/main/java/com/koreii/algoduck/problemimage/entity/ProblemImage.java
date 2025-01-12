@@ -38,7 +38,7 @@ public class ProblemImage {
   @Setter
   private String problemImageName;
 
-  @Column(name = "problem_image_url", nullable = false, length = 8192)
+  @Column(name = "problem_image_url", nullable = false, columnDefinition = "TEXT")
   @Setter
   private String problemImageUrl;
 }

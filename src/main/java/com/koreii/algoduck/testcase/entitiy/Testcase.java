@@ -38,13 +38,13 @@ public class Testcase {
   @Setter
   private String testcaseInputName;
 
-  @Column(name = "testcase_input_url", nullable = false)
+  @Column(name = "testcase_input_url", nullable = false, columnDefinition = "TEXT")
   private String testcaseInputUrl;
 
   @Column(name = "testcase_output_name", nullable = false)
   @Setter
   private String testcaseOutputName;
 
-  @Column(name = "testcase_Output_url", nullable = false)
+  @Column(name = "testcase_Output_url", nullable = false, columnDefinition = "TEXT")
   private String testcaseOutputUrl;
 }
