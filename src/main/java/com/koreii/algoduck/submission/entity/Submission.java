@@ -50,7 +50,7 @@ public class Submission {
   @Setter
   private String codeName;
 
-  @Column(name = "code_url", nullable = false, length = 8192)
+  @Column(name = "code_url", nullable = false, columnDefinition = "TEXT")
   private String codeUrl;
 
   @OneToOne
