@@ -51,9 +51,9 @@ public class Member {
   @Setter
   private Role role;
 
-  @Column(name = "profile_image")
+  @Column(name = "profile_image_url", columnDefinition = "TEXT")
   @Setter
-  private String profileImage;
+  private String profileImageUrl;
 
   @Column(name = "status_message")
   @Setter
