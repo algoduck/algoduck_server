@@ -47,4 +47,7 @@ public class Testcase {
 
   @Column(name = "testcase_Output_url", nullable = false, columnDefinition = "TEXT")
   private String testcaseOutputUrl;
+
+  @Column(name = "is_public", nullable = false)
+  private Boolean isPublic;
 }
