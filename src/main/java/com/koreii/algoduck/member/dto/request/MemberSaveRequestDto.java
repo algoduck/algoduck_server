@@ -4,7 +4,6 @@ import com.koreii.algoduck.member.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Builder
 @AllArgsConstructor

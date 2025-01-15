@@ -1,5 +1,6 @@
 package com.koreii.algoduck.algorith.entity;
 
+import com.koreii.algoduck.base.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,7 +22,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Algorithm {
+public class Algorithm extends BaseTimeEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ALGORITHMS_SEQ_GENERATOR")
   @Column(name = "algorithm_id")

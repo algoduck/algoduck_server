@@ -1,5 +1,6 @@
 package com.koreii.algoduck.version.entity;
 
+import com.koreii.algoduck.base.BaseTimeEntity;
 import com.koreii.algoduck.language.entity.Language;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,7 +25,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Version {
+public class Version extends BaseTimeEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VERSIONS_SEQ_GENERATOR")
   @Column(name = "version_id")

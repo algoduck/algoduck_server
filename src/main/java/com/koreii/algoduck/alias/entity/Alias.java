@@ -1,6 +1,7 @@
 package com.koreii.algoduck.alias.entity;
 
 import com.koreii.algoduck.algorith.entity.Algorithm;
+import com.koreii.algoduck.base.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Alias {
+public class Alias extends BaseTimeEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ALIASES_SEQ_GENERATOR")
   @Column(name = "alias_id")

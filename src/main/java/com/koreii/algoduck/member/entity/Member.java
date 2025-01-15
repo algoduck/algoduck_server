@@ -1,5 +1,6 @@
 package com.koreii.algoduck.member.entity;
 
+import com.koreii.algoduck.base.BaseTimeEntity;
 import com.koreii.algoduck.member.enums.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,7 +28,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member {
+public class Member extends BaseTimeEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBERS_SEQ_GENERATOR")
   @Column(name = "member_id")
