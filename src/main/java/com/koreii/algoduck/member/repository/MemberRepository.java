@@ -36,5 +36,9 @@ public interface MemberRepository {
 
   MemberResponseDto update(MemberUpdateRequestDto updateRequestDto);       //  회원 정보를 갱신함
 
-  void quit(Long memberId);   //  회원 탈퇴하면 해당 회원의 상태를 변경함
+  void quit(Long memberId);   //  회원 탈퇴를 요청하면 해당 회원의 상태를 PENDING_DELETION으로 변경함
+
+  void physicalDeleteWaitingMembers();  //  회원가입 요청은 했지만 가입 유예 기간 동안 이메일 인증 안한 회원들을 실제로 제거함
+
+  void logicalDeleteQuitMembers();      //  회원 탈퇴 요청 후 탈퇴 유예 기간이 지난 회원들을 논리적으로 탈퇴처리
 }
