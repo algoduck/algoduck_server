@@ -33,17 +33,17 @@ public class Member {
   @Column(name = "member_id")
   private Long memberId;
 
-  @Column(name = "login_id", unique = true, nullable = false)
+  @Column(name = "login_id", unique = true, nullable = false, length = 20)
   private String loginId;
 
-  @Column(nullable = false)
+  @Column(nullable = false, length = 20)
   @Setter
   private String password;
 
-  @Column(unique = true, nullable = false)
+  @Column(unique = true, nullable = false, length = 40)
   private String email;
 
-  @Column(unique = true, nullable = false)
+  @Column(unique = true, nullable = false, length = 20, columnDefinition = "VARCHAR(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci")
   private String nickname;
 
   @Column(nullable = false)

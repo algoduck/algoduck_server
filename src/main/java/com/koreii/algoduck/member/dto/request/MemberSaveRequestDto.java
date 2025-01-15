@@ -1,0 +1,18 @@
+package com.koreii.algoduck.member.dto.request;
+
+import com.koreii.algoduck.member.enums.Role;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Builder
+@AllArgsConstructor
+@Getter
+public class MemberSaveRequestDto {
+  private String loginId;
+  private String password;
+  private String email;
+  private String nickname;
+  private Role role;
+}
