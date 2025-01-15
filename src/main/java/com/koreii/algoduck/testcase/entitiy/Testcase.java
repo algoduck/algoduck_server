@@ -1,5 +1,6 @@
 package com.koreii.algoduck.testcase.entitiy;
 
+import com.koreii.algoduck.base.BaseTimeEntity;
 import com.koreii.algoduck.problem.entity.Problem;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,7 +25,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Testcase {
+public class Testcase extends BaseTimeEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TESTCASES_SEQ_GENERATOR")
   @Column(name = "testcase_id")

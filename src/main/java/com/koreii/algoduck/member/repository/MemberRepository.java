@@ -1,9 +1,9 @@
 package com.koreii.algoduck.member.repository;
 
 import com.koreii.algoduck.member.dto.request.LoginRequestDto;
+import com.koreii.algoduck.member.dto.request.MemberSaveRequestDto;
 import com.koreii.algoduck.member.dto.request.MemberUpdateRequestDto;
 import com.koreii.algoduck.member.dto.response.MemberResponseDto;
-import com.koreii.algoduck.member.dto.request.MemberSaveRequestDto;
 import com.koreii.algoduck.member.dto.response.MemberSimpeResponseDto;
 import com.koreii.algoduck.member.enums.Role;
 

@@ -1,7 +1,7 @@
 package com.koreii.algoduck.submission.entity;
 
+import com.koreii.algoduck.base.BaseTimeEntity;
 import com.koreii.algoduck.member.entity.Member;
-import com.koreii.algoduck.member.enums.Role;
 import com.koreii.algoduck.problem.entity.Problem;
 import com.koreii.algoduck.submission.enums.Status;
 import com.koreii.algoduck.version.entity.Version;
@@ -32,7 +32,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Submission {
+public class Submission extends BaseTimeEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SUBMISSIONS_SEQ_GENERATOR")
   @Column(name = "submission_id")
