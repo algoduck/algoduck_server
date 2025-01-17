@@ -48,10 +48,10 @@ public class MemberService {
   }
 
   public List<MemberSimpleResponseDto> findAllMembers() {
-    return memberRepository.findAll();
+    throw new UnsupportedOperationException("미구현된 메서드");
   }
 
   public List<MemberSimpleResponseDto> findMemberByLoginId(String loginId) {
-    return memberRepository.findByLoginId(loginId);
+    throw new UnsupportedOperationException("미구현된 메서드");
   }
 }

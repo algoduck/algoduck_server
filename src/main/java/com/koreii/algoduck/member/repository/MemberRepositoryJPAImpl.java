@@ -48,7 +48,7 @@ public class MemberRepositoryJPAImpl implements MemberRepository {
   public boolean isUniqueNickname(String nickname) {
     String jpql = "SELECT COUNT(m) FROM Member m WHERE m.nickname = :nickname";
 
-    Long count = entityManager.createQuery(jpql, Long.class).getSingleResult();
+    int count = entityManager.createQuery(jpql, Integer.class).getSingleResult();
     return count == 0;
   }
 
@@ -56,47 +56,91 @@ public class MemberRepositoryJPAImpl implements MemberRepository {
   public boolean isUniqueEmail(String email) {
     String jpql = "SELECT COUNT(m) FROM Member m WHERE m.email = :email";
 
-    Long count = entityManager.createQuery(jpql, Long.class).getSingleResult();
+    int count = entityManager.createQuery(jpql, Integer.class).getSingleResult();
     return count == 0;
   }
 
   @Override
-  public List<MemberSimpleResponseDto> findAll() {
-    String jpql = "SELECT new com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto(m) "
-        + "FROM Member m "
-        + "ORDER BY m.solved DESC, m.createdAt ASC";
-
-    return entityManager.createQuery(jpql, MemberSimpleResponseDto.class).getResultList();
+  public long countAll() {
+    String jpql = "SELECT COUNT(m) FROM Member m";
+    return entityManager.createQuery(jpql, Long.class).getSingleResult();
   }
 
   @Override
-  public List<MemberSimpleResponseDto> findByLoginId(String loginId) {
+  public List<MemberSimpleResponseDto> findAll(int pageNumber, int pageSize) {
+    int offset = (pageNumber - 1) * pageSize;
+
     String jpql = "SELECT new com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto(m) "
         + "FROM Member m "
-        + "WHERE m.loginId = loginId "
         + "ORDER BY m.solved DESC, m.createdAt ASC";
 
-    return entityManager.createQuery(jpql, MemberSimpleResponseDto.class).getResultList();
+    return entityManager.createQuery(jpql, MemberSimpleResponseDto.class)
+        .setFirstResult(offset)
+        .setMaxResults(pageSize)
+        .getResultList();
   }
 
   @Override
-  public List<MemberSimpleResponseDto> findByNickname(String nickname) {
-    String jpql = "SELECT new com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto(m) "
-        + "FROM Member m "
-        + "WHERE m.nickname = nickname "
-        + "ORDER BY m.solved DESC, m.createdAt ASC";
-
-    return entityManager.createQuery(jpql, MemberSimpleResponseDto.class).getResultList();
+  public long countLoginId(String loginId) {
+    String jpql = "SELECT COUNT(m) FROM Member m WHERE m.loginId LIKE :loginId";
+    return entityManager.createQuery(jpql, Long.class).setParameter("loginId", "%" + loginId + "%").getSingleResult();
   }
 
   @Override
-  public List<MemberSimpleResponseDto> findByRole(Role role) {
+  public List<MemberSimpleResponseDto> findByLoginId(String loginId, int pageNumber, int pageSize) {
+    int offset = (pageNumber - 1) * pageSize;
     String jpql = "SELECT new com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto(m) "
         + "FROM Member m "
-        + "WHERE m.role = role "
+        + "WHERE m.loginId = :loginId "
         + "ORDER BY m.solved DESC, m.createdAt ASC";
 
-    return entityManager.createQuery(jpql, MemberSimpleResponseDto.class).getResultList();
+    return entityManager.createQuery(jpql, MemberSimpleResponseDto.class)
+        .setParameter("loginId", loginId)
+        .setFirstResult(offset)
+        .setMaxResults(pageSize)
+        .getResultList();
+  }
+
+  @Override
+  public long countNickname(String nickname) {
+    String jpql = "SELECT COUNT(m) FROM Member m WHERE m.nickname LIKE :nickname";
+    return entityManager.createQuery(jpql, Long.class).setParameter("nickname", "%" + nickname + "%").getSingleResult();
+  }
+
+  @Override
+  public List<MemberSimpleResponseDto> findByNickname(String nickname, int pageNumber, int pageSize) {
+    int offset = (pageNumber - 1) * pageSize;
+    String jpql = "SELECT new com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto(m) "
+        + "FROM Member m "
+        + "WHERE m.nickname = :nickname "
+        + "ORDER BY m.solved DESC, m.createdAt ASC";
+
+    return entityManager.createQuery(jpql, MemberSimpleResponseDto.class)
+        .setParameter("nickname", nickname)
+        .setFirstResult(offset)
+        .setMaxResults(pageSize)
+        .getResultList();
+  }
+
+  @Override
+  public long countRole(Role role) {
+    String jpql = "SELECT COUNT(m) FROM Member m WHERE m.role = :role";
+    return entityManager.createQuery(jpql, Long.class).setParameter("role", role).getSingleResult();
+  }
+
+  @Override
+  public List<MemberSimpleResponseDto> findByRole(Role role, int pageNumber, int pageSize) {
+    int offset = (pageNumber - 1) * pageSize;
+    String jpql = "SELECT new com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto(m) "
+        + "FROM Member m "
+        + "WHERE m.role = :role "
+        + "ORDER BY m.solved DESC, m.createdAt ASC";
+
+    return entityManager.createQuery(jpql, MemberSimpleResponseDto.class)
+        .setParameter("role", role)
+        .setFirstResult(offset)
+        .setMaxResults(pageSize)
+        .getResultList();
   }
 
   @Override

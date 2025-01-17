@@ -21,13 +21,21 @@ public interface MemberRepository {
 
   boolean isUniqueEmail(String email); //  email이 유일한지 확인
 
-  List<MemberSimpleResponseDto> findAll();  //  전체 회원 리스트를 푼 문제 순, 가입 시간 순으로 보여주기 (100명 단위로 페이지네이션)
+  long countAll();
 
-  List<MemberSimpleResponseDto> findByLoginId(String loginId);    //  로그인 아이디에 loginId가 포함된 회원 리스트를 보여주기 (100명 단위로 페이지네이션)
+  List<MemberSimpleResponseDto> findAll(int pageNumber, int pageSize);  //  전체 회원 리스트를 푼 문제 순, 가입 시간 순으로 보여주기 (100명 단위로 페이지네이션)
 
-  List<MemberSimpleResponseDto> findByNickname(String nickname);  //  닉네임에 nickname이 포함돤 회원 리스트를 보여주기 (100명 단위로 페이지네이션)
+  long countLoginId(String loginId);
 
-  List<MemberSimpleResponseDto> findByRole(Role role);            //  역할이 role인 회원 리스트를 보여주기 (100명 단위로 페이지네이션)
+  List<MemberSimpleResponseDto> findByLoginId(String loginId, int pageNumber, int pageSize);    //  로그인 아이디에 loginId가 포함된 회원 리스트를 보여주기 (100명 단위로 페이지네이션)
+
+  long countNickname(String nickname);
+
+  List<MemberSimpleResponseDto> findByNickname(String nickname, int pageNumber, int pageSize);  //  닉네임에 nickname이 포함돤 회원 리스트를 보여주기 (100명 단위로 페이지네이션)
+
+  long countRole(Role role);
+
+  List<MemberSimpleResponseDto> findByRole(Role role, int pageNumber, int pageSize);            //  역할이 role인 회원 리스트를 보여주기 (100명 단위로 페이지네이션)
 
   MemberResponseDto findByMemberId(Long memberId);               //  특정 회원 한 명의 상세정보를 PK로 가져오기
 
