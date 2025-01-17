@@ -14,4 +14,5 @@ public class MemberSaveRequestDto {
   private String email;
   private String nickname;
   private Role role;
+  private String statusMessage;
 }

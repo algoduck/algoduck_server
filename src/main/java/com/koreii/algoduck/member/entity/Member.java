@@ -1,6 +1,7 @@
 package com.koreii.algoduck.member.entity;
 
 import com.koreii.algoduck.base.BaseTimeEntity;
+import com.koreii.algoduck.member.enums.MemberStatus;
 import com.koreii.algoduck.member.enums.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,6 +17,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "members")
@@ -48,6 +51,9 @@ public class Member extends BaseTimeEntity {
   private String nickname;
 
   @Column(nullable = false)
+  private Integer solved;
+
+  @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   @Setter
   private Role role;
@@ -59,4 +65,13 @@ public class Member extends BaseTimeEntity {
   @Column(name = "status_message")
   @Setter
   private String statusMessage;
+
+  @Column(name = "member_status", nullable = false)
+  @Enumerated(EnumType.STRING)
+  @Setter
+  private MemberStatus memberStatus;
+
+  @Column(name = "quit_request_time")
+  @Setter
+  private LocalDateTime quitRequestTime;
 }
