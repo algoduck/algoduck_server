@@ -1,5 +1,6 @@
 package com.koreii.algoduck.member.dto.response;
 
+import com.koreii.algoduck.member.entity.Member;
 import com.koreii.algoduck.member.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,4 +19,14 @@ public class MemberResponseDto {
   private Role role;
   private String profileImageUrl;
   private String statusMessage;
+
+  public MemberResponseDto(Member member) {
+    this.memberId = member.getMemberId();
+    this.loginId = member.getLoginId();
+    this.nickname = member.getNickname();
+    this.solved = member.getSolved();
+    this.role = member.getRole();
+    this.profileImageUrl = member.getProfileImageUrl();
+    this.statusMessage = member.getStatusMessage();
+  }
 }

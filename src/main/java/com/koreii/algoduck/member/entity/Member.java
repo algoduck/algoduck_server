@@ -51,6 +51,9 @@ public class Member extends BaseTimeEntity {
   private String nickname;
 
   @Column(nullable = false)
+  private Integer solved;
+
+  @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   @Setter
   private Role role;
