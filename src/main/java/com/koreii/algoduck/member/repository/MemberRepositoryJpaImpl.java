@@ -9,13 +9,15 @@ import com.koreii.algoduck.member.entity.Member;
 import com.koreii.algoduck.member.enums.MemberStatus;
 import com.koreii.algoduck.member.enums.Role;
 import jakarta.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class MemberRepositoryJPAImpl implements MemberRepository {
-  private EntityManager entityManager;
+@RequiredArgsConstructor
+public class MemberRepositoryJpaImpl implements MemberRepository {
+  private final EntityManager entityManager;
 
   @Override
   public Long save(MemberSaveRequestDto memberSaveDto) {
