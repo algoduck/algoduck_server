@@ -16,7 +16,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class MemberRepositoryJPAImpl implements MemberRepository {
+public class MemberRepositoryJpaImplementation implements MemberRepository {
   private final EntityManager entityManager;
 
   @Override
@@ -178,9 +178,5 @@ public class MemberRepositoryJPAImpl implements MemberRepository {
   @Override
   public void logicalDeleteQuitMembers() {
     throw new UnsupportedOperationException("미구현된 메서드");
-  }
-
-  static class classA {
-
   }
 }
