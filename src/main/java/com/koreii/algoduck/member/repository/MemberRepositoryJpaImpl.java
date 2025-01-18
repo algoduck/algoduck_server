@@ -16,7 +16,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class MemberRepositoryJpaImplementation implements MemberRepository {
+public class MemberRepositoryJpaImpl implements MemberRepository {
   private final EntityManager entityManager;
 
   @Override
