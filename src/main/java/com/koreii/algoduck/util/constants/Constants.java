@@ -1,5 +1,8 @@
 package com.koreii.algoduck.util.constants;
 
+import com.koreii.algoduck.exceptions.NicknamePolicyViolationException;
+import com.koreii.algoduck.util.validator.PolicyValidator;
+
 public abstract class Constants {
   public static final int JOIN_GRACE_PERIOD = 7;       //  회원 가입 유예기간
   public static final int QUIT_GRACE_PERIOD = 7;       //  회원 탈퇴 유예기간
@@ -9,4 +12,29 @@ public abstract class Constants {
   public static final String LOGIN_ID_POLICY_VIOLATION = "로그인 아이디 정책에 맞지 않습니다.";
   public static final String PASSWORD_POLICY_VIOLATION = "비밀번호 정책에 맞지 않습니다.";
   public static final String NICKNAME_POLICY_VIOLATION = "닉네임 정책에 맞지 않습니다.";
+
+  public static void validateLoginId(String loginId) {
+    if (!PolicyValidator.isValid(loginId, LOGIN_ID_POLICY)) {
+      throw new NicknamePolicyViolationException(LOGIN_ID_POLICY_VIOLATION);
+    }
+  }
+
+  public static void validatePassword(String password) {
+    if (!PolicyValidator.isValid(password, PASSWORD_POLICY)) {
+      throw new NicknamePolicyViolationException(PASSWORD_POLICY_VIOLATION);
+    }
+  }
+
+  public static void validateNickname(String nickname) {
+    if (!PolicyValidator.isValid(nickname, NICKNAME_POLICY)) {
+      throw new NicknamePolicyViolationException(NICKNAME_POLICY_VIOLATION);
+    }
+  }
+
+  public static void validatePolicies(String loginId, String password, String nickname) {
+    validateLoginId(loginId);
+    validatePassword(password);
+    validatePassword(nickname);
+  }
+
 }

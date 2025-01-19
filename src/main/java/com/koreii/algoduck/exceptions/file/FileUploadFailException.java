@@ -1,4 +1,4 @@
-package com.koreii.algoduck.exceptions;
+package com.koreii.algoduck.exceptions.file;
 
 public class FileUploadFailException extends RuntimeException {
   public FileUploadFailException() {
