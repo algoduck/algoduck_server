@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface MemberRepository {
   //  CRUD
-  Long save(MemberSaveRequestDto memberSaveDto); //  회원가입, 저장 후 PK 반환
+  MemberResponseDto save(MemberSaveRequestDto memberSaveDto); //  회원가입, 저장 후 PK 반환
 
   boolean isUniqueLoginId(String loginId); //  loginId가 유일한지 확인
 
@@ -25,15 +25,15 @@ public interface MemberRepository {
 
   List<MemberSimpleResponseDto> findAll(int pageNumber, int pageSize);  //  전체 회원 리스트를 푼 문제 순, 가입 시간 순으로 보여주기 (100명 단위로 페이지네이션)
 
-  long countLoginId(String loginId);
+  long countWithLoginId(String loginId);
 
-  List<MemberSimpleResponseDto> findByLoginId(String loginId, int pageNumber, int pageSize);    //  로그인 아이디에 loginId가 포함된 회원 리스트를 보여주기 (100명 단위로 페이지네이션)
+  List<MemberSimpleResponseDto> findWithLoginId(String loginId, int pageNumber, int pageSize);    //  로그인 아이디에 loginId가 포함된 회원 리스트를 보여주기 (100명 단위로 페이지네이션)
 
-  long countNickname(String nickname);
+  long countWithNickname(String nickname);
 
-  List<MemberSimpleResponseDto> findByNickname(String nickname, int pageNumber, int pageSize);  //  닉네임에 nickname이 포함돤 회원 리스트를 보여주기 (100명 단위로 페이지네이션)
+  List<MemberSimpleResponseDto> findWithNickname(String nickname, int pageNumber, int pageSize);  //  닉네임에 nickname이 포함돤 회원 리스트를 보여주기 (100명 단위로 페이지네이션)
 
-  long countRole(Role role);
+  long countWithRole(Role role);
 
   List<MemberSimpleResponseDto> findByRole(Role role, int pageNumber, int pageSize);            //  역할이 role인 회원 리스트를 보여주기 (100명 단위로 페이지네이션)
 
