@@ -1,6 +1,6 @@
 package com.koreii.algoduck.exceptions;
 
-public class AmazonS3FileUploadFailException extends RuntimeException {
+public class AmazonS3FileUploadFailException extends FileUploadFailException {
   public AmazonS3FileUploadFailException() {
   }
 

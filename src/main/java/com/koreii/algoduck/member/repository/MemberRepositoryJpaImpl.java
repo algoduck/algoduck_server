@@ -20,7 +20,7 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
   private final EntityManager entityManager;
 
   @Override
-  public Long save(MemberSaveRequestDto memberSaveDto) {
+  public MemberResponseDto save(MemberSaveRequestDto memberSaveDto) {
     Member member = Member.builder()
         .loginId(memberSaveDto.getLoginId())
         .password(memberSaveDto.getPassword())
@@ -28,14 +28,14 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
         .nickname(memberSaveDto.getNickname())
         .solved(0)
         .role(memberSaveDto.getRole())
-        .profileImageUrl(null)
+        .profileImageUrl(memberSaveDto.getProfileImageUrl())
         .statusMessage(memberSaveDto.getStatusMessage())
         .memberStatus(MemberStatus.ACTIVE)
         .quitRequestTime(null)
         .build();
 
     entityManager.persist(member);
-    return member.getMemberId();
+    return new MemberResponseDto(member);
   }
 
   @Override
@@ -83,13 +83,13 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
   }
 
   @Override
-  public long countLoginId(String loginId) {
+  public long countWithLoginId(String loginId) {
     String jpql = "SELECT COUNT(m) FROM Member m WHERE m.loginId LIKE :loginId";
     return entityManager.createQuery(jpql, Long.class).setParameter("loginId", "%" + loginId + "%").getSingleResult();
   }
 
   @Override
-  public List<MemberSimpleResponseDto> findByLoginId(String loginId, int pageNumber, int pageSize) {
+  public List<MemberSimpleResponseDto> findWithLoginId(String loginId, int pageNumber, int pageSize) {
     int offset = (pageNumber - 1) * pageSize;
     String jpql = "SELECT new com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto(m) "
         + "FROM Member m "
@@ -104,13 +104,13 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
   }
 
   @Override
-  public long countNickname(String nickname) {
+  public long countWithNickname(String nickname) {
     String jpql = "SELECT COUNT(m) FROM Member m WHERE m.nickname LIKE :nickname";
     return entityManager.createQuery(jpql, Long.class).setParameter("nickname", "%" + nickname + "%").getSingleResult();
   }
 
   @Override
-  public List<MemberSimpleResponseDto> findByNickname(String nickname, int pageNumber, int pageSize) {
+  public List<MemberSimpleResponseDto> findWithNickname(String nickname, int pageNumber, int pageSize) {
     int offset = (pageNumber - 1) * pageSize;
     String jpql = "SELECT new com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto(m) "
         + "FROM Member m "
@@ -125,7 +125,7 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
   }
 
   @Override
-  public long countRole(Role role) {
+  public long countWithRole(Role role) {
     String jpql = "SELECT COUNT(m) FROM Member m WHERE m.role = :role";
     return entityManager.createQuery(jpql, Long.class).setParameter("role", role).getSingleResult();
   }
@@ -162,6 +162,7 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
     Member member = entityManager.find(Member.class, updateRequestDto);
     member.setPassword(updateRequestDto.getPassword());
     member.setStatusMessage(updateRequestDto.getStatusMessage());
+    member.setPassword(updateRequestDto.getProfileImageUrl());
     return new MemberResponseDto(member);
   }
 
