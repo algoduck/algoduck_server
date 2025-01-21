@@ -1,6 +1,6 @@
 package com.koreii.algoduck.config;
 
-import com.koreii.algoduck.base.handler.CustomRequestMappingHandler;
+import com.koreii.algoduck.base.handler.CustomRequestMappingHandlerMapping;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
@@ -9,6 +9,6 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 public class RequestMappingConfiguration extends DelegatingWebMvcConfiguration {
   @Override
   protected RequestMappingHandlerMapping createRequestMappingHandlerMapping() {
-    return new CustomRequestMappingHandler();
+    return new CustomRequestMappingHandlerMapping();
   }
 }

@@ -8,14 +8,10 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomRequestMappingHandler extends RequestMappingHandlerMapping {
+public class CustomRequestMappingHandlerMapping extends RequestMappingHandlerMapping {
   @Override
   protected RequestMappingInfo getMappingForMethod(Method method, Class<?> handlerType) {
     RequestMappingInfo requestMappingInfo = super.getMappingForMethod(method, handlerType);
-
-    if (requestMappingInfo == null) {
-      return null;
-    }
 
     List<String> superclassUrlPatterns = new ArrayList<>();
     Class<?> superclass = handlerType.getSuperclass();
