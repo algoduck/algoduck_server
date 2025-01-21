@@ -1,6 +1,6 @@
 package com.koreii.algoduck.algorith.entity;
 
-import com.koreii.algoduck.base.BaseTimeEntity;
+import com.koreii.algoduck.base.entity.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

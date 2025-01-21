@@ -1,6 +1,6 @@
 package com.koreii.algoduck.submission.entity;
 
-import com.koreii.algoduck.base.BaseTimeEntity;
+import com.koreii.algoduck.base.entity.BaseTimeEntity;
 import com.koreii.algoduck.member.entity.Member;
 import com.koreii.algoduck.problem.entity.Problem;
 import com.koreii.algoduck.submission.enums.Status;
