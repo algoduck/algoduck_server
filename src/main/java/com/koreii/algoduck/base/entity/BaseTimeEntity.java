@@ -1,4 +1,4 @@
-package com.koreii.algoduck.base;
+package com.koreii.algoduck.base.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

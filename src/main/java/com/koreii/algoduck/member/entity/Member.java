@@ -1,6 +1,6 @@
 package com.koreii.algoduck.member.entity;
 
-import com.koreii.algoduck.base.BaseTimeEntity;
+import com.koreii.algoduck.base.entity.BaseTimeEntity;
 import com.koreii.algoduck.member.enums.MemberStatus;
 import com.koreii.algoduck.member.enums.Role;
 import jakarta.persistence.Column;
