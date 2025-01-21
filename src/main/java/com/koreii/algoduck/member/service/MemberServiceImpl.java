@@ -25,7 +25,7 @@ import static com.koreii.algoduck.util.constants.Constants.validatePolicies;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class MemberServiceImpl {
+public class MemberServiceImpl implements MemberService {
   private final MemberRepository memberRepository;
   private final FileStorageService fileStorageService;
 
@@ -35,18 +35,22 @@ public class MemberServiceImpl {
   @Value("${app.default.profile-image-url}")
   private String defaultProfileImageUrl;
 
+  @Override
   public boolean isUniqueLoginId(String loginId) {
     return memberRepository.isUniqueLoginId(loginId);
   }
 
+  @Override
   public boolean isUniqueNickname(String nickname) {
     return memberRepository.isUniqueNickname(nickname);
   }
 
+  @Override
   public boolean isUniqueEmail(String email) {
     return memberRepository.isUniqueEmail(email);
   }
 
+  @Override
   @Transactional
   public MemberResponseDto join(MemberSaveRequestDto memberSaveRequestDto, MultipartFile file) {
     validatePolicies(memberSaveRequestDto.getLoginId(), memberSaveRequestDto.getPassword(), memberSaveRequestDto.getNickname());
@@ -68,42 +72,52 @@ public class MemberServiceImpl {
     }
   }
 
+  @Override
   public long countAllMembers() {
     return memberRepository.countAll();
   }
 
+  @Override
   public List<MemberSimpleResponseDto> findAllMembers(int pageNumber, int pageSize) {
     return memberRepository.findAll(pageNumber, pageSize);
   }
 
+  @Override
   public long countMembersWithLoginId(String loginId) {
     return memberRepository.countWithLoginId(loginId);
   }
 
+  @Override
   public List<MemberSimpleResponseDto> findMembersWithLoginId(String loginId, int pageNumber, int pageSize) {
     return memberRepository.findWithLoginId(loginId, pageNumber, pageSize);
   }
 
+  @Override
   public long countMembersWithNickname(String nickname) {
     return memberRepository.countWithNickname(nickname);
   }
 
+  @Override
   public List<MemberSimpleResponseDto> findMembersWithNickname(String nickname, int pageNumber, int pageSize) {
     return memberRepository.findWithNickname(nickname, pageNumber, pageSize);
   }
 
+  @Override
   public long countMembersWithRole(Role role) {
     return memberRepository.countWithRole(role);
   }
 
+  @Override
   public List<MemberSimpleResponseDto> findMembersWithRole(Role role, int pageNumber, int pageSize) {
     return memberRepository.findByRole(role, pageNumber, pageSize);
   }
 
+  @Override
   public MemberResponseDto findMemberByLoginId(Long memberId) {
     return memberRepository.findByMemberId(memberId);
   }
 
+  @Override
   @Transactional
   public MemberResponseDto update(MemberUpdateRequestDto memberUpdateRequestDto, MultipartFile file) {
     validatePassword(memberUpdateRequestDto.getPassword());
