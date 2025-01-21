@@ -1,7 +1,6 @@
 package com.koreii.algoduck.member.service;
 
 import com.koreii.algoduck.exceptions.file.FileUploadFailException;
-import com.koreii.algoduck.exceptions.file.s3.AmazonS3FileUploadFailException;
 import com.koreii.algoduck.exceptions.member.MemberJoinException;
 import com.koreii.algoduck.exceptions.member.MemberUpdateException;
 import com.koreii.algoduck.file.FileStorageService;
@@ -26,7 +25,7 @@ import static com.koreii.algoduck.util.constants.Constants.validatePolicies;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class MemberService {
+public class MemberServiceImpl {
   private final MemberRepository memberRepository;
   private final FileStorageService fileStorageService;
 
@@ -101,7 +100,7 @@ public class MemberService {
     return memberRepository.findByRole(role, pageNumber, pageSize);
   }
 
-  private MemberResponseDto findMemberByLoginId(Long memberId) {
+  public MemberResponseDto findMemberByLoginId(Long memberId) {
     return memberRepository.findByMemberId(memberId);
   }
 
