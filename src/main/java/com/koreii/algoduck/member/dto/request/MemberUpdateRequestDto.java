@@ -13,6 +13,5 @@ public class MemberUpdateRequestDto {
   private String loginId;
   private String password;
   private String statusMessage;
-  @Setter
-  private String profileImageUrl;
+  private String beforeProfileImageUrl;
 }

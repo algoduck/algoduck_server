@@ -56,16 +56,17 @@ public class MemberServiceImpl implements MemberService {
     validatePolicies(memberSaveRequestDto.getLoginId(), memberSaveRequestDto.getPassword(), memberSaveRequestDto.getNickname());
 
     String profileImageUrl = fileUpload("profile/" + memberSaveRequestDto.getLoginId(), file);
+    String submitProfileImageUrl = null;  //  DB에 저장할 url
 
     try {
       if (profileImageUrl == null) { //  회원 가입할 때 제출한 이미지 업로드가 실패한 경우
         log.warn("기본 이미지 사용");
-        memberSaveRequestDto.setProfileImageUrl(defaultProfileImageUrl); //  기본 이미지로 설정
+        submitProfileImageUrl = defaultProfileImageUrl; //  기본 이미지로 설정
       } else {  //  제출한 이미지 업로드가 성공할 경우
-        memberSaveRequestDto.setProfileImageUrl(profileImageUrl); //  해당 이미지로 설정
+        submitProfileImageUrl = profileImageUrl; //  해당 이미지로 설정
       }
 
-      return memberRepository.save(memberSaveRequestDto);
+      return memberRepository.save(memberSaveRequestDto, submitProfileImageUrl);
     } catch (Exception e) { //  회원 저장이 실패한 경우
       deleteFileIfNotNull(profileImageUrl);
       throw new MemberJoinException(memberSaveRequestDto.getLoginId() + " 회원 가입 실패", e);
@@ -122,16 +123,17 @@ public class MemberServiceImpl implements MemberService {
   public MemberResponseDto update(MemberUpdateRequestDto memberUpdateRequestDto, MultipartFile file) {
     validatePassword(memberUpdateRequestDto.getPassword());
 
-    String beforeProfileUrl = memberUpdateRequestDto.getProfileImageUrl();  //  기존 프로필 이미지 url
+    String beforeProfileUrl = memberUpdateRequestDto.getBeforeProfileImageUrl();  //  기존 프로필 이미지 url
     String afterProfileUrl = fileUpload("profile/" + memberUpdateRequestDto.getLoginId(), file);
+    String submitProfileUrl = null;
 
     MemberResponseDto memberResponseDto;
 
     try {
       //  업로드 실패 시 기존 이미지 사용
-      memberUpdateRequestDto.setProfileImageUrl(afterProfileUrl == null ? beforeProfileUrl : afterProfileUrl);
+      submitProfileUrl = afterProfileUrl == null ? beforeProfileUrl : afterProfileUrl;
       log.warn("기존에 사용하던 이미지 사용");
-      memberResponseDto = memberRepository.update(memberUpdateRequestDto);
+      memberResponseDto = memberRepository.update(memberUpdateRequestDto, submitProfileUrl);
 
       if (afterProfileUrl != null) { //  업로드가 성공했을 경우 기존 파일 삭제
         deleteFileIfNotNull(beforeProfileUrl);

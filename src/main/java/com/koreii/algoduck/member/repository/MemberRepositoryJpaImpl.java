@@ -20,7 +20,7 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
   private final EntityManager entityManager;
 
   @Override
-  public MemberResponseDto save(MemberSaveRequestDto memberSaveDto) {
+  public MemberResponseDto save(MemberSaveRequestDto memberSaveDto, String profileImageUrl) {
     Member member = Member.builder()
         .loginId(memberSaveDto.getLoginId())
         .password(memberSaveDto.getPassword())
@@ -28,7 +28,7 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
         .nickname(memberSaveDto.getNickname())
         .solved(0)
         .role(memberSaveDto.getRole())
-        .profileImageUrl(memberSaveDto.getProfileImageUrl())
+        .profileImageUrl(profileImageUrl)
         .statusMessage(memberSaveDto.getStatusMessage())
         .memberStatus(MemberStatus.ACTIVE)
         .quitRequestTime(null)
@@ -158,11 +158,11 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
   }
 
   @Override
-  public MemberResponseDto update(MemberUpdateRequestDto updateRequestDto) {
+  public MemberResponseDto update(MemberUpdateRequestDto updateRequestDto, String profileImageUrl) {
     Member member = entityManager.find(Member.class, updateRequestDto);
     member.setPassword(updateRequestDto.getPassword());
     member.setStatusMessage(updateRequestDto.getStatusMessage());
-    member.setPassword(updateRequestDto.getProfileImageUrl());
+    member.setPassword(profileImageUrl);
     return new MemberResponseDto(member);
   }
 

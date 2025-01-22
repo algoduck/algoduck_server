@@ -15,7 +15,5 @@ public class MemberSaveRequestDto {
   private String email;
   private String nickname;
   private Role role;
-  @Setter
-  private String profileImageUrl;
   private String statusMessage;
 }
