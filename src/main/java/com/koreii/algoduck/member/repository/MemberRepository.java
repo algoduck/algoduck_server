@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface MemberRepository {
   //  CRUD
-  MemberResponseDto save(MemberSaveRequestDto memberSaveDto); //  회원가입, 저장 후 PK 반환
+  MemberResponseDto save(MemberSaveRequestDto memberSaveDto, String profileImageUrl); //  회원가입, 저장 후 PK 반환
 
   boolean isUniqueLoginId(String loginId); //  loginId가 유일한지 확인
 
@@ -41,7 +41,7 @@ public interface MemberRepository {
 
   MemberResponseDto login(LoginRequestDto loginRequestDto);                //  로그인 결과로 로그인한 회원 정보를 반환함
 
-  MemberResponseDto update(MemberUpdateRequestDto updateRequestDto);       //  회원 정보를 갱신함
+  MemberResponseDto update(MemberUpdateRequestDto updateRequestDto, String profileImageUrl);       //  회원 정보를 갱신함
 
   void quit(Long memberId);   //  회원 탈퇴를 요청하면 해당 회원의 상태를 PENDING_DELETION으로 변경함
 

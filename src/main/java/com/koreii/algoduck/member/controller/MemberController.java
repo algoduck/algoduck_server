@@ -10,8 +10,10 @@ import com.koreii.algoduck.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,18 +31,25 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/members")
 @Tag(name = "Members", description = "회원 관련 API")
+@Slf4j
 public class MemberController extends BaseApiController {
 
   private final MemberService memberService;
 
-  @Operation(summary = "회원가입", description = "새로운 회원을 등록합니다.")
-  @PostMapping("/join")
-  public ResponseEntity<MemberResponseDto> join(@RequestPart MemberSaveRequestDto memberSaveRequestDto,
-                                                @RequestPart(required = false) MultipartFile file) {
+  @Operation(
+      summary = "회원가입",
+      description = "새로운 회원을 등록합니다."
+      )
+  @PostMapping(value = "/join", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  public ResponseEntity<MemberResponseDto> join(@RequestPart(value = "requestDto") MemberSaveRequestDto requestDto, @RequestPart(value = "file", required = false) MultipartFile file) {
     try {
-      MemberResponseDto memberResponseDto = memberService.join(memberSaveRequestDto, file);
+      log.info("requestDto = {}", requestDto);
+      log.info("file = {}", file);
+
+      MemberResponseDto memberResponseDto = memberService.join(requestDto, file);
       return ResponseEntity.status(HttpStatus.CREATED).body(memberResponseDto);
     } catch (Exception e) {
+      log.error("join error", e);
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
   }
