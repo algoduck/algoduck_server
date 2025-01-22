@@ -10,12 +10,14 @@ import com.koreii.algoduck.member.enums.MemberStatus;
 import com.koreii.algoduck.member.enums.Role;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class MemberRepositoryJpaImpl implements MemberRepository {
   private final EntityManager entityManager;
 
@@ -90,14 +92,18 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
 
   @Override
   public List<MemberSimpleResponseDto> findWithLoginId(String loginId, int pageNumber, int pageSize) {
+    log.info("loginId = {}", loginId);
+
     int offset = (pageNumber - 1) * pageSize;
     String jpql = "SELECT new com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto(m) "
         + "FROM Member m "
-        + "WHERE m.loginId = :loginId "
+        + "WHERE m.loginId LIKE :loginId "
         + "ORDER BY m.solved DESC, m.createdAt ASC";
 
+    log.info("jpql = {}", jpql);
+
     return entityManager.createQuery(jpql, MemberSimpleResponseDto.class)
-        .setParameter("loginId", loginId)
+        .setParameter("loginId", "%" + loginId + "%")
         .setFirstResult(offset)
         .setMaxResults(pageSize)
         .getResultList();
@@ -114,11 +120,11 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
     int offset = (pageNumber - 1) * pageSize;
     String jpql = "SELECT new com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto(m) "
         + "FROM Member m "
-        + "WHERE m.nickname = :nickname "
+        + "WHERE m.nickname LIKE :nickname "
         + "ORDER BY m.solved DESC, m.createdAt ASC";
 
     return entityManager.createQuery(jpql, MemberSimpleResponseDto.class)
-        .setParameter("nickname", nickname)
+        .setParameter("nickname", "%" + nickname + "%")
         .setFirstResult(offset)
         .setMaxResults(pageSize)
         .getResultList();
