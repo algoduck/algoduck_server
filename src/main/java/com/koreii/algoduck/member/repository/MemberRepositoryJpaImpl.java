@@ -52,7 +52,7 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
   public boolean isUniqueNickname(String nickname) {
     String jpql = "SELECT COUNT(m) FROM Member m WHERE m.nickname = :nickname";
 
-    int count = entityManager.createQuery(jpql, Integer.class).setParameter("nickname", nickname).getSingleResult();
+    Long count = entityManager.createQuery(jpql, Long.class).setParameter("nickname", nickname).getSingleResult();
     return count == 0;
   }
 
@@ -60,7 +60,7 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
   public boolean isUniqueEmail(String email) {
     String jpql = "SELECT COUNT(m) FROM Member m WHERE m.email = :email";
 
-    int count = entityManager.createQuery(jpql, Integer.class).setParameter("email", email).getSingleResult();
+    Long count = entityManager.createQuery(jpql, Long.class).setParameter("email", email).getSingleResult();
     return count == 0;
   }
 
