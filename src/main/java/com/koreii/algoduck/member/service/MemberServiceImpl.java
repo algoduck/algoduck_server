@@ -147,7 +147,7 @@ public class MemberServiceImpl implements MemberService {
   }
 
   private String fileUpload(String folderPath, MultipartFile file) {
-    if (file == null) {
+    if (file.isEmpty()) {
       return null;
     }
 
@@ -162,6 +162,8 @@ public class MemberServiceImpl implements MemberService {
   private void deleteFileIfNotNull(String fileUrl) {
     if (fileUrl != null) {
       try {
+        log.info("bucketName = {}", bucketName);
+        log.info("fileUrl = {}", fileUrl);
         fileStorageService.deleteFile(bucketName, fileUrl);
       } catch (Exception e) {
         log.error("Failed to delete file from {}", fileUrl, e);
