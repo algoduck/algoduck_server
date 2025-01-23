@@ -120,8 +120,10 @@ public class MemberServiceImpl implements MemberService {
 
   @Override
   @Transactional
-  public MemberResponseDto update(MemberUpdateRequestDto memberUpdateRequestDto, MultipartFile file) {
+  public MemberResponseDto update(Long memberId, MemberUpdateRequestDto memberUpdateRequestDto, MultipartFile file) {
     validatePassword(memberUpdateRequestDto.getPassword());
+
+    log.info("file = {}", file);
 
     String beforeProfileUrl = memberUpdateRequestDto.getBeforeProfileImageUrl();  //  기존 프로필 이미지 url
     String afterProfileUrl = fileUpload("profile/" + memberUpdateRequestDto.getLoginId(), file);
@@ -133,7 +135,7 @@ public class MemberServiceImpl implements MemberService {
       //  업로드 실패 시 기존 이미지 사용
       submitProfileUrl = afterProfileUrl == null ? beforeProfileUrl : afterProfileUrl;
       log.warn("기존에 사용하던 이미지 사용");
-      memberResponseDto = memberRepository.update(memberUpdateRequestDto, submitProfileUrl);
+      memberResponseDto = memberRepository.update(memberId, memberUpdateRequestDto, submitProfileUrl);
 
       if (afterProfileUrl != null) { //  업로드가 성공했을 경우 기존 파일 삭제
         deleteFileIfNotNull(beforeProfileUrl);
