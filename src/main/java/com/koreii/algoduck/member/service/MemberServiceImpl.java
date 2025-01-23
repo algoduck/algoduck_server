@@ -155,7 +155,7 @@ public class MemberServiceImpl implements MemberService {
   }
 
   private String fileUpload(String folderPath, MultipartFile file) {
-    if (file.isEmpty()) {
+    if (file == null || file.isEmpty()) {
       return null;
     }
 
