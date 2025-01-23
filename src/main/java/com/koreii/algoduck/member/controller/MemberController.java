@@ -15,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -41,16 +43,16 @@ public class MemberController extends BaseApiController {
       description = "새로운 회원을 등록합니다."
       )
   @PostMapping(value = "/join", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public ResponseEntity<MemberResponseDto> join(@RequestPart(value = "requestDto") MemberSaveRequestDto requestDto, @RequestPart(value = "file", required = false) MultipartFile file) {
+  public ResponseEntity<MemberResponseDto> join(@RequestPart(value = "memberSaveRequestDto") MemberSaveRequestDto memberSaveRequestDto, @RequestPart(value = "file", required = false) MultipartFile file) {
     try {
-      log.info("requestDto = {}", requestDto);
+      log.info("memberSaveRequestDto = {}", memberSaveRequestDto);
       log.info("file = {}", file);
 
-      MemberResponseDto memberResponseDto = memberService.join(requestDto, file);
+      MemberResponseDto memberResponseDto = memberService.join(memberSaveRequestDto, file);
       return ResponseEntity.status(HttpStatus.CREATED).body(memberResponseDto);
     } catch (Exception e) {
-      log.error("join error", e);
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+      log.error("join fail", e);
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "join failed", e);
     }
   }
 
@@ -123,15 +125,19 @@ public class MemberController extends BaseApiController {
   }
 
   @Operation(summary = "회원 정보 업데이트", description = "회원 정보를 업데이트합니다.")
-  @PutMapping("/{memberId}")
+  @PutMapping(value = "/update/{memberId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<MemberResponseDto> update(@PathVariable Long memberId,
-                                                  @RequestPart MemberUpdateRequestDto memberUpdateRequestDto,
-                                                  @RequestPart(required = false) MultipartFile file) {
+                                                  @RequestPart(value = "memberUpdateRequestDto") MemberUpdateRequestDto memberUpdateRequestDto,
+                                                  @RequestPart(value = "file", required = false) MultipartFile file) {
     try {
-      MemberResponseDto updatedMember = memberService.update(memberUpdateRequestDto, file);
-      return ResponseEntity.ok(updatedMember);
+      log.info("memberUpdateRequestDto = {}", memberUpdateRequestDto);
+      log.info("file = {}", file);
+
+      MemberResponseDto memberResponseDto = memberService.update(memberId, memberUpdateRequestDto, file);
+      return ResponseEntity.status(HttpStatus.OK).body(memberResponseDto);
     } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+      log.error("update fail", e);
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Update failed", e);
     }
   }
 }
