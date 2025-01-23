@@ -56,6 +56,8 @@ public class MemberServiceImpl implements MemberService {
     validatePolicies(memberSaveRequestDto.getLoginId(), memberSaveRequestDto.getPassword(), memberSaveRequestDto.getNickname());
 
     String profileImageUrl = fileUpload("profile/" + memberSaveRequestDto.getLoginId(), file);
+
+    log.info("join uploaded file url = {}", profileImageUrl);
     String submitProfileImageUrl = null;  //  DB에 저장할 url
 
     try {
@@ -120,11 +122,19 @@ public class MemberServiceImpl implements MemberService {
 
   @Override
   @Transactional
-  public MemberResponseDto update(MemberUpdateRequestDto memberUpdateRequestDto, MultipartFile file) {
+  public MemberResponseDto update(Long memberId, MemberUpdateRequestDto memberUpdateRequestDto, MultipartFile file) {
     validatePassword(memberUpdateRequestDto.getPassword());
+
+    log.info("file = {}", file);
 
     String beforeProfileUrl = memberUpdateRequestDto.getBeforeProfileImageUrl();  //  기존 프로필 이미지 url
     String afterProfileUrl = fileUpload("profile/" + memberUpdateRequestDto.getLoginId(), file);
+
+    log.info("In MemberService update");
+    log.info("beforeProfileFileUrl = {}", beforeProfileUrl);
+    log.info("afterProfileUrl = {}", afterProfileUrl);
+
+    log.info("update uploaded file url = {}", afterProfileUrl);
     String submitProfileUrl = null;
 
     MemberResponseDto memberResponseDto;
@@ -132,10 +142,10 @@ public class MemberServiceImpl implements MemberService {
     try {
       //  업로드 실패 시 기존 이미지 사용
       submitProfileUrl = afterProfileUrl == null ? beforeProfileUrl : afterProfileUrl;
-      log.warn("기존에 사용하던 이미지 사용");
-      memberResponseDto = memberRepository.update(memberUpdateRequestDto, submitProfileUrl);
+      memberResponseDto = memberRepository.update(memberId, memberUpdateRequestDto, submitProfileUrl);
 
       if (afterProfileUrl != null) { //  업로드가 성공했을 경우 기존 파일 삭제
+        log.info("beforeProfileUrl = {}", beforeProfileUrl);
         deleteFileIfNotNull(beforeProfileUrl);
       }
       return memberResponseDto;
@@ -145,7 +155,7 @@ public class MemberServiceImpl implements MemberService {
   }
 
   private String fileUpload(String folderPath, MultipartFile file) {
-    if (file == null) {
+    if (file.isEmpty()) {
       return null;
     }
 
@@ -153,6 +163,7 @@ public class MemberServiceImpl implements MemberService {
       return fileStorageService.uploadFile(bucketName, folderPath, file);
     } catch (FileUploadFailException e) {
       log.warn("Failed to upload file to Folder: {}", folderPath, e);
+      log.warn("기존 이미지 사용");
       return null;
     }
   }
@@ -160,6 +171,8 @@ public class MemberServiceImpl implements MemberService {
   private void deleteFileIfNotNull(String fileUrl) {
     if (fileUrl != null) {
       try {
+        log.info("bucketName = {}", bucketName);
+        log.info("fileUrl = {}", fileUrl);
         fileStorageService.deleteFile(bucketName, fileUrl);
       } catch (Exception e) {
         log.error("Failed to delete file from {}", fileUrl, e);

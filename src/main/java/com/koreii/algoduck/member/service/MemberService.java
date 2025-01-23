@@ -36,5 +36,5 @@ public interface MemberService {
 
   MemberResponseDto findMemberByLoginId(Long memberId);
 
-  MemberResponseDto update(MemberUpdateRequestDto memberUpdateRequestDto, MultipartFile file);
+  MemberResponseDto update(Long memberId, MemberUpdateRequestDto memberUpdateRequestDto, MultipartFile file);
 }
