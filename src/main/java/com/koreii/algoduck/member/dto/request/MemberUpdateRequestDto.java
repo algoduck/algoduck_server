@@ -12,6 +12,7 @@ import lombok.ToString;
 @ToString
 public class MemberUpdateRequestDto {
   private String loginId;
+  @Setter
   private String password;
   private String statusMessage;
   private String beforeProfileImageUrl;

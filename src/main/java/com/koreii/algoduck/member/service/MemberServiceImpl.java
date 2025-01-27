@@ -13,6 +13,7 @@ import com.koreii.algoduck.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +29,7 @@ import static com.koreii.algoduck.util.constants.Constants.validatePolicies;
 public class MemberServiceImpl implements MemberService {
   private final MemberRepository memberRepository;
   private final FileStorageService fileStorageService;
+  private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
   @Value("${spring.cloud.aws.s3.profile_bucket}")
   private String bucketName;
@@ -54,6 +56,10 @@ public class MemberServiceImpl implements MemberService {
   @Transactional
   public MemberResponseDto join(MemberSaveRequestDto memberSaveRequestDto, MultipartFile file) {
     validatePolicies(memberSaveRequestDto.getLoginId(), memberSaveRequestDto.getPassword(), memberSaveRequestDto.getNickname());
+
+    //  비밀번호 해싱
+    String hashedPassword = passwordEncoder.encode(memberSaveRequestDto.getPassword());
+    memberSaveRequestDto.setPassword(hashedPassword);
 
     String profileImageUrl = fileUpload("profile/" + memberSaveRequestDto.getLoginId(), file);
 
@@ -124,6 +130,11 @@ public class MemberServiceImpl implements MemberService {
   @Transactional
   public MemberResponseDto update(Long memberId, MemberUpdateRequestDto memberUpdateRequestDto, MultipartFile file) {
     validatePassword(memberUpdateRequestDto.getPassword());
+
+    //  비밀번호 해싱
+    String hashedPassword = passwordEncoder.encode(memberUpdateRequestDto.getPassword());
+    memberUpdateRequestDto.setPassword(hashedPassword);
+
 
     log.info("file = {}", file);
 
