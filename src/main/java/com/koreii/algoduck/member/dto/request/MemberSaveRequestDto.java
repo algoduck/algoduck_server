@@ -13,6 +13,7 @@ import lombok.ToString;
 @ToString
 public class MemberSaveRequestDto {
   private String loginId;
+  @Setter
   private String password;
   private String email;
   private String nickname;
