@@ -17,7 +17,7 @@ public class SpringSecurityConfig {
                 "/api/v1/members/join",
                 "/api/v1/members/check-*",
                 "/swagger-ui/**",
-                "/v3/api-docs/**"
+                "/api-docs/**"
             ).permitAll() //  인증 없이 허용
             .anyRequest().authenticated() //  나머지는 인증 필요
         ).httpBasic(Customizer.withDefaults()); //  기본 HTTP Basic 설정
