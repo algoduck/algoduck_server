@@ -1,4 +1,4 @@
-package com.koreii.algoduck.algorith.entity;
+package com.koreii.algoduck.algorithm.entity;
 
 import com.koreii.algoduck.base.entity.BaseTimeEntity;
 import jakarta.persistence.Column;
