@@ -29,7 +29,7 @@ import static com.koreii.algoduck.util.constants.Constants.validatePolicies;
 public class MemberServiceImpl implements MemberService {
   private final MemberRepository memberRepository;
   private final FileStorageService fileStorageService;
-  private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+  private final BCryptPasswordEncoder passwordEncoder;
 
   @Value("${spring.cloud.aws.s3.profile_bucket}")
   private String bucketName;

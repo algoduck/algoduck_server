@@ -1,4 +1,4 @@
-package com.koreii.algoduck.algorith.entity;
+package com.koreii.algoduck.algorithm.entity;
 
 import com.koreii.algoduck.base.entity.BaseTimeEntity;
 import jakarta.persistence.Column;
@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +22,7 @@ import lombok.Setter;
 )
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Getter
 public class Algorithm extends BaseTimeEntity {
   @Id
@@ -30,5 +32,5 @@ public class Algorithm extends BaseTimeEntity {
 
   @Column(name = "algorithm_name", nullable = false)
   @Setter
-  private String AlgorithmName;
+  private String algorithmName;
 }

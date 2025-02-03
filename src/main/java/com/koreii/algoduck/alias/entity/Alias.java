@@ -1,6 +1,6 @@
 package com.koreii.algoduck.alias.entity;
 
-import com.koreii.algoduck.algorith.entity.Algorithm;
+import com.koreii.algoduck.algorithm.entity.Algorithm;
 import com.koreii.algoduck.base.entity.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,7 @@ import lombok.Setter;
 )
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Getter
 public class Alias extends BaseTimeEntity {
   @Id
@@ -35,7 +37,7 @@ public class Alias extends BaseTimeEntity {
   @JoinColumn(name = "algorithm_id")
   private Algorithm algorithm;
 
-  @Column(name = "alias_name", nullable = false)
+  @Column(name = "alias_name", nullable = false, columnDefinition = "VARCHAR(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci")
   @Setter
   private String aliasName;
 }
