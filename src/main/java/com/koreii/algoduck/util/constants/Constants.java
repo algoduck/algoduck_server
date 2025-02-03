@@ -6,6 +6,7 @@ import com.koreii.algoduck.exceptions.PasswordPolicyViolationException;
 import com.koreii.algoduck.util.validator.PolicyValidator;
 
 public abstract class Constants {
+  public static final int BATCH_SIZE = 50;
   public static final int JOIN_GRACE_PERIOD = 7;       //  회원 가입 유예기간
   public static final int QUIT_GRACE_PERIOD = 7;       //  회원 탈퇴 유예기간
   public static final String LOGIN_ID_POLICY = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,20}$"; //  로그인 아이디 정책
