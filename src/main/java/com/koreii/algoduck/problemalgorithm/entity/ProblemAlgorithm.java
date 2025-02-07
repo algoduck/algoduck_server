@@ -1,6 +1,6 @@
 package com.koreii.algoduck.problemalgorithm.entity;
 
-import com.koreii.algoduck.algorith.entity.Algorithm;
+import com.koreii.algoduck.algorithm.entity.Algorithm;
 import com.koreii.algoduck.base.entity.BaseTimeEntity;
 import com.koreii.algoduck.problem.entity.Problem;
 import jakarta.persistence.Column;
@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,6 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Builder
 public class ProblemAlgorithm extends BaseTimeEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROBLEMS_ALGORITHMS_SEQ_GENERATOR")
