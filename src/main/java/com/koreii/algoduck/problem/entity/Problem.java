@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,12 +22,16 @@ import lombok.Setter;
 )
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Getter
 public class Problem extends BaseTimeEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROBLEMS_SEQ_GENERATOR")
   @Column(name = "problem_id")
   private Long problemId;
+
+  @Column(nullable = false)
+  private String title;
 
   @Column(name = "problem_number", unique = true, nullable = false)
   private Integer problemNumber;

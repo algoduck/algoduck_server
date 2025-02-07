@@ -20,8 +20,7 @@ public class SpringSecurityConfig {
     http.csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(auth -> auth
             .requestMatchers(
-                "/api/v1/members/join",
-                "/api/v1/members/check-*",
+                "/api/v1/members/**",
                 "/swagger-ui/**",
                 "/api-docs/**"
             ).permitAll() //  인증 없이 허용
