@@ -26,4 +26,9 @@ public class ProblemRepositoryJpaImpl implements ProblemRepository {
     entityManager.persist(problem);
     return new ProblemResponseDto(problem);
   }
+
+  @Override
+  public Problem findByProblemId(Long problemId) {
+    return entityManager.find(Problem.class, problemId);
+  }
 }
