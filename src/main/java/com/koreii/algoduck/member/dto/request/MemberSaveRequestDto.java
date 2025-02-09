@@ -10,7 +10,6 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @Getter
-@ToString
 public class MemberSaveRequestDto {
   private String loginId;
   @Setter
