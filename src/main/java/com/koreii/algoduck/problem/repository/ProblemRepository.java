@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProblemRepository {
+  //  문제를 추가함
   ProblemResponseDto addProblem(ProblemAddRequestDto problemAddRequestDto);
 }
