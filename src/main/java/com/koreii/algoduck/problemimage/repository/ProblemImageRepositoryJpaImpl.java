@@ -1,0 +1,27 @@
+package com.koreii.algoduck.problemimage.repository;
+
+import com.koreii.algoduck.problem.entity.Problem;
+import com.koreii.algoduck.problemimage.dto.request.ProblemImageAddRequestDto;
+import com.koreii.algoduck.problemimage.dto.response.ProblemImageResponseDto;
+import com.koreii.algoduck.problemimage.entity.ProblemImage;
+import jakarta.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+
+@Repository
+@RequiredArgsConstructor
+public class ProblemImageRepositoryJpaImpl implements ProblemImageRepository {
+  private final EntityManager entityManager;
+
+  @Override
+  public ProblemImageResponseDto addProblemImage(Problem problem, ProblemImageAddRequestDto problemImageAddRequestDto) {
+    ProblemImage problemImage = ProblemImage.builder()
+        .problem(problem)
+        .problemImageName(problemImageAddRequestDto.getProblemImageName())
+        .problemImageUrl(problemImageAddRequestDto.getProblemImageUrl())
+        .build();
+
+    entityManager.persist(problemImage);
+    return new ProblemImageResponseDto(problemImage);
+  }
+}

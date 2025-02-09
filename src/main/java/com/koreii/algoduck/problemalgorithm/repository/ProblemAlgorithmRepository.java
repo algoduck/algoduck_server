@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProblemAlgorithmRepository {
+  //  algorithm이 쓰인 문제 problem을 추가함
   ProblemAlgorithmResponseDto addProblemAlgorithm(Problem problem, Algorithm algorithm);
 }
