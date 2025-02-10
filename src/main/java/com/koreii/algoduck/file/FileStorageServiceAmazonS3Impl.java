@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.koreii.algoduck.exceptions.file.FileUploadFailException;
 import com.koreii.algoduck.exceptions.file.s3.AmazonS3FileUploadFailException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,34 @@ public class FileStorageServiceAmazonS3Impl implements FileStorageService {
   private final AmazonS3 amazonS3;
 
   @Override
-  public String uploadFile(String bucketName, String filePath, MultipartFile file) {
+  public String uploadFile(String repositoryName, String folderPath, MultipartFile file) {
+    if (file == null || file.isEmpty()) {
+      return null;
+    }
+
+    try {
+      return uploadS3File(repositoryName, folderPath, file);
+    } catch (FileUploadFailException e) {
+      log.warn("Failed to upload file to Folder: {}", folderPath, e);
+      log.warn("기존 이미지 사용");
+      return null;
+    }
+  }
+
+  @Override
+  public void deleteFile(String repositoryName, String fileUrl) {
+    if (fileUrl != null) {
+      try {
+        log.info("bucketName = {}", repositoryName);
+        log.info("fileUrl = {}", fileUrl);
+        deleteS3File(repositoryName, fileUrl);
+      } catch (Exception e) {
+        log.error("Failed to delete file from {}", fileUrl, e);
+      }
+    }
+  }
+
+  private String uploadS3File(String bucketName, String filePath, MultipartFile file) {
     String fileName = generateUniqueFileName(file.getOriginalFilename());
     String fullPath = filePath + "/" + fileName;
 
@@ -39,8 +67,7 @@ public class FileStorageServiceAmazonS3Impl implements FileStorageService {
     }
   }
 
-  @Override
-  public void deleteFile(String bucketName, String s3FilePath) {
+  private void deleteS3File(String bucketName, String s3FilePath) {
     log.info("bucketName = {}", bucketName);
     log.info("s3FilePath = {}", s3FilePath);
 

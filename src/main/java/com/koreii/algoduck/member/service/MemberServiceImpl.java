@@ -1,6 +1,5 @@
 package com.koreii.algoduck.member.service;
 
-import com.koreii.algoduck.exceptions.file.FileUploadFailException;
 import com.koreii.algoduck.exceptions.member.MemberJoinException;
 import com.koreii.algoduck.exceptions.member.MemberUpdateException;
 import com.koreii.algoduck.file.FileStorageService;
@@ -61,7 +60,7 @@ public class MemberServiceImpl implements MemberService {
     String hashedPassword = passwordEncoder.encode(memberSaveRequestDto.getPassword());
     memberSaveRequestDto.setPassword(hashedPassword);
 
-    String profileImageUrl = fileUpload("profile/" + memberSaveRequestDto.getLoginId(), file);
+    String profileImageUrl = fileStorageService.uploadFile(bucketName, "profile/" + memberSaveRequestDto.getLoginId(), file);
 
     log.info("join uploaded file url = {}", profileImageUrl);
     String submitProfileImageUrl = null;  //  DB에 저장할 url
@@ -76,7 +75,7 @@ public class MemberServiceImpl implements MemberService {
 
       return memberRepository.save(memberSaveRequestDto, submitProfileImageUrl);
     } catch (Exception e) { //  회원 저장이 실패한 경우
-      deleteFileIfNotNull(profileImageUrl);
+      fileStorageService.deleteFile(bucketName, profileImageUrl);
       throw new MemberJoinException(memberSaveRequestDto.getLoginId() + " 회원 가입 실패", e);
     }
   }
@@ -139,7 +138,7 @@ public class MemberServiceImpl implements MemberService {
     log.info("file = {}", file);
 
     String beforeProfileUrl = memberUpdateRequestDto.getBeforeProfileImageUrl();  //  기존 프로필 이미지 url
-    String afterProfileUrl = fileUpload("profile/" + memberUpdateRequestDto.getLoginId(), file);
+    String afterProfileUrl = fileStorageService.uploadFile(bucketName, "profile/" + memberUpdateRequestDto.getLoginId(), file);
 
     log.info("In MemberService update");
     log.info("beforeProfileFileUrl = {}", beforeProfileUrl);
@@ -157,37 +156,11 @@ public class MemberServiceImpl implements MemberService {
 
       if (afterProfileUrl != null) { //  업로드가 성공했을 경우 기존 파일 삭제
         log.info("beforeProfileUrl = {}", beforeProfileUrl);
-        deleteFileIfNotNull(beforeProfileUrl);
+        fileStorageService.deleteFile(bucketName, beforeProfileUrl);
       }
       return memberResponseDto;
     } catch (Exception e) {  //  회원 업데이트가 실패한 경우
       throw new MemberUpdateException(memberUpdateRequestDto.getLoginId() + " 업데이트 실패", e);
-    }
-  }
-
-  private String fileUpload(String folderPath, MultipartFile file) {
-    if (file == null || file.isEmpty()) {
-      return null;
-    }
-
-    try {
-      return fileStorageService.uploadFile(bucketName, folderPath, file);
-    } catch (FileUploadFailException e) {
-      log.warn("Failed to upload file to Folder: {}", folderPath, e);
-      log.warn("기존 이미지 사용");
-      return null;
-    }
-  }
-
-  private void deleteFileIfNotNull(String fileUrl) {
-    if (fileUrl != null) {
-      try {
-        log.info("bucketName = {}", bucketName);
-        log.info("fileUrl = {}", fileUrl);
-        fileStorageService.deleteFile(bucketName, fileUrl);
-      } catch (Exception e) {
-        log.error("Failed to delete file from {}", fileUrl, e);
-      }
     }
   }
 }
