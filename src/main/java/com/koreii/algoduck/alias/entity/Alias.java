@@ -34,7 +34,7 @@ public class Alias extends BaseTimeEntity {
   private Long aliasId;
 
   @ManyToOne
-  @JoinColumn(name = "algorithm_id")
+  @JoinColumn(name = "algorithm_id", nullable = false)
   private Algorithm algorithm;
 
   @Column(name = "alias_name", nullable = false, columnDefinition = "VARCHAR(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci")

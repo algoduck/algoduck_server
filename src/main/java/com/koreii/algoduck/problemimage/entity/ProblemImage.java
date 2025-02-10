@@ -34,7 +34,7 @@ public class ProblemImage extends BaseTimeEntity {
   private Long problemImageId;
 
   @ManyToOne
-  @JoinColumn(name = "problem_id")
+  @JoinColumn(name = "problem_id", nullable = false)
   private Problem problem;
 
   @Column(name = "problem_image_name", nullable = false)
