@@ -39,8 +39,8 @@ public class TestcaseServiceImpl implements TestcaseService {
     String testcaseOutputUrl = null;
 
     try {
-      testcaseInputUrl = fileStorageService.uploadFile(bucketName, "testcase/" + problem.getProblemNumber() + "/input", testcaseInput);
-      testcaseOutputUrl = fileStorageService.uploadFile(bucketName, "testcase/" + problem.getProblemNumber() + "/output", testcaseOutput);
+      testcaseInputUrl = fileStorageService.uploadFile(bucketName, "testcase/" + problem.getProblemId() + "/input", testcaseInput);
+      testcaseOutputUrl = fileStorageService.uploadFile(bucketName, "testcase/" + problem.getProblemId() + "/output", testcaseOutput);
     } catch (FileUploadFailException e) {
       log.error("Fail to upload testcase file", e);
       throw e;
