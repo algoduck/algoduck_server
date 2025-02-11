@@ -6,12 +6,16 @@ import com.koreii.algoduck.problemimage.dto.response.ProblemImageResponseDto;
 import com.koreii.algoduck.problemimage.entity.ProblemImage;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
 public class ProblemImageRepositoryJpaImpl implements ProblemImageRepository {
   private final EntityManager entityManager;
+
+  @Value("${spring.cloud.aws.s3.testcase_bucket}")
+  private String bucketName;
 
   @Override
   public ProblemImageResponseDto addProblemImage(Problem problem, ProblemImageAddRequestDto problemImageAddRequestDto) {
@@ -23,5 +27,10 @@ public class ProblemImageRepositoryJpaImpl implements ProblemImageRepository {
 
     entityManager.persist(problemImage);
     return new ProblemImageResponseDto(problemImage);
+  }
+
+  @Override
+  public ProblemImage findByProblemImageId(Long problemImageId) {
+    return entityManager.find(ProblemImage.class, problemImageId);
   }
 }
