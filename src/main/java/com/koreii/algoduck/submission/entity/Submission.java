@@ -39,11 +39,11 @@ public class Submission extends BaseTimeEntity {
   private Long submissionId;
 
   @ManyToOne
-  @JoinColumn(name = "member_id")
+  @JoinColumn(name = "member_id", nullable = false)
   private Member member;
 
   @ManyToOne
-  @JoinColumn(name = "problem_id")
+  @JoinColumn(name = "problem_id", nullable = false)
   private Problem problem;
 
   @Column(name = "code_name", nullable = false)
@@ -54,7 +54,7 @@ public class Submission extends BaseTimeEntity {
   private String codeUrl;
 
   @OneToOne
-  @JoinColumn(name = "version_id")
+  @JoinColumn(name = "version_id", nullable = false)
   private Version version;
 
   @Column(nullable = false)

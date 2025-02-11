@@ -34,10 +34,10 @@ public class ProblemAlgorithm extends BaseTimeEntity {
   private Long problemAlgorithmId;
 
   @ManyToOne
-  @JoinColumn(name = "problemId")
+  @JoinColumn(name = "problemId", nullable = false)
   private Problem problem;
 
   @ManyToOne
-  @JoinColumn(name = "algorithmId")
+  @JoinColumn(name = "algorithmId", nullable = false)
   private Algorithm algorithm;
 }

@@ -32,7 +32,7 @@ public class Version extends BaseTimeEntity {
   private Long versionId;
 
   @ManyToOne
-  @JoinColumn(name = "language_id")
+  @JoinColumn(name = "language_id", nullable = false)
   private Language language;
 
   @Column(name = "version_name", nullable = false)

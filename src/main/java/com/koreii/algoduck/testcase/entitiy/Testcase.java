@@ -34,7 +34,7 @@ public class Testcase extends BaseTimeEntity {
   private Long testcaseId;
 
   @ManyToOne
-  @JoinColumn(name = "problem_id")
+  @JoinColumn(name = "problem_id", nullable = false)
   private Problem problem;
 
   @Column(name = "testcase_input_name", nullable = false)
