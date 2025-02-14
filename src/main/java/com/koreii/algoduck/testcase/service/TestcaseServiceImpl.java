@@ -1,7 +1,9 @@
 package com.koreii.algoduck.testcase.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.koreii.algoduck.problemimage.dto.response.ProblemImageResponseDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,6 +65,28 @@ public class TestcaseServiceImpl implements TestcaseService {
       fileStorageService.deleteFile(bucketName, testcaseOutputUrl);
       throw e;
     }
+  }
+
+  @Override
+  public List<TestcaseResponseDto> addTestcases(Long problemId, List<MultipartFile> testcaseInputs, List<MultipartFile> testcaseOutputs, List<Boolean> isPublics) {
+    List<TestcaseResponseDto> testcaseResponseDtos = new ArrayList<>();
+
+    for (int i = 0; i < testcaseInputs.size(); i++) {
+      MultipartFile testcaseInput = testcaseInputs.get(i);
+      MultipartFile testcaseOutput = testcaseOutputs.get(i);
+      boolean isPublic = isPublics.get(i);
+
+      try {
+        TestcaseResponseDto testcaseResponseDto = addTestcase(problemId, testcaseInput, testcaseOutput, isPublic);
+        testcaseResponseDtos.add(testcaseResponseDto);
+      } catch (FileUploadFailException e) {
+        log.error("Failed to upload testcase file to file storage, but continuing...");
+      } catch (Exception e) {
+        log.error("Failed to insert testcase to DB, but continuing...");
+      }
+    }
+
+    return testcaseResponseDtos;
   }
 
   @Override
