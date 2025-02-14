@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @RequiredArgsConstructor
@@ -18,6 +19,7 @@ public class ProblemImageRepositoryJpaImpl implements ProblemImageRepository {
   private String bucketName;
 
   @Override
+  @Transactional
   public ProblemImageResponseDto addProblemImage(Problem problem, ProblemImageAddRequestDto problemImageAddRequestDto) {
     ProblemImage problemImage = ProblemImage.builder()
         .problem(problem)

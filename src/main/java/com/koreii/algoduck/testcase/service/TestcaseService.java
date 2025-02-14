@@ -11,5 +11,7 @@ public interface TestcaseService {
   //  PK가 problemId인 문제에 테스트케이스 testcaseInput/output을 공개 상태 isPublic으로 추가함
   TestcaseResponseDto addTestcase(Long problemId, MultipartFile testcaseInput, MultipartFile testcaseOutput, boolean isPublic);
 
+  List<TestcaseResponseDto> addTestcases(Long problemId, List<MultipartFile> testcaseInputs, List<MultipartFile> testcaseOutputs, List<Boolean> isPublics);
+
   List<TestcaseResponseDto> selectTestcasesByProblemId(Long problemId);
 }

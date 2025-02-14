@@ -1,25 +1,19 @@
-package com.koreii.algoduck.problem.repository;
+package com.koreii.algoduck.problem.service;
 
 import com.koreii.algoduck.problem.dto.request.ProblemAddRequestDto;
 import com.koreii.algoduck.problem.dto.response.ProblemResponseDto;
 import com.koreii.algoduck.problem.dto.response.ProblemSimpleResponseDto;
-import com.koreii.algoduck.problem.entity.Problem;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@Repository
-public interface ProblemRepository {
-  //  문제 이미지, 테스트케이스가 존재할 경우, 이미지와 테스트케이스가 정상적으로 저장된 다음에 문제를 저장함
-  ProblemResponseDto addProblem(ProblemAddRequestDto problemAddRequestDto);
+@Service
+public interface ProblemService {
+  ProblemResponseDto addProblem(ProblemAddRequestDto problemAddRequestDto, List<MultipartFile> inputTestcases, List<MultipartFile> outputTestcases, List<Boolean> isPublics, List<MultipartFile> problemImages);
 
-  //  PK로 문제를 찾음
-  Problem findByProblemId(Long problemId);
-
-  //  모든 문제 수를 가져옴
   long countAllProblems();
 
-  //  모든 문제를 가져옴
   List<ProblemSimpleResponseDto> selectAllProblems(int pageNumber, int pageSize);
 
   //  문제 번호가 포함된 문제 수를 가져옴

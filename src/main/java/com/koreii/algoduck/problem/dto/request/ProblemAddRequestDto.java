@@ -8,7 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class ProblemAddRequestDto {
-  private Integer problemNumber;
+  private String problemNumber;
   private String title;
   private String description;
   private String inputDescription;

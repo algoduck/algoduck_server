@@ -12,7 +12,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +30,7 @@ public class ProblemImageServiceImpl implements ProblemImageService {
   private String bucketName;
 
   @Override
+  @Transactional
   public ProblemImageResponseDto addProblemImage(Long problemId, MultipartFile problemImage) {
     Problem problem = problemRepository.findByProblemId(problemId);
     String problemImageName = problemImage.getName();
@@ -51,6 +56,25 @@ public class ProblemImageServiceImpl implements ProblemImageService {
       fileStorageService.deleteFile(bucketName, problemImageUrl);
       throw e;
     }
+  }
+
+  @Override
+  @Transactional
+  public List<ProblemImageResponseDto> addProblemImages(Long problemId, List<MultipartFile> problemImageFiles) {
+    List<ProblemImageResponseDto> problemImageResponseDtos = new ArrayList<>();
+
+    for (MultipartFile problemImage : problemImageFiles) {
+      try {
+        ProblemImageResponseDto problemImageResponseDto = addProblemImage(problemId, problemImage);
+        problemImageResponseDtos.add(problemImageResponseDto);
+      } catch (FileUploadFailException e) {
+        log.error("Failed to upload image file to file storage, but continuing...");
+      } catch (Exception e) {
+        log.error("Failed to insert problem image to DB, but continuing...");
+      }
+    }
+
+    return problemImageResponseDtos;
   }
 
   @Override
