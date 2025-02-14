@@ -34,7 +34,7 @@ public class Problem extends BaseTimeEntity {
   private String title;
 
   @Column(name = "problem_number", unique = true, nullable = false)
-  private Integer problemNumber;
+  private String problemNumber;
 
   @Column(nullable = false, columnDefinition = "TEXT")
   @Setter
