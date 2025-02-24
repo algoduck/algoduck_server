@@ -13,5 +13,7 @@ public interface TestcaseService {
 
   List<TestcaseResponseDto> addTestcases(Long problemId, List<MultipartFile> testcaseInputs, List<MultipartFile> testcaseOutputs, List<Boolean> isPublics);
 
+  TestcaseResponseDto findByTestcaseId(Long testcaseId);
+
   List<TestcaseResponseDto> selectTestcasesByProblemId(Long problemId);
 }
