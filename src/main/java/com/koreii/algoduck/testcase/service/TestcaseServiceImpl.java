@@ -68,6 +68,7 @@ public class TestcaseServiceImpl implements TestcaseService {
   }
 
   @Override
+  @Transactional
   public List<TestcaseResponseDto> addTestcases(Long problemId, List<MultipartFile> testcaseInputs, List<MultipartFile> testcaseOutputs, List<Boolean> isPublics) {
     List<TestcaseResponseDto> testcaseResponseDtos = new ArrayList<>();
 
@@ -87,6 +88,11 @@ public class TestcaseServiceImpl implements TestcaseService {
     }
 
     return testcaseResponseDtos;
+  }
+
+  @Override
+  public TestcaseResponseDto findByTestcaseId(Long testcaseId) {
+    return new TestcaseResponseDto(testcaseRepository.findByTestcaseId(testcaseId));
   }
 
   @Override
