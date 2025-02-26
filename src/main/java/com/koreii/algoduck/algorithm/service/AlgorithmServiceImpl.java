@@ -40,4 +40,14 @@ public class AlgorithmServiceImpl implements AlgorithmService {
   public List<AlgorithmResponseDto> findAlgorithmsWithName(String algorithmName) {
     return algorithmRepository.findAlgorithmsWithName(algorithmName);
   }
+
+  @Override
+  public long countAllAlgorithms() {
+    return algorithmRepository.countAll();
+  }
+
+  @Override
+  public List<AlgorithmResponseDto> findAllAlgorithms(int pageNumber, int pageSize) {
+    return algorithmRepository.findAll(pageNumber, pageSize);
+  }
 }

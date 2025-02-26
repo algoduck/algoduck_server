@@ -2,10 +2,12 @@ package com.koreii.algoduck.algorithm.controller;
 
 import com.koreii.algoduck.algorithm.dto.request.AlgorithmAddRequestDto;
 import com.koreii.algoduck.algorithm.dto.response.AlgorithmResponseDto;
+import com.koreii.algoduck.algorithm.dto.response.AlgorithmSearchResponseDto;
 import com.koreii.algoduck.algorithm.service.AlgorithmService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,5 +50,16 @@ public class AlgorithmController {
     return ResponseEntity.ok(algorithmResponseDtos);
   }
 
+  @Operation(summary = "전체 알고리즘 가져오기", description = "전체 알고리즘을 해당하는 문제 수에 대해 내림차순으로 정렬하여 가져옵니다.")
+  @GetMapping("/all-algorithms")
+  public ResponseEntity<AlgorithmSearchResponseDto> findAllAlgorithms(@RequestParam int pageNumber, @RequestParam int pageSize) {
+    long totalCount = algorithmService.countAllAlgorithms();
+    List<AlgorithmResponseDto> algorithms = algorithmService.findAllAlgorithms(pageNumber, pageSize);
+    AlgorithmSearchResponseDto algorithmSearchResponseDto = AlgorithmSearchResponseDto.builder()
+        .totalCount(totalCount)
+        .algorithms(algorithms)
+        .build();
 
+    return ResponseEntity.ok(algorithmSearchResponseDto);
+  }
 }

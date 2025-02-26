@@ -21,4 +21,8 @@ public interface AlgorithmService {
 
   //  algorithmName이라는 이름을 포함하는 알고리즘 리스트를 찾음
   List<AlgorithmResponseDto> findAlgorithmsWithName(String algorithmName);
+
+  long countAllAlgorithms();
+
+  List<AlgorithmResponseDto> findAllAlgorithms(int pageNumber, int pageSize);
 }
