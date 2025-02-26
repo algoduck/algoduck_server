@@ -21,6 +21,7 @@ public class AlgorithmRepositoryJpaImpl implements AlgorithmRepository {
   public Algorithm addAlgorithm(String algorithmName) {
     Algorithm algorithm = Algorithm.builder()
         .algorithmName(algorithmName)
+        .problemCount(0)
         .build();
 
     return algorithm;
@@ -40,6 +41,26 @@ public class AlgorithmRepositoryJpaImpl implements AlgorithmRepository {
 
     return entityManager.createQuery(jpql, AlgorithmResponseDto.class)
         .setParameter("algorithmName", "%" + algorithmName + "%")
+        .getResultList();
+  }
+
+  @Override
+  public long countAll() {
+    String jpql = "SELECT COUNT(a) FROM Algorithm a";
+    return entityManager.createQuery(jpql, Long.class).getSingleResult();
+  }
+
+  @Override
+  public List<AlgorithmResponseDto> findAll(int pageNumber, int pageSize) {
+    int offset = (pageNumber - 1) * pageSize;
+
+    String jpql = "SELECT new com.koreii.algoduck.algorithm.dto.response.AlgorithmResponseDto(a) "
+        + "FROM Algorithm a "
+        + "ORDER BY a.problemCount DESC";
+
+    return entityManager.createQuery(jpql, AlgorithmResponseDto.class)
+        .setFirstResult(offset)
+        .setMaxResults(pageSize)
         .getResultList();
   }
 

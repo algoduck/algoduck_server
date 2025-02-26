@@ -16,4 +16,10 @@ public interface AlgorithmRepository {
 
   //  algorithmName이라는 이름을 포함하는 알고리즘 리스트를 찾음
   List<AlgorithmResponseDto> findAlgorithmsWithName(String algorithmName);
+
+  //  전체 알고리즘 수를 확인
+  long countAll();
+
+  //  전체 알고리즘 리스트를 알고리즘이 포함된 문제수 순으로 내림차순 정렬함
+  List<AlgorithmResponseDto> findAll(int pageNumber, int pageSize);
 }
