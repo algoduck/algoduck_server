@@ -27,7 +27,7 @@ public class AlgorithmRepositoryJpaImpl implements AlgorithmRepository {
   }
 
   @Override
-  public Algorithm findAlgorithm(Long algorithmId) {
+  public Algorithm findByAlgorithmId(Long algorithmId) {
     return entityManager.find(Algorithm.class, algorithmId);
   }
 

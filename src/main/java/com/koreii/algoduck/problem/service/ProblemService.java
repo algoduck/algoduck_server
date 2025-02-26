@@ -3,6 +3,7 @@ package com.koreii.algoduck.problem.service;
 import com.koreii.algoduck.problem.dto.request.ProblemAddRequestDto;
 import com.koreii.algoduck.problem.dto.response.ProblemResponseDto;
 import com.koreii.algoduck.problem.dto.response.ProblemSimpleResponseDto;
+import com.koreii.algoduck.problem.entity.Problem;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Service
 public interface ProblemService {
-  ProblemResponseDto addProblem(ProblemAddRequestDto problemAddRequestDto, List<MultipartFile> inputTestcases, List<MultipartFile> outputTestcases, List<Boolean> isPublics, List<MultipartFile> problemImages);
+  ProblemResponseDto addProblem(ProblemAddRequestDto problemAddRequestDto, List<MultipartFile> inputTestcases, List<MultipartFile> outputTestcases, List<Boolean> isPublics, List<MultipartFile> problemImages, List<Long> algorithms);
 
   long countAllProblems();
 
@@ -33,4 +34,6 @@ public interface ProblemService {
 
   //  주어진 난이도에 해당하는 문제를 찾음
   List<ProblemSimpleResponseDto> selectProblemsWithDifficulty(List<Integer> difficulties, int pageNumber, int pageSize);
+
+  Problem findByProblemId(Long problemId);
 }

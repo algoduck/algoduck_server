@@ -1,6 +1,5 @@
 package com.koreii.algoduck.algorithm.repository;
 
-import com.koreii.algoduck.algorithm.dto.request.AlgorithmAddRequestDto;
 import com.koreii.algoduck.algorithm.dto.response.AlgorithmResponseDto;
 import com.koreii.algoduck.algorithm.entity.Algorithm;
 import org.springframework.stereotype.Repository;
@@ -13,7 +12,7 @@ public interface AlgorithmRepository {
   Algorithm addAlgorithm(String algorithmName);
 
   //  PK로 알고리즘을 찾음
-  Algorithm findAlgorithm(Long algorithmId);
+  Algorithm findByAlgorithmId(Long algorithmId);
 
   //  algorithmName이라는 이름을 포함하는 알고리즘 리스트를 찾음
   List<AlgorithmResponseDto> findAlgorithmsWithName(String algorithmName);
