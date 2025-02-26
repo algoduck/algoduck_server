@@ -27,13 +27,27 @@ public class AlgorithmServiceImpl implements AlgorithmService {
   }
 
   @Override
-  public AlgorithmResponseDto findAlgorithmById(Long algorithmId) {
-    Algorithm algorithm = algorithmRepository.findAlgorithm(algorithmId);
-    return new AlgorithmResponseDto(algorithm);
+  public Algorithm findEntityByAlgorithmId(Long algorithmId) {
+    return algorithmRepository.findByAlgorithmId(algorithmId);
+  }
+
+  @Override
+  public AlgorithmResponseDto findDtoByAlgorithmId(Long algorithmId) {
+    return new AlgorithmResponseDto(findEntityByAlgorithmId(algorithmId));
   }
 
   @Override
   public List<AlgorithmResponseDto> findAlgorithmsWithName(String algorithmName) {
     return algorithmRepository.findAlgorithmsWithName(algorithmName);
+  }
+
+  @Override
+  public long countAllAlgorithms() {
+    return algorithmRepository.countAll();
+  }
+
+  @Override
+  public List<AlgorithmResponseDto> findAllAlgorithms(int pageNumber, int pageSize) {
+    return algorithmRepository.findAll(pageNumber, pageSize);
   }
 }

@@ -18,7 +18,7 @@ public class AliasServiceImpl implements AliasService {
 
   @Override
   public AliasResponseDto addAlias(AliasAddRequestDto aliasAddRequestDto) {
-    Algorithm algorithm = algorithmRepository.findAlgorithm(aliasAddRequestDto.getAlgorithmId());
+    Algorithm algorithm = algorithmRepository.findByAlgorithmId(aliasAddRequestDto.getAlgorithmId());
     return aliasRepository.addAlias(algorithm, aliasAddRequestDto.getAliasName());
   }
 

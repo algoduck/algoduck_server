@@ -33,4 +33,8 @@ public class Algorithm extends BaseTimeEntity {
   @Column(name = "algorithm_name", nullable = false)
   @Setter
   private String algorithmName;
+
+  @Column(name = "problem_count", nullable = false)
+  @Setter
+  private Integer problemCount;
 }
