@@ -4,6 +4,7 @@ import com.koreii.algoduck.algorithm.dto.request.AlgorithmAddRequestDto;
 import com.koreii.algoduck.algorithm.dto.response.AlgorithmResponseDto;
 import com.koreii.algoduck.algorithm.dto.response.AlgorithmSearchResponseDto;
 import com.koreii.algoduck.algorithm.service.AlgorithmService;
+import com.koreii.algoduck.base.controller.BaseApiController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/algorithms")
 @Tag(name = "Algorithms", description = "알고리즘 관련 API")
-public class AlgorithmController {
+public class AlgorithmController extends BaseApiController {
   private final AlgorithmService algorithmService;
 
   @Operation(
