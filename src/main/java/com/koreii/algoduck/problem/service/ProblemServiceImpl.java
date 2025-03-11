@@ -33,8 +33,10 @@ public class ProblemServiceImpl implements ProblemService {
     ProblemResponseDto problemResponseDto = problemRepository.addProblem(problemAddRequestDto);
     Long problemId = problemResponseDto.getProblemId();
 
-    problemImageService.addProblemImages(problemId, problemImages);
-    problemAlgorithmService.addProblemAlgorithms(problemId, algorithmIds);
+    Problem problem = problemRepository.findByProblemId(problemId);
+
+    problemImageService.addProblemImages(problem, problemImages);
+    problemAlgorithmService.addProblemAlgorithms(problem, algorithmIds);
     testcaseService.addTestcases(problemId, inputTestcases, outputTestcases, isPublics);
 
     return problemResponseDto;

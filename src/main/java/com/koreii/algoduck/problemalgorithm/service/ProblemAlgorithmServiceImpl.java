@@ -19,13 +19,11 @@ import java.util.List;
 @Slf4j
 public class ProblemAlgorithmServiceImpl implements ProblemAlgorithmService {
   private final ProblemAlgorithmRepository problemAlgorithmRepository;
-  private final ProblemService problemService;
   private final AlgorithmService algorithmService;
 
   @Override
-  public List<ProblemAlgorithmResponseDto> addProblemAlgorithms(Long problemId, List<Long> algorithmIds) {
+  public List<ProblemAlgorithmResponseDto> addProblemAlgorithms(Problem problem, List<Long> algorithmIds) {
     List<ProblemAlgorithmResponseDto> problemAlgorithmResponseDtos = new ArrayList<>();
-    Problem problem = problemService.findByProblemId(problemId);
 
     for (Long algorithmId : algorithmIds) {
       Algorithm algorithm = algorithmService.findEntityByAlgorithmId(algorithmId);
