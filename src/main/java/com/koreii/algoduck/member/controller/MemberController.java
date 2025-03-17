@@ -4,6 +4,7 @@ import com.koreii.algoduck.base.controller.BaseApiController;
 import com.koreii.algoduck.member.dto.request.MemberSaveRequestDto;
 import com.koreii.algoduck.member.dto.request.MemberUpdateRequestDto;
 import com.koreii.algoduck.member.dto.response.MemberResponseDto;
+import com.koreii.algoduck.member.dto.response.MemberPagingResponseDto;
 import com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto;
 import com.koreii.algoduck.member.enums.Role;
 import com.koreii.algoduck.member.service.MemberService;
@@ -11,11 +12,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -78,40 +77,78 @@ public class MemberController extends BaseApiController {
   }
 
   @Operation(summary = "모든 회원 조회", description = "모든 회원 정보를 페이징 처리하여 반환합니다.")
-  @GetMapping
-  public ResponseEntity<List<MemberSimpleResponseDto>> findAllMembers(@RequestParam int pageNumber,
-                                                                      @RequestParam int pageSize) {
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<MemberPagingResponseDto> findAllMembers(@RequestParam int pageNumber,
+                                                                @RequestParam int pageSize) {
+    long totalCount = memberService.countAllMembers();
+
     List<MemberSimpleResponseDto> members = memberService.findAllMembers(pageNumber, pageSize);
-    HttpHeaders headers = new HttpHeaders();
-    headers.add("X-Total-Count", String.valueOf(members.size()));
-    return ResponseEntity.ok().headers(headers).body(members);
+
+    MemberPagingResponseDto memberPagingResponseDto = MemberPagingResponseDto.builder()
+        .totalCount(totalCount)
+        .members(members)
+        .build();
+
+    return ResponseEntity.ok()
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(memberPagingResponseDto);
   }
 
   @Operation(summary = "회원 검색 - 로그인 아이디", description = "로그인 아이디로 회원을 검색합니다.")
-  @GetMapping("/search-by-login-id")
-  public ResponseEntity<List<MemberSimpleResponseDto>> findMembersWithLoginId(@RequestParam String loginId,
+  @GetMapping(value = "/search-by-login-id", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<MemberPagingResponseDto> findMembersWithLoginId(@RequestParam String loginId,
                                                                               @RequestParam int pageNumber,
                                                                               @RequestParam int pageSize) {
+    long totalCount = memberService.countMembersWithLoginId(loginId);
+
     List<MemberSimpleResponseDto> members = memberService.findMembersWithLoginId(loginId, pageNumber, pageSize);
-    return ResponseEntity.ok(members);
+    MemberPagingResponseDto memberPagingResponseDto = MemberPagingResponseDto.builder()
+        .totalCount(totalCount)
+        .members(members)
+        .build();
+
+    return ResponseEntity.ok()
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(memberPagingResponseDto);
   }
 
   @Operation(summary = "회원 검색 - 닉네임", description = "닉네임으로 회원을 검색합니다.")
-  @GetMapping("/search-by-nickname")
-  public ResponseEntity<List<MemberSimpleResponseDto>> findMembersWithNickname(@RequestParam String nickname,
+  @GetMapping(value = "/search-by-nickname", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<MemberPagingResponseDto> findMembersWithNickname(@RequestParam String nickname,
                                                                                @RequestParam int pageNumber,
                                                                                @RequestParam int pageSize) {
+    long totalCount = memberService.countMembersWithNickname(nickname);
+
     List<MemberSimpleResponseDto> members = memberService.findMembersWithNickname(nickname, pageNumber, pageSize);
-    return ResponseEntity.ok(members);
+
+    MemberPagingResponseDto memberPagingResponseDto = MemberPagingResponseDto.builder()
+        .totalCount(totalCount)
+        .members(members)
+        .build();
+
+    return ResponseEntity.ok()
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(memberPagingResponseDto);
   }
 
   @Operation(summary = "회원 검색 - 역할", description = "역할(Role)로 회원을 검색합니다.")
-  @GetMapping("/search-by-role")
-  public ResponseEntity<List<MemberSimpleResponseDto>> findMembersWithRole(@RequestParam Role role,
+  @GetMapping(value = "/search-by-role", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<MemberPagingResponseDto> findMembersWithRole(@RequestParam Role role,
                                                                            @RequestParam int pageNumber,
                                                                            @RequestParam int pageSize) {
+
+    long totalCount = memberService.countMembersWithRole(role);
+
     List<MemberSimpleResponseDto> members = memberService.findMembersWithRole(role, pageNumber, pageSize);
-    return ResponseEntity.ok(members);
+
+    MemberPagingResponseDto memberPagingResponseDto = MemberPagingResponseDto.builder()
+        .totalCount(totalCount)
+        .members(members)
+        .build();
+
+    return ResponseEntity.ok()
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(memberPagingResponseDto);
   }
 
   @Operation(summary = "회원 상세 조회", description = "회원 ID로 회원 정보를 조회합니다.")
