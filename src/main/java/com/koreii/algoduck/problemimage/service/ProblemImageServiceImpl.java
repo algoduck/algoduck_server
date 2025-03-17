@@ -23,7 +23,6 @@ import java.util.List;
 @Slf4j
 public class ProblemImageServiceImpl implements ProblemImageService {
   private final ProblemImageRepository problemImageRepository;
-  private final ProblemRepository problemRepository;
   private final FileStorageService fileStorageService;
 
   @Value("s3.problem_image_bucket")
@@ -31,8 +30,7 @@ public class ProblemImageServiceImpl implements ProblemImageService {
 
   @Override
   @Transactional
-  public ProblemImageResponseDto addProblemImage(Long problemId, MultipartFile problemImage) {
-    Problem problem = problemRepository.findByProblemId(problemId);
+  public ProblemImageResponseDto addProblemImage(Problem problem, MultipartFile problemImage) {
     String problemImageName = problemImage.getName();
 
     String problemImageUrl = null;
@@ -60,12 +58,12 @@ public class ProblemImageServiceImpl implements ProblemImageService {
 
   @Override
   @Transactional
-  public List<ProblemImageResponseDto> addProblemImages(Long problemId, List<MultipartFile> problemImageFiles) {
+  public List<ProblemImageResponseDto> addProblemImages(Problem problem, List<MultipartFile> problemImageFiles) {
     List<ProblemImageResponseDto> problemImageResponseDtos = new ArrayList<>();
 
     for (MultipartFile problemImage : problemImageFiles) {
       try {
-        ProblemImageResponseDto problemImageResponseDto = addProblemImage(problemId, problemImage);
+        ProblemImageResponseDto problemImageResponseDto = addProblemImage(problem, problemImage);
         problemImageResponseDtos.add(problemImageResponseDto);
       } catch (FileUploadFailException e) {
         log.error("Failed to upload image file to file storage, but continuing...");

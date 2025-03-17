@@ -1,5 +1,6 @@
 package com.koreii.algoduck.problemimage.service;
 
+import com.koreii.algoduck.problem.entity.Problem;
 import com.koreii.algoduck.problemimage.dto.response.ProblemImageResponseDto;
 import com.koreii.algoduck.problemimage.entity.ProblemImage;
 import org.springframework.stereotype.Service;
@@ -9,9 +10,9 @@ import java.util.List;
 
 @Service
 public interface ProblemImageService {
-  ProblemImageResponseDto addProblemImage(Long problemId, MultipartFile problemImageFile);
+  ProblemImageResponseDto addProblemImage(Problem problem, MultipartFile problemImageFile);
 
-  List<ProblemImageResponseDto> addProblemImages(Long problemId, List<MultipartFile> problemImageFiles);
+  List<ProblemImageResponseDto> addProblemImages(Problem problem, List<MultipartFile> problemImageFiles);
 
   ProblemImage findByProblemImageId(Long problemImageId);
 }
