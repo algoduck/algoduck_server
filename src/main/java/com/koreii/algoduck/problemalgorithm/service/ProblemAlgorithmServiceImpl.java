@@ -22,12 +22,17 @@ public class ProblemAlgorithmServiceImpl implements ProblemAlgorithmService {
   private final AlgorithmService algorithmService;
 
   @Override
+  public ProblemAlgorithmResponseDto addProblemAlgorithm(Problem problem, Long algorithmId) {
+    Algorithm algorithm = algorithmService.findEntityByAlgorithmId(algorithmId);
+    return problemAlgorithmRepository.addProblemAlgorithm(problem, algorithm);
+  }
+
+  @Override
   public List<ProblemAlgorithmResponseDto> addProblemAlgorithms(Problem problem, List<Long> algorithmIds) {
     List<ProblemAlgorithmResponseDto> problemAlgorithmResponseDtos = new ArrayList<>();
 
     for (Long algorithmId : algorithmIds) {
-      Algorithm algorithm = algorithmService.findEntityByAlgorithmId(algorithmId);
-      problemAlgorithmResponseDtos.add(problemAlgorithmRepository.addProblemAlgorithm(problem, algorithm));
+      problemAlgorithmResponseDtos.add(addProblemAlgorithm(problem, algorithmId));
     }
 
     return problemAlgorithmResponseDtos;
