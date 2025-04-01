@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `algorithms`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `algorithms` (
                               `problem_count` int NOT NULL,
-                              `algorithm_id` bigint NOT NULL,
+                              `algorithm_id` bigint NOT NULL AUTO_INCREMENT,
                               `created_at` datetime(6) DEFAULT NULL,
                               `modified_at` datetime(6) DEFAULT NULL,
                               `algorithm_name` varchar(255) NOT NULL,
@@ -55,7 +55,7 @@ DROP TABLE IF EXISTS `aliases`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `aliases` (
                            `algorithm_id` bigint NOT NULL,
-                           `alias_id` bigint NOT NULL,
+                           `alias_id` bigint NOT NULL AUTO_INCREMENT,
                            `created_at` datetime(6) DEFAULT NULL,
                            `modified_at` datetime(6) DEFAULT NULL,
                            `alias_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
@@ -86,7 +86,7 @@ DROP TABLE IF EXISTS `languages`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `languages` (
                              `created_at` datetime(6) DEFAULT NULL,
-                             `language_id` bigint NOT NULL,
+                             `language_id` bigint NOT NULL AUTO_INCREMENT,
                              `modified_at` datetime(6) DEFAULT NULL,
                              `name` varchar(255) NOT NULL,
                              PRIMARY KEY (`language_id`)
@@ -115,7 +115,7 @@ DROP TABLE IF EXISTS `members`;
 CREATE TABLE `members` (
                            `solved` int NOT NULL,
                            `created_at` datetime(6) DEFAULT NULL,
-                           `member_id` bigint NOT NULL,
+                           `member_id` bigint NOT NULL AUTO_INCREMENT,
                            `modified_at` datetime(6) DEFAULT NULL,
                            `quit_request_time` datetime(6) DEFAULT NULL,
                            `login_id` varchar(20) NOT NULL,
@@ -156,7 +156,7 @@ CREATE TABLE `problem_images` (
                                   `created_at` datetime(6) DEFAULT NULL,
                                   `modified_at` datetime(6) DEFAULT NULL,
                                   `problem_id` bigint NOT NULL,
-                                  `problem_image_id` bigint NOT NULL,
+                                  `problem_image_id` bigint NOT NULL AUTO_INCREMENT,
                                   `problem_image_name` varchar(255) NOT NULL,
                                   `problem_image_url` text NOT NULL,
                                   PRIMARY KEY (`problem_image_id`),
@@ -188,7 +188,7 @@ CREATE TABLE `problems` (
                             `difficulty` int NOT NULL,
                             `created_at` datetime(6) DEFAULT NULL,
                             `modified_at` datetime(6) DEFAULT NULL,
-                            `problem_id` bigint NOT NULL,
+                            `problem_id` bigint NOT NULL AUTO_INCREMENT,
                             `description` text NOT NULL,
                             `input_description` text NOT NULL,
                             `output_description` text NOT NULL,
@@ -212,7 +212,7 @@ CREATE TABLE `problems_algorithms` (
                                        `algorithm_id` bigint NOT NULL,
                                        `created_at` datetime(6) DEFAULT NULL,
                                        `modified_at` datetime(6) DEFAULT NULL,
-                                       `problem_algorithm_id` bigint NOT NULL,
+                                       `problem_algorithm_id` bigint NOT NULL AUTO_INCREMENT,
                                        `problem_id` bigint NOT NULL,
                                        PRIMARY KEY (`problem_algorithm_id`),
                                        KEY `FKedidxhfamyec01xh6t0tsinsh` (`algorithm_id`),
@@ -260,7 +260,7 @@ CREATE TABLE `submissions` (
                                `member_id` bigint NOT NULL,
                                `modified_at` datetime(6) DEFAULT NULL,
                                `problem_id` bigint NOT NULL,
-                               `submission_id` bigint NOT NULL,
+                               `submission_id` bigint NOT NULL AUTO_INCREMENT,
                                `version_id` bigint NOT NULL,
                                `code_name` varchar(255) NOT NULL,
                                `code_url` text NOT NULL,
@@ -299,7 +299,7 @@ CREATE TABLE `testcases` (
                              `created_at` datetime(6) DEFAULT NULL,
                              `modified_at` datetime(6) DEFAULT NULL,
                              `problem_id` bigint NOT NULL,
-                             `testcase_id` bigint NOT NULL,
+                             `testcase_id` bigint NOT NULL AUTO_INCREMENT,
                              `testcase_input_name` varchar(255) NOT NULL,
                              `testcase_input_url` text NOT NULL,
                              `testcase_output_name` varchar(255) NOT NULL,
@@ -333,7 +333,7 @@ CREATE TABLE `versions` (
                             `created_at` datetime(6) DEFAULT NULL,
                             `language_id` bigint NOT NULL,
                             `modified_at` datetime(6) DEFAULT NULL,
-                            `version_id` bigint NOT NULL,
+                            `version_id` bigint NOT NULL AUTO_INCREMENT,
                             `version_name` varchar(255) NOT NULL,
                             PRIMARY KEY (`version_id`),
                             KEY `FKgjwbbtga3wqe92watcq07h4k2` (`language_id`),
