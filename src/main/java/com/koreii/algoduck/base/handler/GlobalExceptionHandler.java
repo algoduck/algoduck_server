@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
     );
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.<Map<String, String>>builder()
         .success(false)
-        .message("입력값이 유효하지 않습니다.")
+        .message("입력값이 유효하지 않습니다: " + e.getMessage())
         .data(fieldErrors)
         .build());
   }
@@ -42,22 +42,22 @@ public class GlobalExceptionHandler {
       NoSuchElementException e) {
 
     return ResponseEntity.status(HttpStatus.NOT_FOUND)
-        .body(ApiResponse.failure("리소스를 찾을 수 없습니다."));
+        .body(ApiResponse.failure("리소스를 찾을 수 없습니다: " + e.getMessage()));
   }
 
   // 기본적인 400번대 에러 (기타 Bad Request 예외)
   @ExceptionHandler(HttpMessageNotReadableException.class)
   public ResponseEntity<ApiResponse<Void>> handleHttpMessageNotReadableException(
-      HttpMessageNotReadableException ex) {
+      HttpMessageNotReadableException e) {
 
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        .body(ApiResponse.failure("리소스를 찾을 수 없습니다."));
+        .body(ApiResponse.failure("리소스를 찾을 수 없습니다: " + e.getMessage()));
   }
 
   // 기타 예외 처리 (500번대 서버 에러)
   @ExceptionHandler(Exception.class)
-  public ResponseEntity<ApiResponse<Void>> handleGenericException(Exception ex) {
+  public ResponseEntity<ApiResponse<Void>> handleGenericException(Exception e) {
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .body(ApiResponse.failure("서버 오류가 발생했습니다."));
+        .body(ApiResponse.failure("서버 오류가 발생했습니다: " + e.getMessage()));
   }
 }
