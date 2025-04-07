@@ -34,7 +34,7 @@ public interface MemberService {
 
   List<MemberSimpleResponseDto> findMembersWithRole(Role role, int pageNumber, int pageSize);
 
-  MemberResponseDto findMemberByLoginId(Long memberId);
+  MemberResponseDto findMemberByMemberId(Long memberId);
 
   MemberResponseDto update(Long memberId, MemberUpdateRequestDto memberUpdateRequestDto, MultipartFile file);
 }

@@ -41,7 +41,7 @@ public class MemberController extends BaseApiController {
       summary = "회원가입",
       description = "새로운 회원을 등록합니다."
       )
-  @PostMapping(value = "/join", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<MemberResponseDto> join(@RequestPart(value = "memberSaveRequestDto") MemberSaveRequestDto memberSaveRequestDto, @RequestPart(value = "file", required = false) MultipartFile file) {
     try {
       log.info("memberSaveRequestDto = {}", memberSaveRequestDto);
@@ -56,21 +56,21 @@ public class MemberController extends BaseApiController {
   }
 
   @Operation(summary = "로그인 아이디 중복 확인", description = "로그인 아이디가 중복되었는지 확인합니다.")
-  @GetMapping("/check-login-id")
+  @GetMapping("/exists/login-id")
   public ResponseEntity<Boolean> isUniqueLoginId(@RequestParam String loginId) {
     boolean isUnique = memberService.isUniqueLoginId(loginId);
     return ResponseEntity.ok(isUnique);
   }
 
   @Operation(summary = "닉네임 중복 확인", description = "닉네임이 중복되었는지 확인합니다.")
-  @GetMapping("/check-nickname")
+  @GetMapping("/exists/nickname")
   public ResponseEntity<Boolean> isUniqueNickname(@RequestParam String nickname) {
     boolean isUnique = memberService.isUniqueNickname(nickname);
     return ResponseEntity.ok(isUnique);
   }
 
   @Operation(summary = "이메일 중복 확인", description = "이메일이 중복되었는지 확인합니다.")
-  @GetMapping("/check-email")
+  @GetMapping("/exists/email")
   public ResponseEntity<Boolean> isUniqueEmail(@RequestParam String email) {
     boolean isUnique = memberService.isUniqueEmail(email);
     return ResponseEntity.ok(isUnique);
@@ -95,7 +95,7 @@ public class MemberController extends BaseApiController {
   }
 
   @Operation(summary = "회원 검색 - 로그인 아이디", description = "로그인 아이디로 회원을 검색합니다.")
-  @GetMapping(value = "/search-by-login-id", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/login_id", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<MemberPagingResponseDto> findMembersWithLoginId(@RequestParam String loginId,
                                                                               @RequestParam int pageNumber,
                                                                               @RequestParam int pageSize) {
@@ -113,7 +113,7 @@ public class MemberController extends BaseApiController {
   }
 
   @Operation(summary = "회원 검색 - 닉네임", description = "닉네임으로 회원을 검색합니다.")
-  @GetMapping(value = "/search-by-nickname", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/nickname", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<MemberPagingResponseDto> findMembersWithNickname(@RequestParam String nickname,
                                                                                @RequestParam int pageNumber,
                                                                                @RequestParam int pageSize) {
@@ -132,7 +132,7 @@ public class MemberController extends BaseApiController {
   }
 
   @Operation(summary = "회원 검색 - 역할", description = "역할(Role)로 회원을 검색합니다.")
-  @GetMapping(value = "/search-by-role", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/role", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<MemberPagingResponseDto> findMembersWithRole(@RequestParam Role role,
                                                                            @RequestParam int pageNumber,
                                                                            @RequestParam int pageSize) {
@@ -153,8 +153,8 @@ public class MemberController extends BaseApiController {
 
   @Operation(summary = "회원 상세 조회", description = "회원 ID로 회원 정보를 조회합니다.")
   @GetMapping("/{memberId}")
-  public ResponseEntity<MemberResponseDto> findMemberByLoginId(@PathVariable Long memberId) {
-    MemberResponseDto member = memberService.findMemberByLoginId(memberId);
+  public ResponseEntity<MemberResponseDto> findMemberByMemberId(@PathVariable Long memberId) {
+    MemberResponseDto member = memberService.findMemberByMemberId(memberId);
     if (member == null) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
@@ -162,7 +162,7 @@ public class MemberController extends BaseApiController {
   }
 
   @Operation(summary = "회원 정보 업데이트", description = "회원 정보를 업데이트합니다.")
-  @PutMapping(value = "/update/{memberId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  @PutMapping(value = "/{memberId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<MemberResponseDto> update(@PathVariable Long memberId,
                                                   @RequestPart(value = "memberUpdateRequestDto") MemberUpdateRequestDto memberUpdateRequestDto,
                                                   @RequestPart(value = "file", required = false) MultipartFile file) {
