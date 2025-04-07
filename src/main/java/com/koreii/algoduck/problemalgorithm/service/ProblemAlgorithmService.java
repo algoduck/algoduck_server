@@ -8,5 +8,7 @@ import java.util.List;
 
 @Service
 public interface ProblemAlgorithmService {
+  ProblemAlgorithmResponseDto addProblemAlgorithm(Problem problem, Long algorithmId);
+
   List<ProblemAlgorithmResponseDto> addProblemAlgorithms(Problem problem, List<Long> algorithmIds);
 }
