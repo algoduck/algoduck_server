@@ -3,6 +3,7 @@ name: Deploy Algoduck to EC2
 on:
   push:
     branches: [ develop ]
+  workflow_dispatch:
 
 jobs:
   deploy:
