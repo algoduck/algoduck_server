@@ -37,6 +37,7 @@ jobs:
               show-sql: false
               properties:
                 hibernate.format_sql: true
+                hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
 
             servlet:
               multipart:
