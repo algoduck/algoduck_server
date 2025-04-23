@@ -21,18 +21,20 @@ jobs:
 
       - name: Generate application.yml from template
         run: |
-          cp src/main/resources/application.yml.template src/main/resources/application.yml
-          envsubst < src/main/resources/application.yml > src/main/resources/tmp.yml
-          mv src/main/resources/tmp.yml src/main/resources/application.yml
+          cp src/main/resources/application.yml.template .env.template
+          envsubst < .env.template > src/main/resources/application.yml
         env:
           DATASOURCE_URL: ${{ secrets.DATASOURCE_URL }}
           DB_USER_NAME: ${{ secrets.DB_USER_NAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
-          S3_TESTCASE_BUCKET_NAME: ${{ secrets.S3_S3_TESTCASE_BUCKET_NAME }}
+          S3_TESTCASE_BUCKET_NAME: ${{ secrets.S3_TESTCASE_BUCKET_NAME }}
           S3_PROFILE_BUCKET_NAME: ${{ secrets.S3_PROFILE_BUCKET_NAME }}
           DEFAULT_PROFILE_URL: ${{ secrets.DEFAULT_PROFILE_URL }}
+
+      - name: Verify generated application.yml
+        run: cat src/main/resources/application.yml
 
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x ./gradlew
@@ -61,7 +63,7 @@ jobs:
             docker rmi algoduck-app || true
             docker build -t algoduck-app .
             docker run -d -p 8080:8080 --name algoduck algoduck-app
-            
-            # 실패 여부 관계없이 로그 백업
-            sleep 5
+
+            # 로그 백업
+            sleep 10
             docker logs algoduck > ~/algoduck-deploy.log || true
