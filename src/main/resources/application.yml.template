@@ -6,6 +6,7 @@ spring:
     url: ${DATASOURCE_URL}
     username: ${DB_USER_NAME}
     password: ${DB_PASSWORD}
+
   jpa:
     hibernate:
       ddl-auto: create
@@ -32,7 +33,10 @@ spring:
         profile_bucket: ${S3_PROFILE_BUCKET_NAME}
 
 logging:
+  file:
+    name: /app/algoduck.log  # ✅ 로그가 이 경로에 저장됨
   level:
+    root: INFO
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 

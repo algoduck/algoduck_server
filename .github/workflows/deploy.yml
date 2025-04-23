@@ -60,3 +60,7 @@ jobs:
             docker rmi algoduck-app || true
             docker build -t algoduck-app .
             docker run -d -p 8080:8080 --name algoduck algoduck-app
+            
+            # 실패 여부 관계없이 로그 백업
+            sleep 5
+            docker logs algoduck > ~/algoduck-deploy.log || true
