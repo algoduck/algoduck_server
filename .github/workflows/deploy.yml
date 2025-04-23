@@ -19,59 +19,19 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Generate application.yml
+      - name: Generate application.yml from template
         run: |
-          mkdir -p src/main/resources
-          cat <<EOF > src/main/resources/application.yml
-          spring:
-            application:
-              name: algoduck
-
-            datasource:
-              url: ${{ secrets.DATASOURCE_URL }}
-              username: ${{ secrets.DB_USER_NAME }}
-              password: ${{ secrets.DB_PASSWORD }}
-            jpa:
-              hibernate:
-                ddl-auto: create
-              show-sql: false
-              properties:
-                hibernate.format_sql: true
-                hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
-
-            servlet:
-              multipart:
-                enabled: true
-                max-file-size: 10MB
-                max-request-size: 10MB
-
-            cloud:
-              aws:
-                credentials:
-                  access-key: ${{ secrets.AWS_ACCESS_KEY }}
-                  secret-key: ${{ secrets.AWS_SECRET_KEY }}
-                region:
-                  static: ap-northeast-2
-                s3:
-                  profile_bucket: ${{ secrets.S3_PROFILE_BUCKET_NAME }}
-
-          logging:
-            level:
-              org.hibernate.SQL: DEBUG
-              org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-
-          app:
-            default:
-              profile-image-url: ${{ secrets.DEFAULT_PROFILE_URL }}
-
-          springdoc:
-            api-docs:
-              path: /api-docs
-            swagger-ui:
-              path: /swagger-ui.html
-              operationsSorter: alpha
-              defaultModelsExpandDepth: -1
-          EOF
+          cp src/main/resources/application.yml.template src/main/resources/application.yml
+          envsubst < src/main/resources/application.yml > src/main/resources/tmp.yml
+          mv src/main/resources/tmp.yml src/main/resources/application.yml
+        env:
+          DATASOURCE_URL: ${{ secrets.DATASOURCE_URL }}
+          DB_USER_NAME: ${{ secrets.DB_USER_NAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          S3_PROFILE_BUCKET_NAME: ${{ secrets.S3_PROFILE_BUCKET_NAME }}
+          DEFAULT_PROFILE_URL: ${{ secrets.DEFAULT_PROFILE_URL }}
 
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x ./gradlew
@@ -100,4 +60,3 @@ jobs:
             docker rmi algoduck-app || true
             docker build -t algoduck-app .
             docker run -d -p 8080:8080 --name algoduck algoduck-app
-
