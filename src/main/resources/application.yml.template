@@ -30,6 +30,7 @@ spring:
       region:
         static: ap-northeast-2
       s3:
+        testcase_bucket: ${S3_TESTCASE_BUCKET_NAME}
         profile_bucket: ${S3_PROFILE_BUCKET_NAME}
 
 logging:
