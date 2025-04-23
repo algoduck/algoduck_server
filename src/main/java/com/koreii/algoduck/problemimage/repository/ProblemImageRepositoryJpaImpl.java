@@ -15,9 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProblemImageRepositoryJpaImpl implements ProblemImageRepository {
   private final EntityManager entityManager;
 
-  @Value("${spring.cloud.aws.s3.testcase_bucket}")
-  private String bucketName;
-
   @Override
   @Transactional
   public ProblemImageResponseDto addProblemImage(Problem problem, ProblemImageAddRequestDto problemImageAddRequestDto) {
