@@ -13,5 +13,7 @@ public class ProblemAddRequestDto {
   private String description;
   private String inputDescription;
   private String outputDescription;
+  private Integer timeLimitation;
+  private Integer memoryLimitation;
   private Integer difficulty;
 }
