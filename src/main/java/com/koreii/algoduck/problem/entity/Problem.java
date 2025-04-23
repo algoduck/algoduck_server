@@ -48,6 +48,14 @@ public class Problem extends BaseTimeEntity {
   @Setter
   private String outputDescription;
 
+  @Column(name = "time_limitation")
+  @Setter
+  private Integer timeLimitation;
+
+  @Column(name = "memory_limitation")
+  @Setter
+  private Integer memoryLimitation;
+
   @Column(nullable = false)
   @Setter
   private Integer difficulty;

@@ -26,6 +26,9 @@ public class ProblemRepositoryJpaImpl implements ProblemRepository {
         .inputDescription(problemAddRequestDto.getInputDescription())
         .outputDescription(problemAddRequestDto.getOutputDescription())
         .difficulty(problemAddRequestDto.getDifficulty())
+        .timeLimitation(problemAddRequestDto.getTimeLimitation())
+        .memoryLimitation(problemAddRequestDto.getMemoryLimitation())
+        .memoryLimitation(0)
         .build();
 
     entityManager.persist(problem);
