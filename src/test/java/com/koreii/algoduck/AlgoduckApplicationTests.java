@@ -9,7 +9,14 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @Testcontainers
-@SpringBootTest
+@SpringBootTest(
+    properties = {
+        "spring.cloud.aws.credentials.access-key=dummy-access-key",
+        "spring.cloud.aws.credentials.secret-key=dummy-secret-key",
+        "app.default.profile-image-url=https://dummy.url",
+        "spring.cloud.aws.s3.testcase_bucket=dummy-bucket"
+    }
+)
 class AlgoduckApplicationTests {
   @Container
   static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0")
