@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER_NAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  app:
+    image: algoduck-app
+    container_name: algoduck
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-container:3306/${DB_NAME}?serverTimezone=Asia/Seoul
+      SPRING_DATASOURCE_USERNAME: ${DB_USER_NAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      AWS_ACCESS_KEY: ${AWS_ACCESS_KEY}
+      AWS_SECRET_KEY: ${AWS_SECRET_KEY}
+      S3_PROFILE_BUCKET_NAME: ${S3_PROFILE_BUCKET_NAME}
+      S3_TESTCASE_BUCKET_NAME: ${S3_TESTCASE_BUCKET_NAME}
+      DEFAULT_PROFILE_URL: ${DEFAULT_PROFILE_URL}
+
+volumes:
+  mysql-data:

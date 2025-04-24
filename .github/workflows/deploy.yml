@@ -1,4 +1,4 @@
-name: Deploy Algoduck to EC2
+name: Deploy Algoduck to EC2 with Docker Compose
 
 on:
   push:
@@ -25,12 +25,28 @@ jobs:
           envsubst < src/main/resources/application.yml > src/main/resources/tmp.yml
           mv src/main/resources/tmp.yml src/main/resources/application.yml
         env:
-          DATASOURCE_URL: ${{ secrets.DATASOURCE_URL }}
+          DATASOURCE_URL: jdbc:mysql://mysql-container:3306/${{ secrets.DB_NAME }}?serverTimezone=Asia/Seoul
           DB_USER_NAME: ${{ secrets.DB_USER_NAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
-          S3_TESTCASE_BUCKET_NAME: ${{ secrets.S3_S3_TESTCASE_BUCKET_NAME }}
+          S3_TESTCASE_BUCKET_NAME: ${{ secrets.S3_TESTCASE_BUCKET_NAME }}
+          S3_PROFILE_BUCKET_NAME: ${{ secrets.S3_PROFILE_BUCKET_NAME }}
+          DEFAULT_PROFILE_URL: ${{ secrets.DEFAULT_PROFILE_URL }}
+
+      - name: Generate .env from template
+        run: |
+          cp .env.template .env
+          envsubst < .env > tmp.env
+          mv tmp.env .env
+        env:
+          DB_ROOT_PASSWORD: ${{ secrets.DB_ROOT_PASSWORD }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER_NAME: ${{ secrets.DB_USER_NAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          S3_TESTCASE_BUCKET_NAME: ${{ secrets.S3_TESTCASE_BUCKET_NAME }}
           S3_PROFILE_BUCKET_NAME: ${{ secrets.S3_PROFILE_BUCKET_NAME }}
           DEFAULT_PROFILE_URL: ${{ secrets.DEFAULT_PROFILE_URL }}
 
@@ -40,16 +56,16 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build
 
-      - name: Copy JAR and Dockerfile to EC2
+      - name: Copy files to EC2
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
-          source: "build/libs/*.jar,Dockerfile"
+          source: "build/libs/*.jar,Dockerfile,docker-compose.yml,.env"
           target: "~/algoduck"
 
-      - name: SSH into EC2 and run Docker commands
+      - name: SSH into EC2 and run docker-compose
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -57,11 +73,13 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             cd ~/algoduck
-            docker stop algoduck || true && docker rm algoduck || true
-            docker rmi algoduck-app || true
-            docker build -t algoduck-app .
-            docker run -d -p 8080:8080 --name algoduck algoduck-app
-            
-            # 실패 여부 관계없이 로그 백업
-            sleep 5
-            docker logs algoduck > ~/algoduck-deploy.log || true
+
+            # 중지 및 삭제
+            docker compose down || true
+
+            # 캐시 없이 재빌드
+            docker compose up -d --build
+
+            # 로그 확인
+            sleep 10
+            docker compose logs > ~/algoduck-deploy.log || true
