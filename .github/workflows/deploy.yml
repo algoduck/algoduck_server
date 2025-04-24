@@ -19,7 +19,21 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # 1. Generate .env from template
+      - name: Generate application.yml from template
+        run: |
+          cp src/main/resources/application.yml.template src/main/resources/application.yml
+          envsubst < src/main/resources/application.yml > src/main/resources/tmp.yml
+          mv src/main/resources/tmp.yml src/main/resources/application.yml
+        env:
+          DATASOURCE_URL: jdbc:mysql://mysql-container:3306/${{ secrets.DB_NAME }}?serverTimezone=Asia/Seoul
+          DB_USER_NAME: ${{ secrets.DB_USER_NAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          S3_TESTCASE_BUCKET_NAME: ${{ secrets.S3_TESTCASE_BUCKET_NAME }}
+          S3_PROFILE_BUCKET_NAME: ${{ secrets.S3_PROFILE_BUCKET_NAME }}
+          DEFAULT_PROFILE_URL: ${{ secrets.DEFAULT_PROFILE_URL }}
+
       - name: Generate .env from template
         run: |
           cp .env.template .env.template.generated
@@ -34,12 +48,6 @@ jobs:
           S3_PROFILE_BUCKET_NAME: ${{ secrets.S3_PROFILE_BUCKET_NAME }}
           S3_TESTCASE_BUCKET_NAME: ${{ secrets.S3_TESTCASE_BUCKET_NAME }}
           DEFAULT_PROFILE_URL: ${{ secrets.DEFAULT_PROFILE_URL }}
-
-      # 2. Generate application.yml after .env
-      - name: Generate application.yml from template
-        run: |
-          set -o allexport && source .env && set +o allexport
-          envsubst < src/main/resources/application.yml.template > src/main/resources/application.yml
 
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x ./gradlew
@@ -64,7 +72,17 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             cd ~/algoduck
+
+            # 이전 컨테이너 강제 종료 및 삭제 (이름 충돌 방지)
+            docker stop algoduck || true
+            docker rm algoduck || true
+            docker stop mysql-container || true
+            docker rm mysql-container || true
+
+            # 네트워크 제거 및 캐시 없이 재빌드
             docker compose down || true
             docker compose up -d --build
+
+            # 로그 저장
             sleep 10
             docker compose logs > ~/algoduck-deploy.log || true
