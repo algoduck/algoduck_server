@@ -36,9 +36,8 @@ jobs:
 
       - name: Generate .env from template
         run: |
-          cp .env.template .env
-          envsubst < .env > tmp.env
-          mv tmp.env .env
+          cp .env.template .env.template.generated
+          envsubst < .env.template.generated > .env
         env:
           DB_ROOT_PASSWORD: ${{ secrets.DB_ROOT_PASSWORD }}
           DB_NAME: ${{ secrets.DB_NAME }}
@@ -46,9 +45,10 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
-          S3_TESTCASE_BUCKET_NAME: ${{ secrets.S3_TESTCASE_BUCKET_NAME }}
           S3_PROFILE_BUCKET_NAME: ${{ secrets.S3_PROFILE_BUCKET_NAME }}
+          S3_TESTCASE_BUCKET_NAME: ${{ secrets.S3_TESTCASE_BUCKET_NAME }}
           DEFAULT_PROFILE_URL: ${{ secrets.DEFAULT_PROFILE_URL }}
+
 
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x ./gradlew
