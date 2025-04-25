@@ -61,10 +61,14 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
-          source: "build/libs/*.jar,Dockerfile,docker-compose.yml,.env"
+          source: |
+            build/libs/*.jar,
+            Dockerfile,
+            docker-compose.yml,
+            .env
           target: "~/algoduck"
 
-      - name: SSH into EC2 and run docker-compose
+      - name: Run docker-compose on EC2
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -73,16 +77,18 @@ jobs:
           script: |
             cd ~/algoduck
 
-            # 이전 컨테이너 강제 종료 및 삭제 (이름 충돌 방지)
-            docker stop algoduck || true
-            docker rm algoduck || true
-            docker stop mysql-container || true
-            docker rm mysql-container || true
-
-            # 네트워크 제거 및 캐시 없이 재빌드
+            echo "[1] 이전 컨테이너 및 이미지 정리"
             docker compose down || true
+            docker stop algoduck mysql-container || true
+            docker rm algoduck mysql-container || true
+
+            echo "[2] 도커 네트워크 및 볼륨 정리 (옵션)"
+            docker network prune -f || true
+            docker volume prune -f || true
+
+            echo "[3] 컨테이너 백그라운드 실행"
             docker compose up -d --build
 
-            # 로그 저장
+            echo "[4] 컨테이너 로그 출력 (10초 대기)"
             sleep 10
             docker compose logs > ~/algoduck-deploy.log || true
