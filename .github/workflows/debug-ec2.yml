@@ -1,0 +1,31 @@
+name: Debug EC2 via SSH
+
+on:
+  workflow_dispatch:
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check EC2 health via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            echo "현재 디스크 상태:"
+            df -h
+
+            echo "현재 홈 디렉토리 상태:"
+            ls -alh /home/ubuntu
+
+            echo "실행 중인 프로세스 상위 10개:"
+            ps aux --sort=-%mem | head -n 10
+
+            echo "Docker 상태:"
+            docker ps -a
+
+            echo "남은 공간 정리 (옵션):"
+            # docker system prune -f
