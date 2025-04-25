@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: mysql:8.0
@@ -22,13 +20,11 @@ services:
       start_period: 30s
 
   app:
-    image: algoduck-app
-    container_name: algoduck
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        JAR_FILE: build/libs/algoduck-0.0.1-SNAPSHOT.jar  # 🎯 정확한 JAR 명시
+    image: algoduck-app
+    container_name: algoduck
     depends_on:
       db:
         condition: service_healthy
