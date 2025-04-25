@@ -87,7 +87,8 @@ jobs:
             docker volume prune -f || true
 
             echo "[3] 컨테이너 백그라운드 실행"
-            docker compose up -d --build
+            docker compose build --build-arg JAR_FILE=build/libs/algoduck-0.0.1-SNAPSHOT.jar
+            docker compose up -d
 
             echo "[4] 컨테이너 로그 출력 (10초 대기)"
             sleep 10

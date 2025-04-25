@@ -1,5 +1,5 @@
 FROM openjdk:17
-ARG JAR_FILE=build/libs/*.jar
+ARG JAR_FILE
 COPY ${JAR_FILE} app.jar
 
 # 로그 저장 디렉토리 지정
