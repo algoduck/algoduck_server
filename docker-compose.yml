@@ -1,33 +1,12 @@
-services:
-  db:
-    image: mysql:8.0
-    container_name: mysql-container
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER_NAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql-data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
+version: '3.8'
 
+services:
   app:
+    image: algoduck-app
+    container_name: algoduck
     build:
       context: .
       dockerfile: Dockerfile
-    image: algoduck-app
-    container_name: algoduck
-    depends_on:
-      db:
-        condition: service_healthy
     ports:
       - "8080:8080"
     environment:
@@ -39,6 +18,9 @@ services:
       S3_PROFILE_BUCKET_NAME: ${S3_PROFILE_BUCKET_NAME}
       S3_TESTCASE_BUCKET_NAME: ${S3_TESTCASE_BUCKET_NAME}
       DEFAULT_PROFILE_URL: ${DEFAULT_PROFILE_URL}
+    networks:
+      - algoduck-network
 
-volumes:
-  mysql-data:
+networks:
+  algoduck-network:
+    external: true
