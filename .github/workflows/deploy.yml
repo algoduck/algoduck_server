@@ -25,7 +25,7 @@ jobs:
           envsubst < src/main/resources/application.yml > src/main/resources/tmp.yml
           mv src/main/resources/tmp.yml src/main/resources/application.yml
         env:
-          DATASOURCE_URL: jdbc:mysql://mysql-container:3306/${{ secrets.DB_NAME }}?serverTimezone=Asia/Seoul
+          DATASOURCE_URL: jdbc:mysql://${{ secrets.EC2_DB_HOST }}:3306/${{ secrets.DB_NAME }}?serverTimezone=Asia/Seoul
           DB_USER_NAME: ${{ secrets.DB_USER_NAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
@@ -48,6 +48,7 @@ jobs:
           S3_PROFILE_BUCKET_NAME: ${{ secrets.S3_PROFILE_BUCKET_NAME }}
           S3_TESTCASE_BUCKET_NAME: ${{ secrets.S3_TESTCASE_BUCKET_NAME }}
           DEFAULT_PROFILE_URL: ${{ secrets.DEFAULT_PROFILE_URL }}
+          EC2_DB_HOST: ${{ secrets.EC2_DB_HOST }}
 
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x ./gradlew

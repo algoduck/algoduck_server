@@ -10,7 +10,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-container:3306/${DB_NAME}?serverTimezone=Asia/Seoul
+      SPRING_DATASOURCE_URL: jdbc:mysql://${EC2_DB_HOST}:3306/${DB_NAME}?serverTimezone=Asia/Seoul
       SPRING_DATASOURCE_USERNAME: ${DB_USER_NAME}
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       AWS_ACCESS_KEY: ${AWS_ACCESS_KEY}
@@ -18,9 +18,3 @@ services:
       S3_PROFILE_BUCKET_NAME: ${S3_PROFILE_BUCKET_NAME}
       S3_TESTCASE_BUCKET_NAME: ${S3_TESTCASE_BUCKET_NAME}
       DEFAULT_PROFILE_URL: ${DEFAULT_PROFILE_URL}
-    networks:
-      - algoduck-network
-
-networks:
-  algoduck-network:
-    external: true
