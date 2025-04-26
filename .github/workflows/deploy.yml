@@ -82,11 +82,11 @@ jobs:
             docker rm algoduck || true
 
             echo "🚀 Spring 앱 컨테이너 빌드 및 실행"
-            docker compose up -d --build app
+            docker-compose up -d --build app
 
             echo "📄 컨테이너 로그 저장"
             sleep 5
-            docker compose logs app > ~/algoduck-deploy.log || true
+            docker-compose logs app > ~/algoduck-deploy.log || true
 
       - name: Health Check
         run: |
