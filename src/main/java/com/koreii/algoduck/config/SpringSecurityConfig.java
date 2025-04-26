@@ -22,7 +22,8 @@ public class SpringSecurityConfig {
             .requestMatchers(
                 "/api/v1/members/**",
                 "/swagger-ui/**",
-                "/api-docs/**"
+                "/api-docs/**",
+                "/actuator/health"
             ).permitAll() //  인증 없이 허용
             .anyRequest().authenticated() //  나머지는 인증 필요
         ).httpBasic(Customizer.withDefaults()); //  기본 HTTP Basic 설정
