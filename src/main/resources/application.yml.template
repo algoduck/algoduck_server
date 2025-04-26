@@ -52,3 +52,9 @@ springdoc:
     path: /swagger-ui.html
     operationsSorter: alpha
     defaultModelsExpandDepth: -1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
