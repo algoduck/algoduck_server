@@ -31,6 +31,7 @@ import static com.koreii.algoduck.util.constants.Constants.validatePolicies;
 @Slf4j
 public class MemberServiceImpl implements MemberService {
   private final MemberRepository memberRepository;
+  private final LoginService loginService;
   private final FileStorageService fileStorageService;
   private final BCryptPasswordEncoder passwordEncoder;
 
@@ -170,27 +171,11 @@ public class MemberServiceImpl implements MemberService {
 
   @Override
   public MemberResponseDto login(String loginId, String password, HttpServletRequest request) {
-    Member member = memberRepository.findByLoginId(loginId)
-        .orElseThrow(() -> new LoginFailureException("아이디 또는 비밀번호가 올바르지 않습니다."));
-
-    if (!passwordEncoder.matches(password, member.getPassword())) {
-      throw new LoginFailureException("아이디 또는 비밀번호가 올바르지 않습니다.");
-    }
-
-    //  기존 세션이 있으면 사용, 없으면 새로 생성
-    HttpSession session = request.getSession(true);
-
-    //  세션에 로그인 회원 정보 저장
-    session.setAttribute("loginMember", member);
-
-    return new MemberResponseDto(member);
+    return loginService.login(loginId, password, request);
   }
 
   @Override
   public void logout(HttpServletRequest request) {
-    HttpSession session = request.getSession(false);
-    if (session != null) {
-      session.invalidate();
-    }
+    loginService.logout(request);
   }
 }

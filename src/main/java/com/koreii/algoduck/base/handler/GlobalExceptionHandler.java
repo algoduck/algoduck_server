@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,6 +60,14 @@ public class GlobalExceptionHandler {
   public ResponseEntity<ApiResponse<Void>> handleLoginFailureException(LoginFailureException e) {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
         .body(ApiResponse.failure(e.getMessage()));
+  }
+
+  @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+  public ResponseEntity<ApiResponse<Void>> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
+    String paramName = e.getName();
+    String requiredType = e.getRequiredType() != null ? e.getRequiredType().getSimpleName() : "요구 타입 없음";
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        .body(ApiResponse.failure("잘못된 요청 파라미터입니다: " + paramName + "은(는) " + requiredType + " 타입이어야 합니다."));
   }
 
   // 기타 예외 처리 (500번대 서버 에러)

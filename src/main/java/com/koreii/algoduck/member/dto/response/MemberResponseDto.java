@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class MemberResponseDto {
   private Long memberId;
   private String loginId;
+  private String email;
   private String nickname;
   private Integer solved;
   private Role role;
@@ -23,6 +24,7 @@ public class MemberResponseDto {
   public MemberResponseDto(Member member) {
     this.memberId = member.getMemberId();
     this.loginId = member.getLoginId();
+    this.email = member.getEmail();
     this.nickname = member.getNickname();
     this.solved = member.getSolved();
     this.role = member.getRole();
