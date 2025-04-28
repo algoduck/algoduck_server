@@ -178,4 +178,11 @@ public class MemberController extends BaseApiController {
 
     return ResponseEntity.ok(ApiResponse.success(memberResponseDto));
   }
+
+  @Operation(summary = "로그아웃", description = "로그아웃 요청을 처리합니다.")
+  @PostMapping("/logout")
+  public ResponseEntity<ApiResponse<Void>> logout(HttpServletRequest request) {
+    memberService.logout(request);
+    return ResponseEntity.ok(ApiResponse.success(null));
+  }
 }

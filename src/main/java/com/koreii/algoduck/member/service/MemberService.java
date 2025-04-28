@@ -40,4 +40,6 @@ public interface MemberService {
   MemberResponseDto update(Long memberId, MemberUpdateRequestDto memberUpdateRequestDto, MultipartFile file);
 
   MemberResponseDto login(String loginId, String password, HttpServletRequest request);
+
+  void logout(HttpServletRequest request);
 }

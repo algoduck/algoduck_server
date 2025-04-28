@@ -185,4 +185,12 @@ public class MemberServiceImpl implements MemberService {
 
     return new MemberResponseDto(member);
   }
+
+  @Override
+  public void logout(HttpServletRequest request) {
+    HttpSession session = request.getSession(false);
+    if (session != null) {
+      session.invalidate();
+    }
+  }
 }
