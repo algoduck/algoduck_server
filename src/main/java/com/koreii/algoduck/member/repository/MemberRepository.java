@@ -5,10 +5,13 @@ import com.koreii.algoduck.member.dto.request.MemberSaveRequestDto;
 import com.koreii.algoduck.member.dto.request.MemberUpdateRequestDto;
 import com.koreii.algoduck.member.dto.response.MemberResponseDto;
 import com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto;
+import com.koreii.algoduck.member.entity.Member;
 import com.koreii.algoduck.member.enums.Role;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface MemberRepository {
@@ -48,4 +51,6 @@ public interface MemberRepository {
   void physicalDeleteWaitingMembers();  //  회원가입 요청은 했지만 가입 유예 기간 동안 이메일 인증 안한 회원들을 실제로 제거함
 
   void logicalDeleteQuitMembers();      //  회원 탈퇴 요청 후 탈퇴 유예 기간이 지난 회원들을 논리적으로 탈퇴처리
+
+  Optional<Member> findByLoginId(String loginId); //  loginId에 해당하는 로그인 id가 존재하는지 확인
 }

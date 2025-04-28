@@ -1,6 +1,7 @@
 package com.koreii.algoduck.base.handler;
 
 import com.koreii.algoduck.base.dto.response.ApiResponse;
+import com.koreii.algoduck.exceptions.member.LoginFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -52,6 +53,12 @@ public class GlobalExceptionHandler {
 
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
         .body(ApiResponse.failure("리소스를 찾을 수 없습니다: " + e.getMessage()));
+  }
+
+  @ExceptionHandler(LoginFailureException.class)
+  public ResponseEntity<ApiResponse<Void>> handleLoginFailureException(LoginFailureException e) {
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        .body(ApiResponse.failure(e.getMessage()));
   }
 
   // 기타 예외 처리 (500번대 서버 에러)

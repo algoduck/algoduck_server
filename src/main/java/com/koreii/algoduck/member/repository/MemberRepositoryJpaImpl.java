@@ -9,11 +9,13 @@ import com.koreii.algoduck.member.entity.Member;
 import com.koreii.algoduck.member.enums.MemberStatus;
 import com.koreii.algoduck.member.enums.Role;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -187,5 +189,20 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
   @Override
   public void logicalDeleteQuitMembers() {
     throw new UnsupportedOperationException("미구현된 메서드");
+  }
+
+  @Override
+  public Optional<Member> findByLoginId(String loginId) {
+    String jpql = "SELECT m FROM Member m WHERE m.loginId = :loginId";
+
+    try {
+      Member member = entityManager.createQuery(jpql, Member.class)
+          .setParameter("loginId", loginId)
+          .getSingleResult();
+
+      return Optional.of(member);
+    } catch (NoResultException e) {
+      return Optional.empty();
+    }
   }
 }
