@@ -1,5 +1,6 @@
 package com.koreii.algoduck.member.service;
 
+import com.koreii.algoduck.exceptions.member.LoginFailureException;
 import com.koreii.algoduck.exceptions.member.MemberJoinException;
 import com.koreii.algoduck.exceptions.member.MemberUpdateException;
 import com.koreii.algoduck.file.FileStorageService;
@@ -7,8 +8,11 @@ import com.koreii.algoduck.member.dto.request.MemberSaveRequestDto;
 import com.koreii.algoduck.member.dto.request.MemberUpdateRequestDto;
 import com.koreii.algoduck.member.dto.response.MemberResponseDto;
 import com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto;
+import com.koreii.algoduck.member.entity.Member;
 import com.koreii.algoduck.member.enums.Role;
 import com.koreii.algoduck.member.repository.MemberRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -162,5 +166,23 @@ public class MemberServiceImpl implements MemberService {
     } catch (Exception e) {  //  회원 업데이트가 실패한 경우
       throw new MemberUpdateException(memberUpdateRequestDto.getLoginId() + " 업데이트 실패", e);
     }
+  }
+
+  @Override
+  public MemberResponseDto login(String loginId, String password, HttpServletRequest request) {
+    Member member = memberRepository.findByLoginId(loginId)
+        .orElseThrow(() -> new LoginFailureException("아이디 또는 비밀번호가 올바르지 않습니다."));
+
+    if (!passwordEncoder.matches(password, member.getPassword())) {
+      throw new LoginFailureException("아이디 또는 비밀번호가 올바르지 않습니다.");
+    }
+
+    //  기존 세션이 있으면 사용, 없으면 새로 생성
+    HttpSession session = request.getSession(true);
+
+    //  세션에 로그인 회원 정보 저장
+    session.setAttribute("loginMember", member);
+
+    return new MemberResponseDto(member);
   }
 }

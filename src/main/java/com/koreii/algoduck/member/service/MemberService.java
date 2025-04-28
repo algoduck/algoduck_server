@@ -5,6 +5,7 @@ import com.koreii.algoduck.member.dto.request.MemberUpdateRequestDto;
 import com.koreii.algoduck.member.dto.response.MemberResponseDto;
 import com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto;
 import com.koreii.algoduck.member.enums.Role;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -37,4 +38,6 @@ public interface MemberService {
   MemberResponseDto findMemberByMemberId(Long memberId);
 
   MemberResponseDto update(Long memberId, MemberUpdateRequestDto memberUpdateRequestDto, MultipartFile file);
+
+  MemberResponseDto login(String loginId, String password, HttpServletRequest request);
 }
