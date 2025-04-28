@@ -1,6 +1,7 @@
 package com.koreii.algoduck.base.handler;
 
 import com.koreii.algoduck.base.dto.response.ApiResponse;
+import com.koreii.algoduck.exceptions.PasswordPolicyViolationException;
 import com.koreii.algoduck.exceptions.member.LoginFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,6 +62,13 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
         .body(ApiResponse.failure(e.getMessage()));
   }
+
+  @ExceptionHandler(PasswordPolicyViolationException.class)
+  public ResponseEntity<ApiResponse<Void>> handlePasswordPolicyViolationException(PasswordPolicyViolationException e) {
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        .body(ApiResponse.failure(e.getMessage()));
+  }
+
 
   @ExceptionHandler(MethodArgumentTypeMismatchException.class)
   public ResponseEntity<ApiResponse<Void>> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {

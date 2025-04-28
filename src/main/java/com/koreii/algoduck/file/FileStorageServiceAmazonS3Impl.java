@@ -22,6 +22,8 @@ public class FileStorageServiceAmazonS3Impl implements FileStorageService {
 
   @Override
   public String uploadFile(String repositoryName, String folderPath, MultipartFile file) {
+    log.info("uploadFile");
+
     if (file == null || file.isEmpty()) {
       return null;
     }

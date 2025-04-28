@@ -145,7 +145,6 @@ public class MemberController extends BaseApiController {
   @Operation(summary = "회원 상세 조회", description = "회원 ID로 회원 정보를 조회합니다.")
   @GetMapping("/id/{memberId}")
   public ResponseEntity<ApiResponse<MemberResponseDto>> findMemberByMemberId(@PathVariable Long memberId) {
-    System.out.println("회원 상세 조회!!!");
     MemberResponseDto member = memberService.findMemberByMemberId(memberId);
     if (member == null) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.failure("해당 회원을 찾을 수 없습니다."));
