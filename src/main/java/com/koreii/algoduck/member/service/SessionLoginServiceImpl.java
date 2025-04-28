@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import static com.koreii.algoduck.util.constants.Constants.LOGIN_MEMBER;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -30,7 +32,7 @@ public class SessionLoginServiceImpl implements LoginService {
     HttpSession session = request.getSession(true);
 
     //  세션에 로그인 회원 정보 저장
-    session.setAttribute("loginMember", member);
+    session.setAttribute(LOGIN_MEMBER, member);
 
     return new MemberResponseDto(member);
   }

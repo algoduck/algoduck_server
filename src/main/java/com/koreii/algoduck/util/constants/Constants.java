@@ -15,6 +15,7 @@ public abstract class Constants {
   public static final String LOGIN_ID_POLICY_VIOLATION = "로그인 아이디 정책에 맞지 않습니다.";
   public static final String PASSWORD_POLICY_VIOLATION = "비밀번호 정책에 맞지 않습니다.";
   public static final String NICKNAME_POLICY_VIOLATION = "닉네임 정책에 맞지 않습니다.";
+  public static final String LOGIN_MEMBER = "loginMember";
 
   public static void validateLoginId(String loginId) {
     if (!PolicyValidator.isValid(loginId, LOGIN_ID_POLICY)) {
