@@ -3,7 +3,11 @@ name: Deploy Algoduck Spring App to EC2
 on:
   push:
     branches: [ develop ]
-  workflow_dispatch:
+  workflow_dispatch: # 수동 배포 트리거
+    inputs:
+      triggerReason:
+        description: "Why are you manually deploying?"
+        required: false
 
 jobs:
   deploy:
