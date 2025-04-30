@@ -133,12 +133,18 @@ public class MemberServiceImpl implements MemberService {
   @Override
   @Transactional
   public MemberResponseDto update(Long memberId, MemberUpdateRequestDto memberUpdateRequestDto, MultipartFile file) {
-    validatePassword(memberUpdateRequestDto.getPassword());
+    log.info("update");
+    log.info("memberUpdateRequestDto.beforeUrl = {}", memberUpdateRequestDto.getBeforeProfileImageUrl());
 
-    //  비밀번호 해싱
-    String hashedPassword = passwordEncoder.encode(memberUpdateRequestDto.getPassword());
-    memberUpdateRequestDto.setPassword(hashedPassword);
+    if (!(memberUpdateRequestDto.getPassword() == null) && !memberUpdateRequestDto.getPassword().equals("")) {
+      validatePassword(memberUpdateRequestDto.getPassword());
 
+      log.info("after validatePassword");
+
+      //  비밀번호 해싱
+      String hashedPassword = passwordEncoder.encode(memberUpdateRequestDto.getPassword());
+      memberUpdateRequestDto.setPassword(hashedPassword);
+    }
 
     log.info("file = {}", file);
 
@@ -165,6 +171,7 @@ public class MemberServiceImpl implements MemberService {
       }
       return memberResponseDto;
     } catch (Exception e) {  //  회원 업데이트가 실패한 경우
+      log.error("업데이트 실패 = {}", e.getMessage());
       throw new MemberUpdateException(memberUpdateRequestDto.getLoginId() + " 업데이트 실패", e);
     }
   }
