@@ -22,6 +22,7 @@ public class SpringSecurityConfig {
         .authorizeHttpRequests(auth -> auth
             .requestMatchers(
                 "/api/v1/members/**",
+                "/api/v1/problems/**",
                 "/swagger-ui/**",
                 "/api-docs/**",
                 "/actuator/health"
