@@ -19,7 +19,7 @@ public class SwaggerConfig {
             .version("1.0.0"))
         .servers(List.of(
             new Server().url("http://localhost:8080").description("Local Server"),
-            new Server().url("https://your-production-url.com").description("Production Server")
+            new Server().url("https://algoduck.duckdns.org").description("Production Server")
         ));
   }
 }
