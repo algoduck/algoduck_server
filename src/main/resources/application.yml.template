@@ -32,6 +32,7 @@ spring:
       s3:
         testcase_bucket: ${S3_TESTCASE_BUCKET_NAME}
         profile_bucket: ${S3_PROFILE_BUCKET_NAME}
+        submission_bucket: ${S3_SUBMISSION_BUCKET_NAME}
 
 logging:
   file:
@@ -45,6 +46,7 @@ app:
   default:
     profile-image-url: ${DEFAULT_PROFILE_URL}
     client-domain-name: ${CLIENT_DOMAIN_NAME}
+    judge-host: ${EC2_JUDGE_HOST}
 
 springdoc:
   api-docs:
