@@ -7,7 +7,7 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 @Getter
-public class TestcaseAddRequestDto {
+public class TestcaseRequestDto {
   private String testcaseInputName;
   private String testcaseInputUrl;
   private String testcaseOutputName;
