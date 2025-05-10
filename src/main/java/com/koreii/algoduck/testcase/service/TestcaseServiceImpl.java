@@ -3,7 +3,6 @@ package com.koreii.algoduck.testcase.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.koreii.algoduck.problemimage.dto.response.ProblemImageResponseDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +12,7 @@ import com.koreii.algoduck.exceptions.file.FileUploadFailException;
 import com.koreii.algoduck.file.FileStorageService;
 import com.koreii.algoduck.problem.entity.Problem;
 import com.koreii.algoduck.problem.repository.ProblemRepository;
-import com.koreii.algoduck.testcase.dto.request.TestcaseAddRequestDto;
+import com.koreii.algoduck.testcase.dto.request.TestcaseRequestDto;
 import com.koreii.algoduck.testcase.dto.response.TestcaseResponseDto;
 import com.koreii.algoduck.testcase.repository.TestcaseRepository;
 
@@ -50,7 +49,7 @@ public class TestcaseServiceImpl implements TestcaseService {
     }
 
     try {
-      TestcaseAddRequestDto testcaseAddRequestDto = TestcaseAddRequestDto.builder()
+      TestcaseRequestDto testcaseRequestDto = TestcaseRequestDto.builder()
           .testcaseInputName(testcaseInputName)
           .testcaseInputUrl(testcaseInputUrl)
           .testcaseOutputName(testcaseOutputName)
@@ -58,7 +57,7 @@ public class TestcaseServiceImpl implements TestcaseService {
           .isPublic(isPublic)
           .build();
 
-      return testcaseRepository.addTestcase(problem, testcaseAddRequestDto);
+      return testcaseRepository.addTestcase(problem, testcaseRequestDto);
     } catch (Exception e) {
       log.error("testcase DB insert fail", e);
       fileStorageService.deleteFile(bucketName, testcaseInputUrl);

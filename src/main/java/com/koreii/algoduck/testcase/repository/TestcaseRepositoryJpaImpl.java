@@ -1,13 +1,10 @@
 package com.koreii.algoduck.testcase.repository;
 
 import com.koreii.algoduck.problem.entity.Problem;
-import com.koreii.algoduck.problemimage.dto.response.ProblemImageResponseDto;
-import com.koreii.algoduck.problemimage.entity.ProblemImage;
-import com.koreii.algoduck.testcase.dto.request.TestcaseAddRequestDto;
+import com.koreii.algoduck.testcase.dto.request.TestcaseRequestDto;
 import com.koreii.algoduck.testcase.dto.response.TestcaseResponseDto;
 import com.koreii.algoduck.testcase.entitiy.Testcase;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,14 +18,14 @@ public class TestcaseRepositoryJpaImpl implements TestcaseRepository {
 
   @Override
   @Transactional
-  public TestcaseResponseDto addTestcase(Problem problem, TestcaseAddRequestDto testcaseAddRequestDto) {
+  public TestcaseResponseDto addTestcase(Problem problem, TestcaseRequestDto testcaseRequestDto) {
     Testcase testcase = Testcase.builder()
         .problem(problem)
-        .testcaseInputName(testcaseAddRequestDto.getTestcaseInputName())
-        .testcaseInputUrl(testcaseAddRequestDto.getTestcaseInputUrl())
-        .testcaseOutputName(testcaseAddRequestDto.getTestcaseOutputName())
-        .testcaseOutputUrl(testcaseAddRequestDto.getTestcaseOutputUrl())
-        .isPublic(testcaseAddRequestDto.isPublic())
+        .testcaseInputName(testcaseRequestDto.getTestcaseInputName())
+        .testcaseInputUrl(testcaseRequestDto.getTestcaseInputUrl())
+        .testcaseOutputName(testcaseRequestDto.getTestcaseOutputName())
+        .testcaseOutputUrl(testcaseRequestDto.getTestcaseOutputUrl())
+        .isPublic(testcaseRequestDto.isPublic())
         .build();
 
     entityManager.persist(testcase);

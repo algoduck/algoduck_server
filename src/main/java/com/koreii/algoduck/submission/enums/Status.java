@@ -1,17 +1,14 @@
 package com.koreii.algoduck.submission.enums;
 
 public enum Status {
-  COMPILE_ERROR("COMPILE_ERROR"),
+  CE("COMPILE_ERROR"),
   JUDGING("JUDGING"),
-  WRONG_ANSWER("WRONG_ANSWER"),
-  TIME_LIMIT_EXCEEDED("TIME_LIMIT_EXCEEDED"),
-  MEMORY_LIMIT_EXCEEDED("MEMORY_LIMIT_EXCEEDED"),
-  RUNTIME_ERROR("RUNTIME_ERROR"),
-  ACCEPTED("ACCEPTED");
-
-  private final String status;
+  WA("WRONG_ANSWER"),
+  TLE("TIME_LIMIT_EXCEEDED"),
+  MLE("MEMORY_LIMIT_EXCEEDED"),
+  RE("RUNTIME_ERROR"),
+  AC("ACCEPTED");
 
   Status(String status) {
-    this.status = status;
   }
 }
