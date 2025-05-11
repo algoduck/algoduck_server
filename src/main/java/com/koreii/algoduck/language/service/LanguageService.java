@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface LanguageService {
-  LanguageResponseDto findLanguageByLanguageId(Long languageId);
+  LanguageResponseDto findByLanguageId(Long languageId);
 }

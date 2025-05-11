@@ -36,4 +36,8 @@ public interface ProblemService {
   List<ProblemSimpleResponseDto> selectProblemsWithDifficulty(List<Integer> difficulties, int pageNumber, int pageSize);
 
   Problem findByProblemId(Long problemId);
+
+  ProblemSimpleResponseDto findSimpleDtoByProblemId(Long problemId);
+
+  ProblemResponseDto findDtoByProblemId(Long problemId);
 }

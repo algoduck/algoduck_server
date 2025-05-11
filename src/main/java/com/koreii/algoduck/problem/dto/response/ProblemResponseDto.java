@@ -19,6 +19,8 @@ public class ProblemResponseDto {
   private String inputDescription;
   private String outputDescription;
   private Integer difficulty;
+  private Integer timeLimitation;
+  private Integer memoryLimitation;
 
   public ProblemResponseDto(Problem problem) {
     this.problemId = problem.getProblemId();
@@ -28,5 +30,7 @@ public class ProblemResponseDto {
     this.inputDescription = problem.getInputDescription();
     this.outputDescription = problem.getOutputDescription();
     this.difficulty = problem.getDifficulty();
+    this.timeLimitation = problem.getTimeLimitation();
+    this.memoryLimitation = problem.getMemoryLimitation();
   }
 }

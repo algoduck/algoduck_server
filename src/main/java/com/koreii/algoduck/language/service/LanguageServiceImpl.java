@@ -11,7 +11,7 @@ public class LanguageServiceImpl implements LanguageService {
   private final LanguageRepository languageRepository;
 
   @Override
-  public LanguageResponseDto findLanguageByLanguageId(Long languageId) {
+  public LanguageResponseDto findByLanguageId(Long languageId) {
     return new LanguageResponseDto(languageRepository.findByLanguageId(languageId));
   }
 }
