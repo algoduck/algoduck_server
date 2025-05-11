@@ -86,4 +86,14 @@ public class ProblemServiceImpl implements ProblemService {
   public Problem findByProblemId(Long problemId) {
     return problemRepository.findByProblemId(problemId);
   }
+
+  @Override
+  public ProblemSimpleResponseDto findSimpleDtoByProblemId(Long problemId) {
+    return new ProblemSimpleResponseDto(findByProblemId(problemId));
+  }
+
+  @Override
+  public ProblemResponseDto findDtoByProblemId(Long problemId) {
+    return new ProblemResponseDto(findByProblemId(problemId));
+  }
 }

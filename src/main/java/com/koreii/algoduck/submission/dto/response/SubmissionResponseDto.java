@@ -8,11 +8,7 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 @Getter
-public class JudgeResponseDto {
-  private Status result;
+public class SubmissionResponseDto {
+  private Status status;
   private String message;
-  private String stdout;
-  private String stderr;
-  private double executionTime;
-  private Long memoryUsage;
 }
