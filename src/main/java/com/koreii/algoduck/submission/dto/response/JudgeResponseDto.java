@@ -13,6 +13,6 @@ public class JudgeResponseDto {
   private String message;
   private String stdout;
   private String stderr;
-  private double executionTime;
-  private Long memoryUsage;
+  private Integer executionTime;
+  private Integer memoryUsage;
 }

@@ -11,11 +11,13 @@ import lombok.Getter;
 public class VersionResponseDto {
   private Long versionId;
   private String languageName;
+  private String extension;
   private String versionName;
 
   public VersionResponseDto(Version version) {
     this.versionId = version.getVersionId();
     this.languageName = version.getLanguage().getName();
+    this.extension = version.getLanguage().getExtension();
     this.versionName = version.getVersionName();
   }
 }

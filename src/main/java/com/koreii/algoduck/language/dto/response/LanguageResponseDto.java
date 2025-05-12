@@ -11,9 +11,11 @@ import lombok.Getter;
 public class LanguageResponseDto {
   private Long languageId;
   private String name;
+  private String extension;
 
   public LanguageResponseDto(Language language) {
     this.languageId = language.getLanguageId();
     this.name = language.getName();
+    this.extension = language.getExtension();
   }
 }
