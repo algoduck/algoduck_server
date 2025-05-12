@@ -18,6 +18,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,6 +32,7 @@ import lombok.Setter;
 )
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Getter
 public class Submission extends BaseTimeEntity {
   @Id
@@ -46,11 +48,14 @@ public class Submission extends BaseTimeEntity {
   @JoinColumn(name = "problem_id", nullable = false)
   private Problem problem;
 
+  //  저장소 저장 완료 전에는 codeName = null
   @Column(name = "code_name", nullable = false)
   @Setter
   private String codeName;
 
+  //  저장소 저장 완료 전에는 codeUrl = null
   @Column(name = "code_url", nullable = false, columnDefinition = "TEXT")
+  @Setter
   private String codeUrl;
 
   @OneToOne
@@ -62,11 +67,17 @@ public class Submission extends BaseTimeEntity {
   @Setter
   private Status status;
 
-  @Column(name = "execution_time", nullable = false)
+  @Column(name = "message")
+  @Setter
+  private String message;
+
+  //  채점 완료 전에는 실행시간이 null
+  @Column(name = "execution_time")
   @Setter
   private Integer executionTime;
 
-  @Column(name = "memory_usage", nullable = false)
+  //  채점 완료 전에는 실행시간이 null
+  @Column(name = "memory_usage")
   @Setter
   private Integer memoryUsage;
 }

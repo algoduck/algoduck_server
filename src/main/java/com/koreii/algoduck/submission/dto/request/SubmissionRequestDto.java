@@ -11,8 +11,5 @@ public class SubmissionRequestDto {
   private Long memberId;
   private Long problemId;
   private String sourceCode;
-  private Long languageId;
   private Long versionId;
-  private int timeLimitation;
-  private int memoryLimitation;
 }
