@@ -8,7 +8,10 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 @Getter
-public class SubmissionResponseDto {
+public class SubmissionSaveResponseDto {
+  private Long submissionId;
+  private Long memberId;
+  private Long
   private Status status;
   private String message;
 }
