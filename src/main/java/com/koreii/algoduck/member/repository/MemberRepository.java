@@ -40,7 +40,7 @@ public interface MemberRepository {
 
   List<MemberSimpleResponseDto> findByRole(Role role, int pageNumber, int pageSize);            //  역할이 role인 회원 리스트를 보여주기 (100명 단위로 페이지네이션)
 
-  MemberResponseDto findByMemberId(Long memberId);               //  특정 회원 한 명의 상세정보를 PK로 가져오기
+  Member findByMemberId(Long memberId);               //  특정 회원 한 명의 상세정보를 PK로 가져오기
 
   MemberResponseDto login(LoginRequestDto loginRequestDto);                //  로그인 결과로 로그인한 회원 정보를 반환함
 
