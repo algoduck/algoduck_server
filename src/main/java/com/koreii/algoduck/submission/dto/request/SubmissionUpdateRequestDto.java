@@ -1,5 +1,6 @@
 package com.koreii.algoduck.submission.dto.request;
 
+import com.koreii.algoduck.submission.dto.response.SubmissionResponseDto;
 import com.koreii.algoduck.submission.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

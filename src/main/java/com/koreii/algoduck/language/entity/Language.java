@@ -31,4 +31,8 @@ public class Language extends BaseTimeEntity {
   @Column(nullable = false)
   @Setter
   private String name;
+
+  @Column(nullable = false)
+  @Setter
+  private String extension;
 }
