@@ -8,7 +8,6 @@ import com.koreii.algoduck.member.dto.request.MemberUpdateRequestDto;
 import com.koreii.algoduck.member.dto.response.MemberResponseDto;
 import com.koreii.algoduck.member.dto.response.MemberPagingResponseDto;
 import com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto;
-import com.koreii.algoduck.member.entity.Member;
 import com.koreii.algoduck.member.enums.Role;
 import com.koreii.algoduck.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -145,7 +144,7 @@ public class MemberController extends BaseApiController {
   @Operation(summary = "회원 상세 조회", description = "회원 ID로 회원 정보를 조회합니다.")
   @GetMapping("/id/{memberId}")
   public ResponseEntity<ApiResponse<MemberResponseDto>> findMemberByMemberId(@PathVariable Long memberId) {
-    MemberResponseDto member = memberService.findMemberByMemberId(memberId);
+    MemberResponseDto member = memberService.findDtoByMemberId(memberId);
     if (member == null) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.failure("해당 회원을 찾을 수 없습니다."));
     }

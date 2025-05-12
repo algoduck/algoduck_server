@@ -35,7 +35,9 @@ public interface MemberService {
 
   List<MemberSimpleResponseDto> findMembersWithRole(Role role, int pageNumber, int pageSize);
 
-  MemberResponseDto findMemberByMemberId(Long memberId);
+  MemberResponseDto findDtoByMemberId(Long memberId);
+
+  MemberSimpleResponseDto findSimpleDtoByMemberId(Long memberId);
 
   MemberResponseDto update(Long memberId, MemberUpdateRequestDto memberUpdateRequestDto, MultipartFile file);
 

@@ -161,16 +161,6 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
   }
 
   @Override
-  public MemberResponseDto findDtoByMemberId(Long memberId) {
-    return new MemberResponseDto(findByMemberId(memberId));
-  }
-
-  @Override
-  public MemberSimpleResponseDto findSimpleDtoByMemberId(Long memberId) {
-    return new MemberSimpleResponseDto(findByMemberId(memberId));
-  }
-
-  @Override
   public MemberResponseDto login(LoginRequestDto loginRequestDto) {
     throw new UnsupportedOperationException("미구현된 메서드");
   }

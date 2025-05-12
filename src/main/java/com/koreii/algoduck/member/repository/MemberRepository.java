@@ -42,10 +42,6 @@ public interface MemberRepository {
 
   Member findByMemberId(Long memberId);               //  특정 회원 한 명의 상세정보를 PK로 가져오기
 
-  MemberResponseDto findDtoByMemberId(Long memberId);               //  특정 회원 한 명의 상세정보를 PK로 가져오기
-
-  MemberSimpleResponseDto findSimpleDtoByMemberId(Long memberId);               //  특정 회원 한 명의 간단한 정보를 PK로 가져오기
-
   MemberResponseDto login(LoginRequestDto loginRequestDto);                //  로그인 결과로 로그인한 회원 정보를 반환함
 
   MemberResponseDto update(Long memberId, MemberUpdateRequestDto updateRequestDto, String profileImageUrl);       //  회원 정보를 갱신함

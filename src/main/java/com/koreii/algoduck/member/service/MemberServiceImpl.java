@@ -126,8 +126,13 @@ public class MemberServiceImpl implements MemberService {
   }
 
   @Override
-  public MemberResponseDto findMemberByMemberId(Long memberId) {
-    return memberRepository.findDtoByMemberId(memberId);
+  public MemberResponseDto findDtoByMemberId(Long memberId) {
+    return new MemberResponseDto(memberRepository.findByMemberId(memberId));
+  }
+
+  @Override
+  public MemberSimpleResponseDto findSimpleDtoByMemberId(Long memberId) {
+    return new MemberSimpleResponseDto(memberRepository.findByMemberId(memberId));
   }
 
   @Override
