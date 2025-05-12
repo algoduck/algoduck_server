@@ -13,6 +13,7 @@ import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -176,9 +177,13 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
   }
 
   @Override
+  @Transactional
   public MemberResponseDto updateProfileImageUrl(Long memberId, String profileImageUrl) {
     Member member = entityManager.find(Member.class, memberId);
     member.setProfileImageUrl(profileImageUrl);
+
+    log.info("DB에 프로필 이미지 업데이트 요청: memberId={}, url={}", memberId, profileImageUrl);
+
     return new MemberResponseDto(member);
   }
 
