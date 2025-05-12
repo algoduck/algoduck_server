@@ -36,10 +36,10 @@ public class ProblemImageServiceImpl implements ProblemImageService {
     String problemImageUrl = null;
 
     try {
-      problemImageUrl = fileStorageService.uploadFile(bucketName, "problem-image/" + problem.getProblemId(), problemImage);
-    } catch (FileUploadFailException e) {
+      problemImageUrl = fileStorageService.uploadFile(bucketName, "problem-image/" + problem.getProblemId(), problemImage).get();
+    } catch (Exception e) {
       log.error("Fail to upload problem image file", e);
-      throw e;
+      throw new FileUploadFailException(e);
     }
 
     try {

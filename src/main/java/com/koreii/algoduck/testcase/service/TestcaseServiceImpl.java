@@ -41,11 +41,11 @@ public class TestcaseServiceImpl implements TestcaseService {
     String testcaseOutputUrl = null;
 
     try {
-      testcaseInputUrl = fileStorageService.uploadFile(bucketName, "testcase/" + problem.getProblemId() + "/input", testcaseInput);
-      testcaseOutputUrl = fileStorageService.uploadFile(bucketName, "testcase/" + problem.getProblemId() + "/output", testcaseOutput);
-    } catch (FileUploadFailException e) {
+      testcaseInputUrl = fileStorageService.uploadFile(bucketName, "testcase/" + problem.getProblemId() + "/input", testcaseInput).get();
+      testcaseOutputUrl = fileStorageService.uploadFile(bucketName, "testcase/" + problem.getProblemId() + "/output", testcaseOutput).get();
+    } catch (Exception e) {
       log.error("Fail to upload testcase file", e);
-      throw e;
+      throw new FileUploadFailException(e);
     }
 
     try {

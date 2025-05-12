@@ -13,7 +13,8 @@ import org.springframework.stereotype.Component;
 public class ExceptionLoggingAspect {
 
   @Pointcut("@annotation(org.springframework.web.bind.annotation.ExceptionHandler)")
-  public void exceptionHandlerMethods() {}
+  public void exceptionHandlerMethods() {
+  }
 
   @Around("exceptionHandlerMethods()")
   public Object logException(ProceedingJoinPoint joinPoint) throws Throwable {

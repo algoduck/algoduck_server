@@ -2,8 +2,10 @@ package com.koreii.algoduck.file;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public interface FileStorageService {
-  String uploadFile(String repositoryName, String folderPath, MultipartFile file);
+import java.util.concurrent.CompletableFuture;
 
-  void deleteFile(String repositoryName, String fileUrl);
+public interface FileStorageService {
+  CompletableFuture<String> uploadFile(String repositoryName, String folderPath, MultipartFile file);
+
+  CompletableFuture<Void> deleteFile(String repositoryName, String fileUrl);
 }

@@ -166,12 +166,18 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
   }
 
   @Override
-  public MemberResponseDto update(Long memberId, MemberUpdateRequestDto updateRequestDto, String profileImageUrl) {
+  public MemberResponseDto update(Long memberId, MemberUpdateRequestDto updateRequestDto) {
     log.info("password = {}", updateRequestDto.getPassword());
 
     Member member = entityManager.find(Member.class, memberId);
     member.setPassword(updateRequestDto.getPassword());
     member.setStatusMessage(updateRequestDto.getStatusMessage());
+    return new MemberResponseDto(member);
+  }
+
+  @Override
+  public MemberResponseDto updateProfileImageUrl(Long memberId, String profileImageUrl) {
+    Member member = entityManager.find(Member.class, memberId);
     member.setProfileImageUrl(profileImageUrl);
     return new MemberResponseDto(member);
   }
