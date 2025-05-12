@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import static com.koreii.algoduck.util.constants.Constants.validatePassword;
 import static com.koreii.algoduck.util.constants.Constants.validatePolicies;
@@ -65,24 +66,27 @@ public class MemberServiceImpl implements MemberService {
     String hashedPassword = passwordEncoder.encode(memberSaveRequestDto.getPassword());
     memberSaveRequestDto.setPassword(hashedPassword);
 
-    String profileImageUrl = fileStorageService.uploadFile(bucketName, "profile/" + memberSaveRequestDto.getLoginId(), file);
-
-    log.info("join uploaded file url = {}", profileImageUrl);
-    String submitProfileImageUrl = null;  //  DB에 저장할 url
+    String submitProfileImageUrl = defaultProfileImageUrl;  //  DB에 저장할 url
+    MemberResponseDto memberResponseDto = null;
 
     try {
-      if (profileImageUrl == null) { //  회원 가입할 때 제출한 이미지 업로드가 실패한 경우
-        log.warn("기본 이미지 사용");
-        submitProfileImageUrl = defaultProfileImageUrl; //  기본 이미지로 설정
-      } else {  //  제출한 이미지 업로드가 성공할 경우
-        submitProfileImageUrl = profileImageUrl; //  해당 이미지로 설정
-      }
-
-      return memberRepository.save(memberSaveRequestDto, submitProfileImageUrl);
-    } catch (Exception e) { //  회원 저장이 실패한 경우
-      fileStorageService.deleteFile(bucketName, profileImageUrl);
-      throw new MemberJoinException(memberSaveRequestDto.getLoginId() + " 회원 가입 실패", e);
+      memberResponseDto = memberRepository.save(memberSaveRequestDto, submitProfileImageUrl);
+    } catch (Exception e) {
+      throw new MemberJoinException(memberSaveRequestDto.getLoginId() + " 회원가입 실패, " + e);
     }
+
+    Long memberId = memberResponseDto.getMemberId();
+
+    CompletableFuture<String> upload = fileStorageService.uploadFile(bucketName, "profile/" + memberSaveRequestDto.getLoginId(), file);
+    upload.thenAccept(profileImageUrl -> {
+      log.info("S3 업로드 완료: {}", profileImageUrl);
+      memberRepository.updateProfileImageUrl(memberId, profileImageUrl);
+    }).exceptionally(ex -> {
+      log.error("S3 이미지 업로드 실패", ex);
+      return null;
+    });
+
+    return memberResponseDto;
   }
 
   @Override
@@ -151,34 +155,39 @@ public class MemberServiceImpl implements MemberService {
       memberUpdateRequestDto.setPassword(hashedPassword);
     }
 
-    log.info("file = {}", file);
-
     String beforeProfileUrl = memberUpdateRequestDto.getBeforeProfileImageUrl();  //  기존 프로필 이미지 url
-    String afterProfileUrl = fileStorageService.uploadFile(bucketName, "profile/" + memberUpdateRequestDto.getLoginId(), file);
-
-    log.info("In MemberService update");
-    log.info("beforeProfileFileUrl = {}", beforeProfileUrl);
-    log.info("afterProfileUrl = {}", afterProfileUrl);
-
-    log.info("update uploaded file url = {}", afterProfileUrl);
-    String submitProfileUrl = null;
-
-    MemberResponseDto memberResponseDto;
+    MemberResponseDto memberResponseDto = null;
 
     try {
-      //  업로드 실패 시 기존 이미지 사용
-      submitProfileUrl = afterProfileUrl == null ? beforeProfileUrl : afterProfileUrl;
-      memberResponseDto = memberRepository.update(memberId, memberUpdateRequestDto, submitProfileUrl);
-
-      if (afterProfileUrl != null) { //  업로드가 성공했을 경우 기존 파일 삭제
-        log.info("beforeProfileUrl = {}", beforeProfileUrl);
-        fileStorageService.deleteFile(bucketName, beforeProfileUrl);
-      }
-      return memberResponseDto;
-    } catch (Exception e) {  //  회원 업데이트가 실패한 경우
-      log.error("업데이트 실패 = {}", e.getMessage());
-      throw new MemberUpdateException(memberUpdateRequestDto.getLoginId() + " 업데이트 실패", e);
+      memberResponseDto = memberRepository.update(memberId, memberUpdateRequestDto);
+    } catch (Exception e) {
+      throw new MemberUpdateException(memberUpdateRequestDto.getLoginId() + " 회원 업데이트 실패", e);
     }
+
+    log.info("file = {}", file);
+
+    CompletableFuture<String> upload = fileStorageService.uploadFile(bucketName, "profile/" + memberUpdateRequestDto.getLoginId(), file);
+    upload.thenAccept(profileImageUrl -> {
+      log.info("S3 업로드 완료: {}", profileImageUrl);
+      memberRepository.updateProfileImageUrl(memberId, profileImageUrl);
+    }).exceptionally(ex -> {
+      log.error("S3 이미지 업데이트 실패", ex);
+      memberRepository.updateProfileImageUrl(memberId, beforeProfileUrl); //  기존 프로필 이미지로 대체
+      return null;
+    });
+
+    //  기본 프로필 이미지 URL의 경우 제거하지 않음
+    if (!beforeProfileUrl.equals(defaultProfileImageUrl)) {
+      CompletableFuture<Void> delete = fileStorageService.deleteFile(bucketName, beforeProfileUrl);
+      delete.thenRun(() -> {
+        log.info("S3 기존 이미지 제거 완료: {}", beforeProfileUrl);
+      }).exceptionally(ex -> {
+        log.error("S3 기존 이미지 제거 실패", ex);
+        return null;
+      });
+    }
+
+    return memberResponseDto;
   }
 
   @Override

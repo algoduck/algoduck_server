@@ -8,11 +8,13 @@ import com.koreii.algoduck.exceptions.file.FileUploadFailException;
 import com.koreii.algoduck.exceptions.file.s3.AmazonS3FileUploadFailException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
@@ -21,24 +23,27 @@ public class FileStorageServiceAmazonS3Impl implements FileStorageService {
   private final AmazonS3 amazonS3;
 
   @Override
-  public String uploadFile(String repositoryName, String folderPath, MultipartFile file) {
+  @Async("fileExecutor")
+  public CompletableFuture<String> uploadFile(String repositoryName, String folderPath, MultipartFile file) {
     log.info("uploadFile");
 
     if (file == null || file.isEmpty()) {
-      return null;
+      return CompletableFuture.completedFuture(null);
     }
 
     try {
-      return uploadS3File(repositoryName, folderPath, file);
+      String url = uploadS3File(repositoryName, folderPath, file);
+      return CompletableFuture.completedFuture(url);
     } catch (FileUploadFailException e) {
       log.warn("Failed to upload file to Folder: {}", folderPath, e);
       log.warn("기존 이미지 사용");
-      return null;
+      return CompletableFuture.completedFuture(null);
     }
   }
 
   @Override
-  public void deleteFile(String repositoryName, String fileUrl) {
+  @Async("fileExecutor")
+  public CompletableFuture<Void> deleteFile(String repositoryName, String fileUrl) {
     if (fileUrl != null) {
       try {
         log.info("bucketName = {}", repositoryName);
@@ -48,6 +53,8 @@ public class FileStorageServiceAmazonS3Impl implements FileStorageService {
         log.error("Failed to delete file from {}", fileUrl, e);
       }
     }
+
+    return CompletableFuture.completedFuture(null);
   }
 
   private String uploadS3File(String bucketName, String filePath, MultipartFile file) {

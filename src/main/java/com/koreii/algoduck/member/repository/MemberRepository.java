@@ -44,7 +44,9 @@ public interface MemberRepository {
 
   MemberResponseDto login(LoginRequestDto loginRequestDto);                //  로그인 결과로 로그인한 회원 정보를 반환함
 
-  MemberResponseDto update(Long memberId, MemberUpdateRequestDto updateRequestDto, String profileImageUrl);       //  회원 정보를 갱신함
+  MemberResponseDto update(Long memberId, MemberUpdateRequestDto updateRequestDto);       //  회원 정보를 갱신함
+
+  MemberResponseDto updateProfileImageUrl(Long memberId, String profileImageUrl);
 
   void quit(Long memberId);   //  회원 탈퇴를 요청하면 해당 회원의 상태를 PENDING_DELETION으로 변경함
 
