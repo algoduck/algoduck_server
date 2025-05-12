@@ -154,10 +154,20 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
   }
 
   @Override
-  public MemberResponseDto findByMemberId(Long memberId) {
+  public Member findByMemberId(Long memberId) {
     Member member = entityManager.find(Member.class, memberId);
 
-    return new MemberResponseDto(member);
+    return member;
+  }
+
+  @Override
+  public MemberResponseDto findDtoByMemberId(Long memberId) {
+    return new MemberResponseDto(findByMemberId(memberId));
+  }
+
+  @Override
+  public MemberSimpleResponseDto findSimpleDtoByMemberId(Long memberId) {
+    return new MemberSimpleResponseDto(findByMemberId(memberId));
   }
 
   @Override
