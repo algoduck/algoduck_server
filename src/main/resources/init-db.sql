@@ -125,6 +125,17 @@ VALUES (1001,
         0,
         0);
 
+UPDATE problems_seq SET next_val = 1010;
+
+INSERT INTO languages (language_id, name, extension, created_at) VALUES (1001, "Java", "java", now());
+INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES (1001, 1001, "Java 8", now());
+INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES (1002, 1001, "Java 11", now());
+INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES (1003, 1001, "Java 15", now());
+INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES (1004, 1001, "Java 17", now());
+
+UPDATE languages_seq SET next_val = 1002;
+UPDATE versions_seq SET next_val = 1005;
+
 commit;
 set
 autocommit = 1;
