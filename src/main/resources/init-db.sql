@@ -1,131 +1,58 @@
 set
 autocommit = 0;
 
+UPDATE problems_seq SET next_val = 0;
+
 INSERT INTO problems (problem_id, problem_number, title, description, input_description, output_description,
-                      time_limitation, memory_limitation, difficulty)
-VALUES (1001,
+                      time_limitation, memory_limitation, difficulty, created_at)
+VALUES (1000,
+        1000,
+        '알고오리',
+        '자연수 N을 입력받아서 “알고오리”를 N번 출력한다.',
+        '첫번째 줄에 자연수 N이 주어진다. (1 ≤ N ≤ 1,000)',
+        'N개의 줄에 “알고오리”를 출력한다. (“”는 출력하지 않는다.)',
+        2,
+        128,
+        0,
+        now()),
+       (1001,
         1001,
         '두 수 더하기',
-        '두 자연수 A와 B를 입력받아 그 합을 출력해주세요.',
+        '두 자연수 A와 B를 입력받아 그 합을 출력하라.',
         '첫 번째 줄에 두 자연수 A, B가 주어진다. (1 ≤ A, B ≤ 2,000,000,000)',
         '두 자연수 A와 B의 합을 출력한다.',
+        2,
+        128,
         0,
-        0,
-        0),
+        now()),
        (1002,
         1002,
-        '접속 가능한 네트워크',
-        '한 회사에는 여러 개의 사설 네트워크(subnet)가 운영되고 있습니다. 각 네트워크는 다음과 같은 정보로 정의됩니다.
-• 네트워크 주소 (IPv4, 32비트)
-• 서브넷 마스크 (IPv4, 32비트)
-이제 수많은 외부 접속 요청이 들어옵니다. 각 요청은 하나의 IPv4 주소로 이루어져 있으며, 해당 IP가 어느 네트워크와 연결 가능한지를 판단해야 합니다.
-어떤 네트워크에 대해 IP & MASK == NETWORK_ADDR이면 접속이 가능하다고 간주합니다.',
-        '첫 번째 줄에 두 정수 N, M이 주어진다. • N :  회사에서 운영 중인 네트워크의 수 (1 ≤ N ≤ 100,000) • M :  접속 요청의 수 (1 ≤ M ≤ 100,000) 다음 N개의 줄에 두 문자열 NETWORK_ADDR과 MASK가 공백으로 구분되어 주어진다. 다음 M개의 줄에 접속을 요청한 IP_ADDR이 문자열로 주어진다.',
-        '총 M개의 줄에 거쳐 각 IP 주소가 접속 가능한 네트워크가 있는 경우 “YES”, 없는 경우 “NO”를 출력한다.',
+        '군집 내 가장 먼 두 도시 사이 거리',
+        'Algoduck 국가에는 N개의 도시가 존재하고, 이 도시들은 M개의 서로 다른 도로로 연결되어 있다. 각 도로는 반드시 서로 다른 두 도시를 연결하며 양방향으로 이동 가능하다. 하지만 N개의 도시 중 임의의 두 도시 사이를 도로를 통해 반드시 이동할 수 있다는 보장은 없다. 서로 이동할 수 있는 도시들끼리는 군집(Cluster)를 이루고 있다.
+
+어떤 군집의 임의의 두 도시 사이의 경로는 반드시 하나 존재한다. 이 때 각 군집에서 가장 먼 도시 사이의 거리를 오름차순으로 출력하라. 만약 군집 내의 도시의 개수가 1개일 경우 0을 출력한다.',
+        '- 첫번째 줄에 두 자연수 N, M이 주어진다. (1 ≤ N ≤ 100,000, 0 ≤ M < N)
+- 두 번째 줄부터 M개의 줄에는 세 자연수 u, v, w가 주어진다. (1 ≤ u, v ≤ N, 1 ≤ w ≤ 100,000) 이는 u번째 도시와 v번째 도시가 길이가 w인 양방향 도로로 연결되었다는 뜻이다.',
+        '가장 먼 두 도시 사이의 거리가 가까운 순으로 k개의 군집 C1, C2, …, Ck가 존재하면 그 거리를 d1, d2, …, dk로 오름차순으로 k개의 줄에 출력한다.',
+        2,
+        256,
         0,
-        0,
-        0),
+        now()),
        (1003,
         1003,
-        '숲의 가장 먼 거리',
-        '숲에는 총 N개의 나무가 존재하고, 이 나무들은 M개의 서로 다른 길로 연결되어 있습니다. 이때, 각 연결은 양방향이며, 길은 항상 두 나무 사이를 잇습니다. 그러나 전체적으로 보면 하나의 큰 트리가 아닌, 여러 개의 연결 요소(포레스트)로 이루어져 있습니다.
-각 연결 요소(트리)에 대해 가장 멀리 떨어진 두 노드 사이의 거리를 "그 트리의 거리"라고 정의합니다. 숲 전체에서 서로 다른 두 트리를 하나의 길로 연결할 수 있다고 할 때, 다음 조건을 만족하도록 새로운 길을 하나 만들어주세요.
-• 새로 연결한 후 전체 그래프가 연결 그래프가 되어야 합니다.
-• 연결 후에 생긴 전체 트리의 지름이 최소가 되도록 만들어야 합니다.
-이때, 연결한 후의 전체 트리의 지름의 최솟값을 구하세요.',
-        '• 첫째 줄에 두 정수 N, M이 주어진다. (1 ≤ N ≤ 100,000, 0 ≤ M < N)
-• 다음 M개의 줄에는 두 정수 u, v와 정수 w가 주어진다. (1 ≤ u, v ≤ N, 1 ≤ w ≤ 1,000)
-이는 u번 나무와 v번 나무가 가중치 w인 길로 연결되어 있다는 의미이다.',
-        '새로 연결한 후 전체 트리의 지름의 최소값을 출력한다.',
-        0,
-        0,
-        0),
-       (1004,
-        1004,
         '감염 전파 시간 계산',
-        '어느 도시에는 N x M 크기의 격자 모양의 건물들이 있다. 각 칸은 아래의 상태 중 하나를 가진다:
-• 0 : 비어 있는 공간 (감염되지 않음)
-• 1 : 감염이 시작된 위치
-• -1 : 벽이나 출입 불가능한 공간
-감염은 1초에 한 칸씩 상하좌우 인접한 칸으로 퍼진다. 감염이 가능한 모든 칸이 감염되기까지 걸리는 최소 시간을 구하라. 단, 어떤 칸은 도달할 수 없는 경우도 있다.',
-        '• 첫 번째 줄에 두 정수 N(1 ≤ N ≤ 1,000), M(1 ≤ M ≤ 1,000)이 주어진다.
-• 이어서 N개의 줄에 M개의 정수가 공백으로 구분되어 주어진다. 각 정수는 1, 0, 또는 -1 중 하나이다.',
-        '• 감염이 가능한 모든 칸이 감염되기까지의 최소 시간을 출력하라.
-• 만약 감염이 불가능한 칸이 존재한다면 -1을 출력하라.',
+        'Algoduck 국가의 수도 콰코어(Quackcore) 시는 계획도시로 N x M 크기의 격자모양으로 건설되었다. 각 격자마다 한 개씩 건물이 존재한다.
+콰코어의 건물 중 음이 아닌 정수개의 건물이 DI(Duck Influenza) 바이러스에 감염되었으며 감염은 1시간마다 한 칸씩 상하좌우로 인접한 건물로 전염된다. 콰코어 시의 시장은 DI 바이러스가 퍼지는 것을 막기 위해 도시 내 건물 중 0개 이상의 건물을 철거하고 대신 방호벽을 세웠다. DI 바이러스는 방호벽이 있는 격자로는 전염될 수 없다.
+방호벽을 제외한 모든 건물이 DI 바이러스에 감염되는 최소 시간을 구하여라. DI 바이러스 최초 감염은 동시에 발생했으며 방호벽을 제외한 건물 중 하나라도 DI 바이러스에 감염시킬 수 없다면 -1을 출력한다.',
+        '• 첫번째 줄에 도시의 크기 N, M이 주어진다. (1 ≤ N ≤ 1,000, 1 ≤ M ≤ 1,000)
+• 두 번째 줄부터 N개의 줄에는 DI 바이러스 감염이 시작되었을때 도시의 상황이 주어진다. 0은 감염이 퍼지지 않은 건물, 1은 감염이 시작된 건물, -1은 방호벽을 의미한다.',
+        '방호벽을 제외한 모든 건물을 DI 바이러스에 감염시키기 위한 최소 시간을 출력한다. 만약 하나의 건물이라도 바이러스에 감염시킬 수 없을 경우 -1을 출력한다.',
+        2,
+        192,
         0,
-        0,
-        0),
-       (1005,
-        1005,
-        '안전한 탈출 경로',
-        '당신은 N개의 지역과 M개의 도로로 이루어진 도시에서 탈출하려 한다. 각 도로는 양방향이며, 길마다 위험도가 존재한다. 위험도는 해당 도로를 지날 때 마주칠 수 있는 위험의 크기를 나타낸다. 당신은 도시의 입구 지역 1번에서 출발하여 출구 지역 N번까지 도달하고자 한다.
-당신은 무조건 위험도가 일정 이하인 도로만 사용할 수 있으며, 그 범위 내에서 총 이동 거리를 최소화하고 싶다.
-즉, 최대 위험도 K 이하인 도로들만 사용해서 1번 지역에서 N번 지역까지 도달할 수 있는지 판단하고, 가능한 값 중 최소의 K를 찾아, 그때의 최단 경로 거리를 출력해야 한다.',
-        '• 첫째 줄에 정점의 개수 N (2 ≤ N ≤ 10,000), 도로의 개수 M (1 ≤ M ≤ 100,000)이 주어진다.
-• 다음 M개의 줄에는 세 개의 정수 A, B, D, R이 주어진다. (1 ≤ A, B ≤ N, A ≠ B, 1 ≤ D ≤ 1,000,000, 0 ≤ R ≤ 1,000,000)
-이는 A와 B를 잇는 도로가 있으며, 이동 거리는 D, 위험도는 R이라는 뜻이다.
-• 도로는 중복될 수 있다.',
-        '• 1번 지역에서 N번 지역까지 도달 가능한 최소 위험도 K와, 그때의 최단 거리를 공백으로 구분하여 출력한다.
-• 만약 도달할 수 없다면 -1을 출력한다.',
-        0,
-        0,
-        0),
-       (1006,
-        1006,
-        '특별한 숫자의 집합',
-        '정수 N과 M이 주어진다. 정수 1부터 N까지의 수 중에서 서로 다른 M개의 수를 골라 만든 모든 수열 중, 아래 조건을 만족하는 수열의 개수를 구하라.
-• 수열의 각 인접한 두 수의 차이가 모두 서로 다르다.
-예를 들어, 수열 [1, 3, 6]의 인접 차이는 [2, 3]으로 서로 다르므로 조건을 만족한다. 하지만 [1, 3, 5]의 인접 차이는 [2, 2]로 조건을 만족하지 않는다.',
-        '• 첫 줄에 두 정수 N, M이 주어진다. (2 ≤ M ≤ N ≤ 10)',
-        '• 조건을 만족하는 수열의 개수를 출력한다.',
-        0,
-        0,
-        0),
-       (1007,
-        1007,
-        '암호 키 생성기',
-        '당신은 특정 규칙에 따라 비밀번호를 생성하는 시스템을 개발하고 있다.
-비밀번호는 숫자 0부터 K - 1까지 중 하나를 사용하여 길이 N인 문자열로 구성된다.
-단, 비밀번호는 중복을 허용하여 숫자를 선택할 수 있으며, 사전순으로 앞서는 순서대로 모두 출력해야 한다.
-예를 들어 N = 2, K = 2일 경우 가능한 비밀번호는 다음과 같다:
-• 00, 01, 10, 11
-또한, 생성된 비밀번호 중 특정 조건을 만족하는 것만 유효하다.
-유효한 비밀번호는 같은 숫자가 연속으로 3번 이상 등장하지 않는 경우를 뜻한다.',
-        '• 첫 줄에 두 정수 N, K가 주어진다. (2 ≤ N ≤ 8, 1 ≤ K ≤ 10)',
-        '• 조건을 만족하는 가능한 비밀번호를 사전순으로 한 줄에 하나씩 출력하라.',
-        0,
-        0,
-        0),
-       (1008,
-        1008,
-        '독립된 마을의 연결',
-        '어떤 나라에는 N개의 마을이 있고, 일부 마을끼리는 도로로 연결되어 있습니다. 이 나라에서는 마을 간에 순환되는 도로가 없어야 하며, 마을 간 연결은 하나의 포레스트(Forest) 구조로 구성되어 있습니다. 즉, 여러 개의 트리(Tree)로 구성된 그래프이며, 각 트리는 서로 연결되어 있지 않습니다.
-정부에서는 두 마을을 새 도로로 연결하려고 합니다. 단, 여전히 사이클이 생기지 않도록 포레스트 구조를 유지해야 합니다.
-당신의 임무는 다음과 같습니다:
-1. 주어진 마을과 도로 정보를 바탕으로 몇 개의 독립적인 트리(connected component)가 있는지를 구하세요.
-2. 사이클 없이 모든 마을을 하나의 연결된 트리로 만들기 위해 최소 몇 개의 도로를 추가해야 하는지 구하세요.',
-        '• 첫 줄에 마을 수 N (1 ≤ N ≤ 100,000), 도로 수 M (0 ≤ M < N)이 주어진다.
-• 이어지는 M줄에는 두 정수 u, v (1 ≤ u, v ≤ N)가 주어진다. 이는 마을 u와 마을 v가 도로로 연결되어 있다는 의미이다.',
-        '• 첫째 줄에 현재 포레스트에 포함된 트리의 수를 출력한다.
-• 둘째 줄에 사이클 없이 모든 마을을 연결하기 위해 필요한 최소 도로 수를 출력한다.',
-        0,
-        0,
-        0),
-       (1009,
-        1009,
-        '가장 멀리 있는 두 마을',
-        'N개의 마을이 있고, 이 마을들은 N-1개의 양방향 도로로 연결되어 있어 트리 형태를 이룹니다. 각 도로는 이동하는 데 일정한 시간이 소요됩니다.
-당신은 이 마을들 중 가장 멀리 떨어진 두 마을을 찾고 싶습니다. 두 마을 사이의 최단 이동 시간(거리)이 최대가 되도록 할 때, 그 최대 거리를 구하세요.',
-        '• 첫 번째 줄에 정수 N이 주어집니다. (2 ≤ N ≤ 100,000)
-• 다음 N-1줄에는 세 개의 정수 A, B, C가 주어집니다.
+        now());
 
-    ◦ A번 마을과 B번 마을이 거리가 C인 도로로 연결되어 있다는 의미입니다. (1 ≤ A, B ≤ N, 1 ≤ C ≤ 10,000)',
-        '• 가장 멀리 떨어진 두 마을 사이의 거리(트리의 지름)를 출력하세요.',
-        0,
-        0,
-        0);
-
-UPDATE problems_seq SET next_val = 1010;
+UPDATE problems_seq SET next_val = 1004;
 
 INSERT INTO languages (language_id, name, extension, created_at) VALUES (1001, "Java", "java", now());
 INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES (1001, 1001, "Java 8", now());
@@ -135,6 +62,68 @@ INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES 
 
 UPDATE languages_seq SET next_val = 1002;
 UPDATE versions_seq SET next_val = 1005;
+
+INSERT INTO testcases (testcase_id, problem_id, testcase_input_name, testcase_input_url, testcase_output_name, testcase_output_url, is_public, created_at)
+    VALUES (1, 1000, "input01", "", "output01", "", false, now()),
+         (2, 1000, "input02", "", "output02", "", false, now()),
+         (3, 1000, "input03", "", "output03", "", false, now()),
+         (4, 1000, "input04", "", "output04", "", false, now()),
+         (5, 1000, "input05", "", "output05", "", true, now());
+INSERT INTO testcases (testcase_id, problem_id, testcase_input_name, testcase_input_url, testcase_output_name, testcase_output_url, is_public, created_at)
+VALUES (6, 1001, "input01", "", "output01", "", false, now()),
+       (7, 1001, "input02", "", "output02", "", false, now()),
+       (8, 1001, "input03", "", "output03", "", false, now()),
+       (9, 1001, "input04", "", "output04", "", false, now()),
+       (10, 1001, "input05", "", "output05", "", false, now()),
+       (11, 1001, "input06", "", "output06", "", false, now()),
+       (12, 1001, "input07", "", "output07", "", false, now()),
+       (13, 1001, "input08", "", "output08", "", false, now()),
+       (14, 1001, "input09", "", "output09", "", false, now()),
+       (15, 1001, "input10", "", "output10", "", false, now()),
+       (16, 1001, "input11", "", "output11", "", false, now()),
+       (17, 1001, "input12", "", "output12", "", true, now()),
+       (18, 1001, "input13", "", "output13", "", true, now()),
+       (19, 1001, "input14", "", "output14", "", false, now()),
+       (20, 1001, "input15", "", "output15", "", false, now());
+INSERT INTO testcases (testcase_id, problem_id, testcase_input_name, testcase_input_url, testcase_output_name, testcase_output_url, is_public, created_at)
+VALUES (21, 1002, "input01", "", "output01", "", false, now()),
+       (22, 1002, "input02", "", "output02", "", false, now()),
+       (23, 1002, "input03", "", "output03", "", false, now()),
+       (24, 1002, "input04", "", "output04", "", false, now()),
+       (25, 1002, "input05", "", "output05", "", false, now()),
+       (26, 1002, "input06", "", "output06", "", false, now()),
+       (27, 1002, "input07", "", "output07", "", true, now()),
+       (28, 1002, "input08", "", "output08", "", false, now()),
+       (29, 1002, "input09", "", "output09", "", true, now()),
+       (30, 1002, "input10", "", "output10", "", false, now()),
+       (31, 1002, "input11", "", "output11", "", false, now());
+INSERT INTO testcases (testcase_id, problem_id, testcase_input_name, testcase_input_url, testcase_output_name, testcase_output_url, is_public, created_at)
+VALUES (32, 1003, "input01", "", "output01", "", false, now()),
+       (33, 1003, "input02", "", "output02", "", false, now()),
+       (34, 1003, "input03", "", "output03", "", false, now()),
+       (35, 1003, "input04", "", "output04", "", false, now()),
+       (36, 1003, "input05", "", "output05", "", false, now()),
+       (37, 1003, "input06", "", "output06", "", false, now()),
+       (38, 1003, "input07", "", "output07", "", true, now()),
+       (39, 1003, "input08", "", "output08", "", false, now()),
+       (40, 1003, "input09", "", "output09", "", false, now()),
+       (41, 1003, "input10", "", "output10", "", false, now()),
+       (42, 1003, "input11", "", "output11", "", false, now()),
+       (43, 1003, "input12", "", "output12", "", false, now()),
+       (44, 1003, "input13", "", "output13", "", true, now()),
+       (45, 1003, "input14", "", "output14", "", true, now()),
+       (46, 1003, "input15", "", "output15", "", false, now()),
+       (47, 1003, "input16", "", "output16", "", false, now()),
+       (48, 1003, "input17", "", "output17", "", false, now()),
+       (49, 1003, "input18", "", "output18", "", false, now()),
+       (50, 1003, "input19", "", "output19", "", false, now());
+
+UPDATE testcases
+SET
+    testcase_input_url = CONCAT('https://algoduck-testcase-bucket-ec2-810270402.s3.ap-northeast-2.amazonaws.com/prob_', LPAD(problem_id, 5, '0'), '/', testcase_input_name),
+    testcase_output_url = CONCAT('https://algoduck-testcase-bucket-ec2-810270402.s3.ap-northeast-2.amazonaws.com/prob_', LPAD(problem_id, 5, '0'), '/', testcase_output_name);
+
+UPDATE testcases_seq SET next_val = 51;
 
 commit;
 set
