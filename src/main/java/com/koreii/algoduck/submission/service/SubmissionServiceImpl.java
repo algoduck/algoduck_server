@@ -1,5 +1,6 @@
 package com.koreii.algoduck.submission.service;
 
+import com.koreii.algoduck.base.dto.page.PageResponse;
 import com.koreii.algoduck.exceptions.file.submission.SubmissionFailureException;
 import com.koreii.algoduck.file.FileStorageService;
 import com.koreii.algoduck.problem.dto.response.ProblemResponseDto;
@@ -45,7 +46,7 @@ public class SubmissionServiceImpl implements SubmissionService {
 
   @Override
   @Transactional
-  public SubmissionResponseDto submission(SubmissionRequestDto submissionRequestDto) {
+  public SubmissionResponseDto submit(SubmissionRequestDto submissionRequestDto) {
     ProblemResponseDto problemResponseDto = problemService.findDtoByProblemId(submissionRequestDto.getProblemId());
     VersionResponseDto versionResponseDto = versionService.findByVersionId(submissionRequestDto.getVersionId());
 
@@ -140,4 +141,23 @@ public class SubmissionServiceImpl implements SubmissionService {
   public SubmissionResponseDto updateSubmission(SubmissionUpdateRequestDto submissionUpdateRequestDto) {
     return submissionRepository.updateSubmission(submissionUpdateRequestDto);
   }
+
+  // 첫 페이지 (가장 최근 제출부터 시작)
+  @Override
+  public PageResponse<SubmissionResponseDto> getFirstPage(int pageSize) {
+    return submissionRepository.findNextPage(null, pageSize);
+  }
+
+  // 다음 페이지 요청 (현재 마지막 ID 기준으로 다음 데이터 조회)
+  @Override
+  public PageResponse<SubmissionResponseDto> getNextPage(Long lastSeenId, int pageSize) {
+    return submissionRepository.findNextPage(lastSeenId, pageSize);
+  }
+
+  // 이전 페이지 요청 (현재 첫 ID 기준으로 더 최신 데이터 조회)
+  @Override
+  public PageResponse<SubmissionResponseDto> getPrevPage(Long firstSeenId, int pageSize) {
+    return submissionRepository.findPrevPage(firstSeenId, pageSize);
+  }
+
 }
