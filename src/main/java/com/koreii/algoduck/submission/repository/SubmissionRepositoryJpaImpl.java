@@ -1,5 +1,6 @@
 package com.koreii.algoduck.submission.repository;
 
+import com.koreii.algoduck.base.dto.page.PageResponse;
 import com.koreii.algoduck.member.repository.MemberRepository;
 import com.koreii.algoduck.problem.repository.ProblemRepository;
 import com.koreii.algoduck.submission.dto.request.SubmissionSaveRequestDto;
@@ -11,6 +12,9 @@ import com.koreii.algoduck.version.repository.VersionRepository;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+
+import java.util.Collections;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -50,5 +54,46 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
     submission.setExecutionTime(submissionUpdateRequestDto.getExecutionTime());
     submission.setMemoryUsage(submissionUpdateRequestDto.getMemoryUsage());
     return new SubmissionResponseDto(submission);
+  }
+
+  @Override
+  public PageResponse<SubmissionResponseDto> findNextPage(Long lastSeenId, int pageSize) {
+    String jpql = "SELECT new com.koreii.algoduck.submission.dto.response.SubmissionResponseDto(s) " +
+        "FROM Submission s " +
+        "WHERE (:lastId IS NULL OR s.id < :lastId) " +
+        "ORDER BY s.id DESC";
+
+    List<SubmissionResponseDto> result = entityManager.createQuery(jpql, SubmissionResponseDto.class)
+        .setParameter("lastId", lastSeenId)
+        .setMaxResults(pageSize)
+        .getResultList();
+
+    boolean hasNext = result.size() > pageSize;
+    if (hasNext) {
+      result.remove(pageSize);
+    }
+
+    return PageResponse.of(result, hasNext, lastSeenId != null);
+  }
+
+  @Override
+  public PageResponse<SubmissionResponseDto> findPrevPage(Long firstSeenId, int pageSize) {
+    String jpql = "SELECT new com.koreii.algoduck.submission.dto.response.SubmissionResponseDto(s) " +
+        "FROM Submission s " +
+        "WHERE s.id > :firstId " +
+        "ORDER BY s.id ASC";
+
+    List<SubmissionResponseDto> result = entityManager.createQuery(jpql, SubmissionResponseDto.class)
+        .setParameter("firstId", firstSeenId)
+        .setMaxResults(pageSize + 1)
+        .getResultList();
+
+    boolean hasPrev = result.size() > pageSize;
+    if (hasPrev) {
+      result.remove(pageSize);
+    }
+
+    Collections.reverse(result); // 최신순 유지
+    return PageResponse.of(result, true, hasPrev);
   }
 }
