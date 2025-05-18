@@ -16,4 +16,6 @@ public interface TestcaseRepository {
   Testcase findByTestcaseId(Long testcaseId);
 
   List<TestcaseResponseDto> selectTestcasesByProblemId(Long problemId);
+
+  List<TestcaseResponseDto> selectPublicTestcasesByProblemId(Long problemId);
 }

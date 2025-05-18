@@ -47,4 +47,15 @@ public class TestcaseRepositoryJpaImpl implements TestcaseRepository {
         .setParameter("problemId", problemId)
         .getResultList();
   }
+
+  @Override
+  public List<TestcaseResponseDto> selectPublicTestcasesByProblemId(Long problemId) {
+    String jpql = "SELECT new com.koreii.algoduck.testcase.dto.response.TestcaseResponseDto(t) "
+        + "FROM Testcase t "
+        + "WHERE t.problem.problemId = :problemId and t.isPublic = true";
+
+    return entityManager.createQuery(jpql, TestcaseResponseDto.class)
+        .setParameter("problemId", problemId)
+        .getResultList();
+  }
 }
