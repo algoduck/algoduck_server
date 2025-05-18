@@ -44,12 +44,20 @@ public class Testcase extends BaseTimeEntity {
   @Column(name = "testcase_input_url", nullable = false, columnDefinition = "TEXT")
   private String testcaseInputUrl;
 
+  @Column(name = "testcase_input_data", columnDefinition = "TEXT")
+  @Setter
+  private String testcaseInputData;
+
   @Column(name = "testcase_output_name", nullable = false)
   @Setter
   private String testcaseOutputName;
 
   @Column(name = "testcase_Output_url", nullable = false, columnDefinition = "TEXT")
   private String testcaseOutputUrl;
+
+  @Column(name = "testcase_output_data", columnDefinition = "TEXT")
+  @Setter
+  private String testcaseOutputData;
 
   @Column(name = "is_public", nullable = false)
   private Boolean isPublic;

@@ -1,6 +1,11 @@
 set
 autocommit = 0;
 
+DELETE FROM versions;
+DELETE FROM languages;
+DELETE FROM testcases;
+DELETE FROM problems;
+
 UPDATE problems_seq SET next_val = 0;
 
 INSERT INTO problems (problem_id, problem_number, title, description, input_description, output_description,
@@ -63,60 +68,73 @@ INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES 
 UPDATE languages_seq SET next_val = 1002;
 UPDATE versions_seq SET next_val = 1005;
 
-INSERT INTO testcases (testcase_id, problem_id, testcase_input_name, testcase_input_url, testcase_output_name, testcase_output_url, is_public, created_at)
-    VALUES (1, 1000, "input01", "", "output01", "", false, now()),
-         (2, 1000, "input02", "", "output02", "", false, now()),
-         (3, 1000, "input03", "", "output03", "", false, now()),
-         (4, 1000, "input04", "", "output04", "", false, now()),
-         (5, 1000, "input05", "", "output05", "", true, now());
-INSERT INTO testcases (testcase_id, problem_id, testcase_input_name, testcase_input_url, testcase_output_name, testcase_output_url, is_public, created_at)
-VALUES (6, 1001, "input01", "", "output01", "", false, now()),
-       (7, 1001, "input02", "", "output02", "", false, now()),
-       (8, 1001, "input03", "", "output03", "", false, now()),
-       (9, 1001, "input04", "", "output04", "", false, now()),
-       (10, 1001, "input05", "", "output05", "", false, now()),
-       (11, 1001, "input06", "", "output06", "", false, now()),
-       (12, 1001, "input07", "", "output07", "", false, now()),
-       (13, 1001, "input08", "", "output08", "", false, now()),
-       (14, 1001, "input09", "", "output09", "", false, now()),
-       (15, 1001, "input10", "", "output10", "", false, now()),
-       (16, 1001, "input11", "", "output11", "", false, now()),
-       (17, 1001, "input12", "", "output12", "", true, now()),
-       (18, 1001, "input13", "", "output13", "", true, now()),
-       (19, 1001, "input14", "", "output14", "", false, now()),
-       (20, 1001, "input15", "", "output15", "", false, now());
-INSERT INTO testcases (testcase_id, problem_id, testcase_input_name, testcase_input_url, testcase_output_name, testcase_output_url, is_public, created_at)
-VALUES (21, 1002, "input01", "", "output01", "", false, now()),
-       (22, 1002, "input02", "", "output02", "", false, now()),
-       (23, 1002, "input03", "", "output03", "", false, now()),
-       (24, 1002, "input04", "", "output04", "", false, now()),
-       (25, 1002, "input05", "", "output05", "", false, now()),
-       (26, 1002, "input06", "", "output06", "", false, now()),
-       (27, 1002, "input07", "", "output07", "", true, now()),
-       (28, 1002, "input08", "", "output08", "", false, now()),
-       (29, 1002, "input09", "", "output09", "", true, now()),
-       (30, 1002, "input10", "", "output10", "", false, now()),
-       (31, 1002, "input11", "", "output11", "", false, now());
-INSERT INTO testcases (testcase_id, problem_id, testcase_input_name, testcase_input_url, testcase_output_name, testcase_output_url, is_public, created_at)
-VALUES (32, 1003, "input01", "", "output01", "", false, now()),
-       (33, 1003, "input02", "", "output02", "", false, now()),
-       (34, 1003, "input03", "", "output03", "", false, now()),
-       (35, 1003, "input04", "", "output04", "", false, now()),
-       (36, 1003, "input05", "", "output05", "", false, now()),
-       (37, 1003, "input06", "", "output06", "", false, now()),
-       (38, 1003, "input07", "", "output07", "", true, now()),
-       (39, 1003, "input08", "", "output08", "", false, now()),
-       (40, 1003, "input09", "", "output09", "", false, now()),
-       (41, 1003, "input10", "", "output10", "", false, now()),
-       (42, 1003, "input11", "", "output11", "", false, now()),
-       (43, 1003, "input12", "", "output12", "", false, now()),
-       (44, 1003, "input13", "", "output13", "", true, now()),
-       (45, 1003, "input14", "", "output14", "", true, now()),
-       (46, 1003, "input15", "", "output15", "", false, now()),
-       (47, 1003, "input16", "", "output16", "", false, now()),
-       (48, 1003, "input17", "", "output17", "", false, now()),
-       (49, 1003, "input18", "", "output18", "", false, now()),
-       (50, 1003, "input19", "", "output19", "", false, now());
+UPDATE testcases_seq SET next_val = 0;
+
+INSERT INTO testcases (testcase_id, problem_id, testcase_input_name, testcase_input_url, testcase_input_data,
+                       testcase_output_name, testcase_output_url, testcase_output_data, is_public, created_at)
+VALUES (1, 1000, "input01", "", null, "output01", "", null, false, now()),
+       (2, 1000, "input02", "", null, "output02", "", null, false, now()),
+       (3, 1000, "input03", "", null, "output03", "", null, false, now()),
+       (4, 1000, "input04", "", null, "output04", "", null, false, now()),
+       (5, 1000, "input05", "", "1", "output05", "", "알고오리", true, now());
+INSERT INTO testcases (testcase_id, problem_id, testcase_input_name, testcase_input_url, testcase_input_data,
+                       testcase_output_name, testcase_output_url, testcase_output_data, is_public, created_at)
+VALUES (6, 1001, "input01", "", null, "output01", "", null, false, now()),
+       (7, 1001, "input02", "", null, "output02", "", null, false, now()),
+       (8, 1001, "input03", "", null, "output03", "", null, false, now()),
+       (9, 1001, "input04", "", null, "output04", "", null, false, now()),
+       (10, 1001, "input05", "", null, "output05", "", null, false, now()),
+       (11, 1001, "input06", "", null, "output06", "", null, false, now()),
+       (12, 1001, "input07", "", null, "output07", "", null, false, now()),
+       (13, 1001, "input08", "", null, "output08", "", null, false, now()),
+       (14, 1001, "input09", "", null, "output09", "", null, false, now()),
+       (15, 1001, "input10", "", null, "output10", "", null, false, now()),
+       (16, 1001, "input11", "", null, "output11", "", null, false, now()),
+       (17, 1001, "input12", "", "1 1", "output12", "", "2", true, now()),
+       (18, 1001, "input13", "", "40 26", "output13", "", "66", true, now()),
+       (19, 1001, "input14", "", null, "output14", "", null, false, now()),
+       (20, 1001, "input15", "", null, "output15", "", null, false, now());
+INSERT INTO testcases (testcase_id, problem_id, testcase_input_name, testcase_input_url, testcase_input_data,
+                       testcase_output_name, testcase_output_url, testcase_output_data, is_public, created_at)
+VALUES (21, 1002, "input01", "", null, "output01", "", null, false, now()),
+       (22, 1002, "input02", "", null, "output02", "", null, false, now()),
+       (23, 1002, "input03", "", null, "output03", "", null, false, now()),
+       (24, 1002, "input04", "", null, "output04", "", null, false, now()),
+       (25, 1002, "input05", "", null, "output05", "", null, false, now()),
+       (26, 1002, "input06", "", null, "output06", "", null, false, now()),
+       ( 27, 1002, "input07", ""
+       , "15 11\n9 3 12\n14 10 12\n14 6 12\n3 8 7\n15 2 6\n11 12 5\n3 11 15\n12 6 6\n5 15 9\n3 1 10\n12 7 14"
+       , "output07", "", "0\n0\n15\n62"
+       , true, now()),
+       (28, 1002, "input08", "", null, "output08", "", null, false, now()),
+       ( 29, 1002, "input09", "", "5 3\n1 3 102\n2 4 258\n3 5 291"
+       , "output09", "", "258\n393", true, now()),
+       (30, 1002, "input10", "", null, "output10", "", null, false, now()),
+       (31, 1002, "input11", "", null, "output11", "", null, false, now());
+INSERT INTO testcases (testcase_id, problem_id, testcase_input_name, testcase_input_url, testcase_input_data,
+                       testcase_output_name, testcase_output_url, testcase_output_data, is_public, created_at)
+VALUES (32, 1003, "input01", "", null, "output01", "", null, false, now()),
+       (33, 1003, "input02", "", null, "output02", "", null, false, now()),
+       (34, 1003, "input03", "", null, "output03", "", null, false, now()),
+       (35, 1003, "input04", "", null, "output04", "", null, false, now()),
+       (36, 1003, "input05", "", null, "output05", "", null, false, now()),
+       (37, 1003, "input06", "", null, "output06", "", null, false, now()),
+       (38, 1003, "input07", "", null, "output07", "", null, true, now()),
+       (39, 1003, "input08", "", null, "output08", "", null, false, now()),
+       (40, 1003, "input09", "", null, "output09", "", null, false, now()),
+       (41, 1003, "input10", "", null, "output10", "", null, false, now()),
+       (43, 1003, "input12", "", null, "output12", "", null, false, now()),
+       ( 44, 1003, "input13", ""
+       , "9 6\n0 0 0 1 0 0 \n0 0 0 0 0 0 \n0 0 1 0 1 0 \n0 1 0 0 0 0 \n0 -1 0 0 0 0 \n0 0 0 0 0 0 \n-1 -1 0 -1 1 0 \n0 0 1 0 1 0 \n0 1 1 0 1 1"
+       , "output13", "", "3", true, now()),
+       ( 45, 1003, "input14", ""
+       , "9 7\n1 0 0 0 0 0 0\n-1 -1 -1 -1 -1 -1 0\n0 0 0 0 0 0 0\n0 -1 -1 -1 -1 -1 -1\n0 0 0 0 0 0 0\n-1 -1 -1 -1 -1 -1 0\n0 0 0 0 0 0 0\n0 -1 -1 -1 -1 -1 -1\n0 0 0 0 0 0 0"
+       , "output14", "", "38", true, now()),
+       (46, 1003, "input15", "", null, "output15", "", null, false, now()),
+       (47, 1003, "input16", "", null, "output16", "", null, false, now()),
+       (48, 1003, "input17", "", null, "output17", "", null, false, now()),
+       (49, 1003, "input18", "", null, "output18", "", null, false, now()),
+       (50, 1003, "input19", "", null, "output19", "", null, false, now());
 
 UPDATE testcases
 SET
