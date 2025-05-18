@@ -58,7 +58,8 @@ public class ProblemController extends BaseApiController {
   @Operation(summary = "특정 문제 상세 조회", description = "문제 ID로 문제 정보를 조회합니다.")
   @GetMapping("/id/{problemId}")
   public ResponseEntity<ApiResponse<ProblemResponseDto>> findProblemByProblemId(@PathVariable Long problemId) {
-    ProblemResponseDto problem = new ProblemResponseDto(problemService.findByProblemId(problemId));
+    ProblemResponseDto problem = problemService.findDtoByProblemId(problemId);
+
     if (problem == null) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.failure("해당 문제를 찾을 수 없습니다."));
     }
