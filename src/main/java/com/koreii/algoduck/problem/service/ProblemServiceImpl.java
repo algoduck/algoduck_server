@@ -8,6 +8,7 @@ import com.koreii.algoduck.problem.entity.Problem;
 import com.koreii.algoduck.problem.repository.ProblemRepository;
 import com.koreii.algoduck.problemalgorithm.service.ProblemAlgorithmService;
 import com.koreii.algoduck.problemimage.service.ProblemImageService;
+import com.koreii.algoduck.testcase.dto.response.TestcaseResponseDto;
 import com.koreii.algoduck.testcase.repository.TestcaseRepository;
 import com.koreii.algoduck.testcase.service.TestcaseService;
 import lombok.RequiredArgsConstructor;
@@ -94,6 +95,10 @@ public class ProblemServiceImpl implements ProblemService {
 
   @Override
   public ProblemResponseDto findDtoByProblemId(Long problemId) {
-    return new ProblemResponseDto(findByProblemId(problemId));
+    ProblemResponseDto problemResponseDto = new ProblemResponseDto(findByProblemId(problemId));
+    List<TestcaseResponseDto> testcaseResponseDtos = testcaseService.selectPublicTestcasesByProblemId(problemId);
+    problemResponseDto.setTestcaseResponseDtoList(testcaseResponseDtos);
+
+    return problemResponseDto;
   }
 }

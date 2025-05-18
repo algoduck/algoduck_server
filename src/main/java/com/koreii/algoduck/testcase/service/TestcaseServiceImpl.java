@@ -98,4 +98,9 @@ public class TestcaseServiceImpl implements TestcaseService {
   public List<TestcaseResponseDto> selectTestcasesByProblemId(Long problemId) {
     return testcaseRepository.selectTestcasesByProblemId(problemId);
   }
+
+  @Override
+  public List<TestcaseResponseDto> selectPublicTestcasesByProblemId(Long problemId) {
+    return testcaseRepository.selectPublicTestcasesByProblemId(problemId);
+  }
 }
