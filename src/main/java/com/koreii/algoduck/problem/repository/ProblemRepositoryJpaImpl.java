@@ -6,6 +6,7 @@ import com.koreii.algoduck.problem.dto.response.ProblemSimpleResponseDto;
 import com.koreii.algoduck.problem.entity.Problem;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class ProblemRepositoryJpaImpl implements ProblemRepository {
   private final EntityManager entityManager;
 
@@ -37,6 +39,7 @@ public class ProblemRepositoryJpaImpl implements ProblemRepository {
 
   @Override
   public Problem findByProblemId(Long problemId) {
+    log.info("problemId = {}", problemId);
     return entityManager.find(Problem.class, problemId);
   }
 

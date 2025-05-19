@@ -11,13 +11,16 @@ import com.koreii.algoduck.submission.enums.Status;
 import com.koreii.algoduck.version.repository.VersionRepository;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
   private final EntityManager entityManager;
   private final MemberRepository memberRepository;
@@ -45,14 +48,29 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
   }
 
   @Override
+  @Transactional
   public SubmissionResponseDto updateSubmission(SubmissionUpdateRequestDto submissionUpdateRequestDto) {
+    log.info("submissionUpdateRequestDto = {}", submissionUpdateRequestDto);
+
     Submission submission = entityManager.find(Submission.class, submissionUpdateRequestDto.getSubmissionId());
-    submission.setCodeName(submissionUpdateRequestDto.getCodeName());
-    submission.setCodeUrl(submissionUpdateRequestDto.getCodeUrl());
-    submission.setStatus(submissionUpdateRequestDto.getStatus());
-    submission.setMessage(submissionUpdateRequestDto.getMessage());
-    submission.setExecutionTime(submissionUpdateRequestDto.getExecutionTime());
-    submission.setMemoryUsage(submissionUpdateRequestDto.getMemoryUsage());
+    if (submissionUpdateRequestDto.getCodeName() != null) {
+      submission.setCodeName(submissionUpdateRequestDto.getCodeName());
+    }
+    if (submissionUpdateRequestDto.getCodeUrl() != null) {
+      submission.setCodeUrl(submissionUpdateRequestDto.getCodeUrl());
+    }
+    if (submissionUpdateRequestDto.getStatus() != null) {
+      submission.setStatus(submissionUpdateRequestDto.getStatus());
+    }
+    if (submissionUpdateRequestDto.getMemoryUsage() != null) {
+      submission.setMessage(submissionUpdateRequestDto.getMessage());
+    }
+    if (submissionUpdateRequestDto.getExecutionTime() != null) {
+      submission.setExecutionTime(submissionUpdateRequestDto.getExecutionTime());
+    }
+    if (submissionUpdateRequestDto.getMemoryUsage() != null) {
+      submission.setMemoryUsage(submissionUpdateRequestDto.getMemoryUsage());
+    }
     return new SubmissionResponseDto(submission);
   }
 
