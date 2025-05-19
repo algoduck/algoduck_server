@@ -26,6 +26,7 @@ public class FileStorageServiceAmazonS3Impl implements FileStorageService {
   @Async("fileExecutor")
   public CompletableFuture<String> uploadFile(String repositoryName, String folderPath, MultipartFile file) {
     log.info("uploadFile");
+    log.info("folderPath = {}", folderPath);
 
     if (file == null || file.isEmpty()) {
       return CompletableFuture.completedFuture(null);
