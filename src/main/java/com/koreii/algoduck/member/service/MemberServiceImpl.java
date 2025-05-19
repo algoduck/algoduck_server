@@ -1,6 +1,5 @@
 package com.koreii.algoduck.member.service;
 
-import com.koreii.algoduck.exceptions.member.LoginFailureException;
 import com.koreii.algoduck.exceptions.member.MemberJoinException;
 import com.koreii.algoduck.exceptions.member.MemberUpdateException;
 import com.koreii.algoduck.file.FileStorageService;
@@ -8,11 +7,9 @@ import com.koreii.algoduck.member.dto.request.MemberSaveRequestDto;
 import com.koreii.algoduck.member.dto.request.MemberUpdateRequestDto;
 import com.koreii.algoduck.member.dto.response.MemberResponseDto;
 import com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto;
-import com.koreii.algoduck.member.entity.Member;
 import com.koreii.algoduck.member.enums.Role;
 import com.koreii.algoduck.member.repository.MemberRepository;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -145,7 +142,7 @@ public class MemberServiceImpl implements MemberService {
     log.info("update");
     log.info("memberUpdateRequestDto.beforeUrl = {}", memberUpdateRequestDto.getBeforeProfileImageUrl());
 
-    if (!(memberUpdateRequestDto.getPassword() == null) && !memberUpdateRequestDto.getPassword().equals("")) {
+    if (!(memberUpdateRequestDto.getPassword() == null) && !memberUpdateRequestDto.getPassword().isEmpty()) {
       validatePassword(memberUpdateRequestDto.getPassword());
 
       log.info("after validatePassword");
@@ -155,7 +152,7 @@ public class MemberServiceImpl implements MemberService {
       memberUpdateRequestDto.setPassword(hashedPassword);
     }
 
-    String beforeProfileUrl = memberUpdateRequestDto.getBeforeProfileImageUrl();  //  기존 프로필 이미지 url
+    String beforeProfileImageUrl = memberUpdateRequestDto.getBeforeProfileImageUrl();  //  기존 프로필 이미지 url
     MemberResponseDto memberResponseDto = null;
 
     try {
@@ -166,25 +163,29 @@ public class MemberServiceImpl implements MemberService {
 
     log.info("file = {}", file);
 
-    CompletableFuture<String> upload = fileStorageService.uploadFile(bucketName, "profile/" + memberUpdateRequestDto.getLoginId(), file);
-    upload.thenAccept(profileImageUrl -> {
-      log.info("S3 업로드 완료: {}", profileImageUrl);
-      memberRepository.updateProfileImageUrl(memberId, profileImageUrl);
-    }).exceptionally(ex -> {
-      log.error("S3 이미지 업데이트 실패", ex);
-      memberRepository.updateProfileImageUrl(memberId, beforeProfileUrl); //  기존 프로필 이미지로 대체
-      return null;
-    });
-
-    //  기본 프로필 이미지 URL의 경우 제거하지 않음
-    if (!beforeProfileUrl.equals(defaultProfileImageUrl)) {
-      CompletableFuture<Void> delete = fileStorageService.deleteFile(bucketName, beforeProfileUrl);
-      delete.thenRun(() -> {
-        log.info("S3 기존 이미지 제거 완료: {}", beforeProfileUrl);
+    if (file != null) {  //  파일을 새로 업로드했을 경우에만 기존 파일 제거
+      CompletableFuture<String> upload = fileStorageService.uploadFile(bucketName, "profile/" + memberUpdateRequestDto.getLoginId(), file);
+      upload.thenAccept(profileImageUrl -> {
+        log.info("S3 업로드 완료: {}", profileImageUrl);
+        memberRepository.updateProfileImageUrl(memberId, profileImageUrl);
       }).exceptionally(ex -> {
-        log.error("S3 기존 이미지 제거 실패", ex);
+        log.error("S3 이미지 업데이트 실패", ex);
+        memberRepository.updateProfileImageUrl(memberId, beforeProfileImageUrl); //  기존 프로필 이미지로 대체
         return null;
       });
+
+      log.info("beforeProfileImageUrl = {}", beforeProfileImageUrl);
+
+      //  기본 프로필 이미지 URL의 경우 제거하지 않음
+      if (!beforeProfileImageUrl.equals(defaultProfileImageUrl)) {
+        CompletableFuture<Void> delete = fileStorageService.deleteFile(bucketName, beforeProfileImageUrl);
+        delete.thenRun(() -> {
+          log.info("S3 기존 이미지 제거 완료: {}", beforeProfileImageUrl);
+        }).exceptionally(ex -> {
+          log.error("S3 기존 이미지 제거 실패", ex);
+          return null;
+        });
+      }
     }
 
     return memberResponseDto;

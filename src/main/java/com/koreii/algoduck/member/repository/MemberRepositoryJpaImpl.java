@@ -171,7 +171,10 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
     log.info("password = {}", updateRequestDto.getPassword());
 
     Member member = entityManager.find(Member.class, memberId);
-    member.setPassword(updateRequestDto.getPassword());
+
+    if (updateRequestDto.getPassword() != null && !updateRequestDto.getPassword().isEmpty()) {
+      member.setPassword(updateRequestDto.getPassword());
+    }
     member.setStatusMessage(updateRequestDto.getStatusMessage());
     return new MemberResponseDto(member);
   }
