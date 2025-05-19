@@ -49,12 +49,12 @@ public class Submission extends BaseTimeEntity {
   private Problem problem;
 
   //  저장소 저장 완료 전에는 codeName = null
-  @Column(name = "code_name", nullable = false)
+  @Column(name = "code_name")
   @Setter
   private String codeName;
 
   //  저장소 저장 완료 전에는 codeUrl = null
-  @Column(name = "code_url", nullable = false, columnDefinition = "TEXT")
+  @Column(name = "code_url", columnDefinition = "TEXT")
   @Setter
   private String codeUrl;
 

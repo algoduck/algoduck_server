@@ -23,6 +23,7 @@ public class SpringSecurityConfig {
             .requestMatchers(
                 "/api/v1/members/**",
                 "/api/v1/problems/**",
+                "/api/v1/submissions/**",
                 "/swagger-ui/**",
                 "/api-docs/**",
                 "/actuator/health"

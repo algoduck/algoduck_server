@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +31,7 @@ public class SubmissionController extends BaseApiController {
 
   @Operation(summary = "제출", description = "문제에 대한 코드를 제출합니다.")
   @PostMapping
-  public ResponseEntity<ApiResponse<SubmissionResponseDto>> submit(SubmissionRequestDto submissionRequestDto) {
+  public ResponseEntity<ApiResponse<SubmissionResponseDto>> submit(@RequestBody SubmissionRequestDto submissionRequestDto) {
     SubmissionResponseDto submissionResponseDto = submissionService.submit(submissionRequestDto);
     return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(submissionResponseDto));
   }
