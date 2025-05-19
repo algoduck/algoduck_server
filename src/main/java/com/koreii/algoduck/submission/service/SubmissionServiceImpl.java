@@ -47,13 +47,19 @@ public class SubmissionServiceImpl implements SubmissionService {
   @Override
   @Transactional
   public SubmissionResponseDto submit(SubmissionRequestDto submissionRequestDto) {
+    log.info("submissionRequestDto = {}", submissionRequestDto);
+
     ProblemResponseDto problemResponseDto = problemService.findDtoByProblemId(submissionRequestDto.getProblemId());
     VersionResponseDto versionResponseDto = versionService.findByVersionId(submissionRequestDto.getVersionId());
 
     SubmissionSaveRequestDto submissionSaveRequestDto = new SubmissionSaveRequestDto(submissionRequestDto);
     SubmissionResponseDto submissionResponseDto = submissionRepository.saveSubmission(submissionSaveRequestDto);
+    Long submissionId = submissionResponseDto.getSubmissionId();
 
     String sourceCode = submissionRequestDto.getSourceCode();
+
+    log.info("sourceCode = {}", sourceCode);
+
     String codeName = problemResponseDto.getProblemNumber() + "." + versionResponseDto.getExtension();
     Path tempFile = null;
     MultipartFile multipartFile = null;
@@ -81,6 +87,7 @@ public class SubmissionServiceImpl implements SubmissionService {
 
       uploadResult.thenAccept(codeUrl -> {
         SubmissionUpdateRequestDto updateDto = SubmissionUpdateRequestDto.builder()
+            .submissionId(submissionId)
             .codeName(codeName)
             .codeUrl(codeUrl)
             .build();
@@ -115,6 +122,7 @@ public class SubmissionServiceImpl implements SubmissionService {
     CompletableFuture<JudgeResponseDto> judgeResult = judgeService.requestJudge(judgeRequestDto);
     judgeResult.thenAccept(judgeResponseDto -> {
       SubmissionUpdateRequestDto submissionUpdateRequestDto = SubmissionUpdateRequestDto.builder()
+            .submissionId(submissionId)
             .status(judgeResponseDto.getResult())
             .message(judgeResponseDto.getMessage())
             .executionTime(judgeResponseDto.getExecutionTime())
