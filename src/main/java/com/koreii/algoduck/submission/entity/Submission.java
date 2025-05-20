@@ -58,7 +58,7 @@ public class Submission extends BaseTimeEntity {
   @Setter
   private String codeUrl;
 
-  @OneToOne
+  @ManyToOne
   @JoinColumn(name = "version_id", nullable = false)
   private Version version;
 
