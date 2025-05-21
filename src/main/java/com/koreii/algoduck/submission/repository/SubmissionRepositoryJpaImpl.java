@@ -62,6 +62,9 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
     if (submissionUpdateRequestDto.getStatus() != null) {
       submission.setStatus(submissionUpdateRequestDto.getStatus());
     }
+    if (submissionUpdateRequestDto.getMessage() != null) {
+      submission.setMessage(submissionUpdateRequestDto.getMessage());
+    }
     if (submissionUpdateRequestDto.getMemoryUsage() != null) {
       submission.setMessage(submissionUpdateRequestDto.getMessage());
     }
