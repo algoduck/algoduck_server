@@ -5,20 +5,20 @@ import com.koreii.algoduck.base.dto.response.ApiResponse;
 import com.koreii.algoduck.member.dto.request.LoginRequestDto;
 import com.koreii.algoduck.member.dto.request.MemberSaveRequestDto;
 import com.koreii.algoduck.member.dto.request.MemberUpdateRequestDto;
-import com.koreii.algoduck.member.dto.response.MemberResponseDto;
 import com.koreii.algoduck.member.dto.response.MemberPagingResponseDto;
+import com.koreii.algoduck.member.dto.response.MemberResponseDto;
 import com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto;
 import com.koreii.algoduck.member.enums.Role;
 import com.koreii.algoduck.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -183,5 +183,16 @@ public class MemberController extends BaseApiController {
   public ResponseEntity<ApiResponse<Void>> logout(HttpServletRequest request) {
     memberService.logout(request);
     return ResponseEntity.ok(ApiResponse.success(null));
+  }
+
+  @GetMapping("/me")
+  public ResponseEntity<ApiResponse<MemberResponseDto>> getMyInfo(HttpServletRequest request) {
+    HttpSession session = request.getSession(false);
+    MemberResponseDto memberResponseDto = memberService.getMyInfo(session);
+    if (memberResponseDto == null) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiResponse.failure("세션이 만료되었습니다."));
+    }
+
+    return ResponseEntity.ok(ApiResponse.success(memberResponseDto));
   }
 }

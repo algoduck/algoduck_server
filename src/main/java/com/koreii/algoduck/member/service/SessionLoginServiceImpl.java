@@ -30,7 +30,7 @@ public class SessionLoginServiceImpl implements LoginService {
 
     //  기존 세션이 있으면 사용, 없으면 새로 생성
     HttpSession session = request.getSession(true);
-
+    log.info("세션 유효시간 (초): " + session.getMaxInactiveInterval());
     //  세션에 로그인 회원 정보 저장
     session.setAttribute(LOGIN_MEMBER, member);
 
