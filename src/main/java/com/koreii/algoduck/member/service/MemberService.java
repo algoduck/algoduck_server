@@ -6,6 +6,7 @@ import com.koreii.algoduck.member.dto.response.MemberResponseDto;
 import com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto;
 import com.koreii.algoduck.member.enums.Role;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -44,4 +45,6 @@ public interface MemberService {
   MemberResponseDto login(String loginId, String password, HttpServletRequest request);
 
   void logout(HttpServletRequest request);
+
+  MemberResponseDto getMyInfo(HttpSession session);
 }

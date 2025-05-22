@@ -10,6 +10,7 @@ import com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto;
 import com.koreii.algoduck.member.enums.Role;
 import com.koreii.algoduck.member.repository.MemberRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -199,5 +200,10 @@ public class MemberServiceImpl implements MemberService {
   @Override
   public void logout(HttpServletRequest request) {
     loginService.logout(request);
+  }
+
+  @Override
+  public MemberResponseDto getMyInfo(HttpSession session) {
+    return loginService.getMyInfo(session);
   }
 }
