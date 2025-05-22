@@ -32,6 +32,8 @@ public class SubmissionResponseDto {
     this.problemTitle = submission.getProblem().getTitle();
     this.status = submission.getStatus();
     this.message = submission.getMessage();
+    this.executionTime = submission.getExecutionTime();
+    this.memoryUsage = submission.getMemoryUsage();
     this.codeName = submission.getCodeName();
     this.codeUrl = submission.getCodeUrl();
   }
