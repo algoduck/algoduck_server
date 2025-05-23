@@ -86,7 +86,7 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
 
     List<SubmissionResponseDto> result = entityManager.createQuery(jpql, SubmissionResponseDto.class)
         .setParameter("lastId", lastSeenId)
-        .setMaxResults(pageSize)
+        .setMaxResults(pageSize + 1)
         .getResultList();
 
     boolean hasNext = result.size() > pageSize;
@@ -115,6 +115,6 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
     }
 
     Collections.reverse(result); // 최신순 유지
-    return PageResponse.of(result, true, hasPrev);
+    return PageResponse.of(result, firstSeenId != null, hasPrev);
   }
 }
