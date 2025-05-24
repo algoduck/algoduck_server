@@ -8,7 +8,9 @@ import com.koreii.algoduck.member.dto.request.MemberUpdateRequestDto;
 import com.koreii.algoduck.member.dto.response.MemberPagingResponseDto;
 import com.koreii.algoduck.member.dto.response.MemberResponseDto;
 import com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto;
+import com.koreii.algoduck.member.entity.Member;
 import com.koreii.algoduck.member.enums.Role;
+import com.koreii.algoduck.member.security.CustomUserDetails;
 import com.koreii.algoduck.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,6 +21,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -152,11 +159,17 @@ public class MemberController extends BaseApiController {
   }
 
   @Operation(summary = "회원 정보 업데이트", description = "회원 정보를 업데이트합니다.")
-  @PutMapping(value = "/{memberId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<ApiResponse<MemberResponseDto>> update(
-      @PathVariable Long memberId,
+      @AuthenticationPrincipal CustomUserDetails userDetails,
       @RequestPart("memberUpdateRequestDto") MemberUpdateRequestDto memberUpdateRequestDto,
       @RequestPart(value = "file", required = false) MultipartFile file) {
+    if (userDetails == null) {
+      log.warn("인증된 사용자 없음");
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiResponse.failure("로그인이 필요합니다."));
+    }
+
+    Long memberId = userDetails.getMemberId();
     log.info("memberUpdateRequestDto = {}", memberUpdateRequestDto);
     log.info("file = {}", file);
 
@@ -169,11 +182,21 @@ public class MemberController extends BaseApiController {
   public ResponseEntity<ApiResponse<MemberResponseDto>> login(
       @RequestBody LoginRequestDto loginRequestDto,
       HttpServletRequest request) {
-    MemberResponseDto memberResponseDto = memberService.login(
+    Member member = memberService.login(
         loginRequestDto.getLoginId(),
         loginRequestDto.getPassword(),
         request
     );
+
+    MemberResponseDto memberResponseDto = new MemberResponseDto(member);
+    CustomUserDetails userDetails = new CustomUserDetails(member);
+
+    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+    SecurityContext context = SecurityContextHolder.createEmptyContext();
+    context.setAuthentication(authToken);
+
+    HttpSession session = request.getSession(true);
+    session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, context);
 
     return ResponseEntity.ok(ApiResponse.success(memberResponseDto));
   }

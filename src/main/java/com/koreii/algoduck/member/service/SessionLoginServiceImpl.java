@@ -20,7 +20,7 @@ public class SessionLoginServiceImpl implements LoginService {
   private final MemberRepository memberRepository;
   private final BCryptPasswordEncoder passwordEncoder;
 
-  public MemberResponseDto login(String loginId, String password, HttpServletRequest request) {
+  public Member login(String loginId, String password, HttpServletRequest request) {
     Member member = memberRepository.findByLoginId(loginId)
         .orElseThrow(() -> new LoginFailureException("아이디 또는 비밀번호가 올바르지 않습니다."));
 
@@ -34,7 +34,7 @@ public class SessionLoginServiceImpl implements LoginService {
     //  세션에 로그인 회원 정보 저장
     session.setAttribute(LOGIN_MEMBER, member);
 
-    return new MemberResponseDto(member);
+    return member;
   }
 
   public void logout(HttpServletRequest request) {

@@ -7,6 +7,7 @@ import com.koreii.algoduck.member.dto.request.MemberSaveRequestDto;
 import com.koreii.algoduck.member.dto.request.MemberUpdateRequestDto;
 import com.koreii.algoduck.member.dto.response.MemberResponseDto;
 import com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto;
+import com.koreii.algoduck.member.entity.Member;
 import com.koreii.algoduck.member.enums.Role;
 import com.koreii.algoduck.member.repository.MemberRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -193,7 +194,7 @@ public class MemberServiceImpl implements MemberService {
   }
 
   @Override
-  public MemberResponseDto login(String loginId, String password, HttpServletRequest request) {
+  public Member login(String loginId, String password, HttpServletRequest request) {
     return loginService.login(loginId, password, request);
   }
 

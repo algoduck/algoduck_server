@@ -4,6 +4,7 @@ import com.koreii.algoduck.member.dto.request.MemberSaveRequestDto;
 import com.koreii.algoduck.member.dto.request.MemberUpdateRequestDto;
 import com.koreii.algoduck.member.dto.response.MemberResponseDto;
 import com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto;
+import com.koreii.algoduck.member.entity.Member;
 import com.koreii.algoduck.member.enums.Role;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -42,7 +43,7 @@ public interface MemberService {
 
   MemberResponseDto update(Long memberId, MemberUpdateRequestDto memberUpdateRequestDto, MultipartFile file);
 
-  MemberResponseDto login(String loginId, String password, HttpServletRequest request);
+  Member login(String loginId, String password, HttpServletRequest request);
 
   void logout(HttpServletRequest request);
 
