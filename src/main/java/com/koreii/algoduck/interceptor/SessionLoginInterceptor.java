@@ -16,6 +16,7 @@ public class SessionLoginInterceptor implements HandlerInterceptor {
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     HttpSession session = request.getSession(false);
+    log.info("preHandle {}", session);
 
     if (session == null || session.getAttribute(LOGIN_MEMBER) == null) {
       log.info("로그인되지 않은 사용자 요청 차단. 요청 URI: {}", request.getRequestURI());

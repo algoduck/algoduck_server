@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import static com.koreii.algoduck.util.constants.Constants.LOGIN_MEMBER;
 
 public interface LoginService {
-  MemberResponseDto login(String loginId, String password, HttpServletRequest request);
+  Member login(String loginId, String password, HttpServletRequest request);
 
   void logout(HttpServletRequest request);
 

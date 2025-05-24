@@ -3,6 +3,7 @@ package com.koreii.algoduck.submission.controller;
 import com.koreii.algoduck.base.controller.BaseApiController;
 import com.koreii.algoduck.base.dto.page.PageResponse;
 import com.koreii.algoduck.base.dto.response.ApiResponse;
+import com.koreii.algoduck.member.security.CustomUserDetails;
 import com.koreii.algoduck.submission.dto.request.SubmissionRequestDto;
 import com.koreii.algoduck.submission.dto.response.SubmissionResponseDto;
 import com.koreii.algoduck.submission.service.SubmissionService;
@@ -12,14 +13,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,7 +31,11 @@ public class SubmissionController extends BaseApiController {
 
   @Operation(summary = "제출", description = "문제에 대한 코드를 제출합니다.")
   @PostMapping
-  public ResponseEntity<ApiResponse<SubmissionResponseDto>> submit(@RequestBody SubmissionRequestDto submissionRequestDto) {
+  public ResponseEntity<ApiResponse<SubmissionResponseDto>> submit(@AuthenticationPrincipal CustomUserDetails userDetails, @RequestBody SubmissionRequestDto submissionRequestDto) {
+    if (userDetails == null) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiResponse.failure("로그인이 필요합니다."));
+    }
+
     SubmissionResponseDto submissionResponseDto = submissionService.submit(submissionRequestDto);
     return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(submissionResponseDto));
   }
