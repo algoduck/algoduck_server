@@ -41,6 +41,7 @@ jobs:
           EC2_DB_HOST: ${{ secrets.EC2_DB_HOST }}
           EC2_JUDGE_HOST: ${{ secrets.EC2_JUDGE_HOST }}
           CLIENT_DOMAIN_NAME: ${{ secrets.CLIENT_DOMAIN_NAME }}
+          JUDGE_DOMAIN_NAME: ${{ secrets.JUDGE_DOMAIN_NAME }}
 
       - name: Generate .env from template
         run: |
@@ -60,6 +61,7 @@ jobs:
           EC2_DB_HOST: ${{ secrets.EC2_DB_HOST }}
           EC2_JUDGE_HOST: ${{ secrets.EC2_JUDGE_HOST }}
           CLIENT_DOMAIN_NAME: ${{ secrets.CLIENT_DOMAIN_NAME }}
+          JUDGE_DOMAIN_NAME: ${{ secrets.JUDGE_DOMAIN_NAME }}
 
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x ./gradlew
