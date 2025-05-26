@@ -11,6 +11,7 @@ import com.koreii.algoduck.submission.dto.request.SubmissionSaveRequestDto;
 import com.koreii.algoduck.submission.dto.request.SubmissionUpdateRequestDto;
 import com.koreii.algoduck.submission.dto.response.JudgeResponseDto;
 import com.koreii.algoduck.submission.dto.response.SubmissionResponseDto;
+import com.koreii.algoduck.submission.entity.Submission;
 import com.koreii.algoduck.submission.repository.SubmissionRepository;
 import com.koreii.algoduck.version.dto.response.VersionResponseDto;
 import com.koreii.algoduck.version.service.VersionService;
@@ -166,6 +167,16 @@ public class SubmissionServiceImpl implements SubmissionService {
   @Override
   public PageResponse<SubmissionResponseDto> getPrevPage(Long firstSeenId, int pageSize) {
     return submissionRepository.findPrevPage(firstSeenId, pageSize);
+  }
+
+  @Override
+  public String getCode(Long submissionId) {
+    Submission submission = submissionRepository.findBySubmissionId(submissionId);
+    byte[] codeBytes = fileStorageService
+        .downloadFile(bucketName, submission.getCodeUrl())
+        .join(); // ← CompletableFuture<byte[]> → byte[] (동기화)
+
+    return new String(codeBytes, StandardCharsets.UTF_8);
   }
 
 }

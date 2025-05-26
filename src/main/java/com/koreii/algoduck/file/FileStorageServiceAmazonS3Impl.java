@@ -2,9 +2,13 @@ package com.koreii.algoduck.file;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.util.IOUtils;
 import com.koreii.algoduck.exceptions.file.FileUploadFailException;
+import com.koreii.algoduck.exceptions.file.s3.AmazonS3FileDownloadFailException;
 import com.koreii.algoduck.exceptions.file.s3.AmazonS3FileUploadFailException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,6 +60,21 @@ public class FileStorageServiceAmazonS3Impl implements FileStorageService {
     }
 
     return CompletableFuture.completedFuture(null);
+  }
+
+  @Override
+  @Async("fileExecutor")
+  public CompletableFuture<byte[]> downloadFile(String repositoryName, String fileUrl) {
+    try {
+      String key = getKey(repositoryName, fileUrl);
+      S3Object s3Object = amazonS3.getObject(new GetObjectRequest(repositoryName, key));
+
+      byte[] bytes = IOUtils.toByteArray(s3Object.getObjectContent()); // Apache Commons IO 필요
+      return CompletableFuture.completedFuture(bytes);
+    } catch (Exception e) {
+      log.error("Failed to download file from S3: {}", fileUrl, e);
+      throw new AmazonS3FileDownloadFailException("파일 다운로드에 실패했습니다.", e);
+    }
   }
 
   private String uploadS3File(String bucketName, String filePath, MultipartFile file) {
