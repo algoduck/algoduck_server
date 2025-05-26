@@ -59,7 +59,7 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(LoginFailureException.class)
   public ResponseEntity<ApiResponse<Void>> handleLoginFailureException(LoginFailureException e) {
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
         .body(ApiResponse.failure(e.getMessage()));
   }
 
