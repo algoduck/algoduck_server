@@ -57,6 +57,8 @@ public class SubmissionServiceImpl implements SubmissionService {
     SubmissionResponseDto submissionResponseDto = submissionRepository.saveSubmission(submissionSaveRequestDto);
     Long submissionId = submissionResponseDto.getSubmissionId();
 
+    log.info("submissionId = {}", submissionId);
+
     String sourceCode = submissionRequestDto.getSourceCode();
 
     log.info("sourceCode = {}", sourceCode);
@@ -122,6 +124,7 @@ public class SubmissionServiceImpl implements SubmissionService {
 
     CompletableFuture<JudgeResponseDto> judgeResult = judgeService.requestJudge(judgeRequestDto);
     judgeResult.thenAccept(judgeResponseDto -> {
+      log.info("judgeResponseDto = {}", judgeResponseDto);
       SubmissionUpdateRequestDto submissionUpdateRequestDto = SubmissionUpdateRequestDto.builder()
             .submissionId(submissionId)
             .status(judgeResponseDto.getResult())
