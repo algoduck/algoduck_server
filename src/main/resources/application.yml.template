@@ -46,12 +46,12 @@ app:
   default:
     profile-image-url: ${DEFAULT_PROFILE_URL}
     client-domain-name: ${CLIENT_DOMAIN_NAME}
+    judge-domain-name: ${JUDGE_DOMAIN_NAME}
 
 judge:
-  host: ${EC2_JUDGE_HOST}
   server:
-    judge: https://${judge.host}:8000/judge
-    health: https://${judge.host}:8000/health
+    judge: https://${app.default.judge-domain-name}/judge
+    health: https://${app.default.judge-domain-name}/health
 
 springdoc:
   api-docs:
