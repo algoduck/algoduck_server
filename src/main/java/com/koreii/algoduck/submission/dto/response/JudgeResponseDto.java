@@ -4,10 +4,12 @@ import com.koreii.algoduck.submission.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 @Builder
 @AllArgsConstructor
 @Getter
+@ToString
 public class JudgeResponseDto {
   private Status result;
   private String message;
