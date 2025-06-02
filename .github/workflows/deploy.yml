@@ -3,7 +3,7 @@ name: Deploy Algoduck Spring App to EC2
 on:
   push:
     branches: [ develop ]
-  workflow_dispatch: # 수동 배포 트리거
+  workflow_dispatch:
     inputs:
       triggerReason:
         description: "Why are you manually deploying?"
@@ -92,6 +92,18 @@ jobs:
           script: |
             cd ~/algoduck
 
+            echo "📦 컨테이너 ID 확인 및 로그 백업 준비"
+            CONTAINER_ID=$(docker ps -a -q --filter "name=^/algoduck$")
+            if [ -n "$CONTAINER_ID" ]; then
+              TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+              LOG_SRC="/var/lib/docker/containers/${CONTAINER_ID}/${CONTAINER_ID}-json.log"
+              LOG_DEST_DIR=~/docker-container-log-backup
+              mkdir -p "$LOG_DEST_DIR"
+              cp "$LOG_SRC" "$LOG_DEST_DIR/algoduck-${TIMESTAMP}.json.log" || echo "❗ 로그 백업 실패: $LOG_SRC"
+            else
+              echo "❗ 기존 컨테이너가 존재하지 않아 백업 생략"
+            fi
+
             echo "🧹 기존 Spring 앱 컨테이너 중지 및 삭제"
             docker stop algoduck || true
             docker rm algoduck || true
@@ -99,9 +111,7 @@ jobs:
             echo "🚀 Spring 앱 컨테이너 빌드 및 실행"
             docker-compose up -d --build app
 
-            echo "📄 컨테이너 로그 저장"
-            sleep 5
-            docker-compose logs app > ~/algoduck-deploy.log || true
+            echo "🔒 .env 파일 권한 설정"
             chmod 600 .env
 
       - name: Health Check
