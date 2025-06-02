@@ -92,18 +92,12 @@ jobs:
           script: |
             cd ~/algoduck
 
-            echo "📦 컨테이너 ID 확인 및 로그 백업 준비"
-            CONTAINER_ID=$(docker ps -a -q --filter "name=algoduck")
-
-            if [ -n "$CONTAINER_ID" ]; then
-              TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-              LOG_PATH=$(docker inspect --format='{{.LogPath}}' "$CONTAINER_ID")
-              LOG_DEST_DIR=~/docker-container-log-backup
-              mkdir -p "$LOG_DEST_DIR"
-              sudo cp "$LOG_PATH" "$LOG_DEST_DIR/algoduck-${TIMESTAMP}.json.log" || echo "❗ 로그 백업 실패: $LOG_PATH"
-            else
-              echo "❗ 기존 컨테이너가 존재하지 않아 백업 생략"
-            fi
+            echo "📦 컨테이너 로그 백업 (docker logs 형식)"
+            CONTAINER_NAME=algoduck
+            TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+            LOG_DEST_DIR=~/docker-container-log-backup
+            mkdir -p "$LOG_DEST_DIR"
+            docker logs "$CONTAINER_NAME" > "$LOG_DEST_DIR/algoduck-${TIMESTAMP}.log" || echo "❗ 로그 백업 실패"
 
             echo "🧹 기존 Spring 앱 컨테이너 중지 및 삭제"
             docker stop algoduck || true
