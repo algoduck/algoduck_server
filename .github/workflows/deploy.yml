@@ -47,6 +47,7 @@ jobs:
         run: |
           cp .env.template .env.template.generated
           envsubst < .env.template.generated > .env
+          chmod 600 .env
         env:
           DB_ROOT_PASSWORD: ${{ secrets.DB_ROOT_PASSWORD }}
           DB_NAME: ${{ secrets.DB_NAME }}
@@ -101,6 +102,7 @@ jobs:
             echo "📄 컨테이너 로그 저장"
             sleep 5
             docker-compose logs app > ~/algoduck-deploy.log || true
+            chmod 600 .env
 
       - name: Health Check
         run: |
