@@ -93,13 +93,14 @@ jobs:
             cd ~/algoduck
 
             echo "📦 컨테이너 ID 확인 및 로그 백업 준비"
-            CONTAINER_ID=$(docker ps -a -q --filter "name=^/algoduck$")
+            CONTAINER_ID=$(docker ps -a -q --filter "name=algoduck")
+
             if [ -n "$CONTAINER_ID" ]; then
               TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-              LOG_SRC="/var/lib/docker/containers/${CONTAINER_ID}/${CONTAINER_ID}-json.log"
+              LOG_PATH=$(docker inspect --format='{{.LogPath}}' "$CONTAINER_ID")
               LOG_DEST_DIR=~/docker-container-log-backup
               mkdir -p "$LOG_DEST_DIR"
-              sudo cp "$LOG_SRC" "$LOG_DEST_DIR/algoduck-${TIMESTAMP}.json.log" || echo "❗ 로그 백업 실패: $LOG_SRC"
+              sudo cp "$LOG_PATH" "$LOG_DEST_DIR/algoduck-${TIMESTAMP}.json.log" || echo "❗ 로그 백업 실패: $LOG_PATH"
             else
               echo "❗ 기존 컨테이너가 존재하지 않아 백업 생략"
             fi
