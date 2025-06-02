@@ -99,7 +99,7 @@ jobs:
               LOG_SRC="/var/lib/docker/containers/${CONTAINER_ID}/${CONTAINER_ID}-json.log"
               LOG_DEST_DIR=~/docker-container-log-backup
               mkdir -p "$LOG_DEST_DIR"
-              cp "$LOG_SRC" "$LOG_DEST_DIR/algoduck-${TIMESTAMP}.json.log" || echo "❗ 로그 백업 실패: $LOG_SRC"
+              sudo cp "$LOG_SRC" "$LOG_DEST_DIR/algoduck-${TIMESTAMP}.json.log" || echo "❗ 로그 백업 실패: $LOG_SRC"
             else
               echo "❗ 기존 컨테이너가 존재하지 않아 백업 생략"
             fi
