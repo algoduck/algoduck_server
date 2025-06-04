@@ -17,4 +17,5 @@ public class JudgeResponseDto {
   private String stderr;
   private Integer executionTime;
   private Integer memoryUsage;
+  private Integer percentage;
 }
