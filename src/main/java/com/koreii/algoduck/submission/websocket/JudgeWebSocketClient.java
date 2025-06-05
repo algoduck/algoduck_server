@@ -41,12 +41,10 @@ public class JudgeWebSocketClient extends WebSocketClient {
 
       //  최종 성공
       if ("AC".equals(progress.getResult())) {
+        log.info("Accepted");
         future.complete(new JudgeResponseDto(progress));
         close();
-      }
-
-      //  중단 조건 도달 (e.g. WA, TLE, RE...)
-      if (!"PASS".equals(progress.getResult())) {
+      }  else if (!"PASS".equals(progress.getResult())) {  //  중단 조건 도달 (e.g. WA, TLE, RE...)
         log.warn("중단 - {}", progress.getResult());
         future.complete(new JudgeResponseDto(progress));
         close();
