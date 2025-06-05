@@ -50,7 +50,8 @@ app:
 
 judge:
   server:
-    judge: https://${app.default.judge-domain-name}/judge
+    ws-judge: wss://${app.default.judge-domain-name}/ws/judge
+    https-judge: https://${app.default.judge-domain-name}/judge
     health: https://${app.default.judge-domain-name}/health
 
 springdoc:

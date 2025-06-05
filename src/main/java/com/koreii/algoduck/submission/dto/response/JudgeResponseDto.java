@@ -17,5 +17,13 @@ public class JudgeResponseDto {
   private String stderr;
   private Integer executionTime;
   private Integer memoryUsage;
-  private Integer percentage;
+
+  public JudgeResponseDto(JudgeProgressDto judgeProgressDto) {
+    this.result = Status.valueOf(judgeProgressDto.getResult());
+    this.message = judgeProgressDto.getMessage();
+    this.stdout = judgeProgressDto.getStdout();
+    this.stderr = judgeProgressDto.getStderr();
+    this.executionTime = judgeProgressDto.getExecutionTime();
+    this.memoryUsage = judgeProgressDto.getMemoryUsage();
+  }
 }

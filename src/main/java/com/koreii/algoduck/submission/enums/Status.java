@@ -7,7 +7,8 @@ public enum Status {
   TLE("TIME_LIMIT_EXCEEDED"),
   MLE("MEMORY_LIMIT_EXCEEDED"),
   RE("RUNTIME_ERROR"),
-  AC("ACCEPTED");
+  PASS("PASS"),   //  하나의 테스트케이스 성공
+  AC("ACCEPTED"); //  모든 테스트케이스 성공
 
   Status(String status) {
   }
