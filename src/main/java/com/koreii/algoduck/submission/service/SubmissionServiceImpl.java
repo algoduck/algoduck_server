@@ -43,7 +43,6 @@ public class SubmissionServiceImpl implements SubmissionService {
 
   @Value("${spring.cloud.aws.s3.submission_bucket}")
   private String bucketName;
-  private VersionResponseDto versionResponseDto;
 
   @Override
   @Transactional
@@ -135,7 +134,7 @@ public class SubmissionServiceImpl implements SubmissionService {
       updateSubmission(submissionUpdateRequestDto);
     })
         .exceptionally(ex -> {
-          log.error("채점 실패", ex);
+          log.error("채점 실패 - WebSocket 연결 또는 처리 오류", ex);
           return null;
         });
 

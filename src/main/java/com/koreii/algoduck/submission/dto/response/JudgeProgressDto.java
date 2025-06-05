@@ -1,0 +1,22 @@
+package com.koreii.algoduck.submission.dto.response;
+
+import com.koreii.algoduck.submission.enums.Status;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
+
+@Builder
+@AllArgsConstructor
+@Getter
+@ToString
+public class JudgeProgressDto {
+  private int index;
+  private String result;
+  private String message;
+  private String stdout;
+  private String stderr;
+  private Integer executionTime;
+  private Integer memoryUsage;
+  private int percentage;
+}
