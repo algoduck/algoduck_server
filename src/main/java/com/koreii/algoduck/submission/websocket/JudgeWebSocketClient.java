@@ -2,9 +2,11 @@ package com.koreii.algoduck.submission.websocket;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.koreii.algoduck.submission.controller.SubmissionController;
 import com.koreii.algoduck.submission.dto.request.JudgeRequestDto;
 import com.koreii.algoduck.submission.dto.response.JudgeProgressDto;
 import com.koreii.algoduck.submission.dto.response.JudgeResponseDto;
+import com.koreii.algoduck.submission.sse.SubmissionProgressEmitter;
 import lombok.extern.slf4j.Slf4j;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
@@ -16,12 +18,15 @@ import java.util.concurrent.CompletableFuture;
 public class JudgeWebSocketClient extends WebSocketClient {
   private static final ObjectMapper objectMapper = new ObjectMapper();
   private final JudgeRequestDto judgeRequestDto;
+  private final SubmissionProgressEmitter submissionProgressEmitter;
   private final CompletableFuture<JudgeResponseDto> future;
 
-  public JudgeWebSocketClient(URI serverUri, JudgeRequestDto judgeRequestDto, CompletableFuture<JudgeResponseDto> future) {
+  public JudgeWebSocketClient(URI serverUri, JudgeRequestDto judgeRequestDto, SubmissionProgressEmitter submissionProgressEmitter, CompletableFuture<JudgeResponseDto> future) {
     super(serverUri);
     this.judgeRequestDto = judgeRequestDto;
+    this.submissionProgressEmitter = submissionProgressEmitter;
     this.future = future;
+
   }
 
   @Override
@@ -36,17 +41,20 @@ public class JudgeWebSocketClient extends WebSocketClient {
   @Override
   public void onMessage(String message) {
     try {
-      JudgeProgressDto progress = objectMapper.readValue(message, JudgeProgressDto.class);
-      log.info("채점 진행중: {}%", progress.getPercentage());
+      JudgeProgressDto progressDto = objectMapper.readValue(message, JudgeProgressDto.class);
+      log.info("채점 진행중: {}%", progressDto.getPercentage());
+
+      //  실시간 진행률을 클라이언트에 전송 (SSE)
+      submissionProgressEmitter.sendProgress(judgeRequestDto.getSubmissionId(), progressDto);
 
       //  최종 성공
-      if ("AC".equals(progress.getResult())) {
+      if ("AC".equals(progressDto.getResult())) {
         log.info("Accepted");
-        future.complete(new JudgeResponseDto(progress));
+        future.complete(new JudgeResponseDto(progressDto));
         close();
-      }  else if (!"PASS".equals(progress.getResult())) {  //  중단 조건 도달 (e.g. WA, TLE, RE...)
-        log.warn("중단 - {}", progress.getResult());
-        future.complete(new JudgeResponseDto(progress));
+      }  else if (!"PASS".equals(progressDto.getResult())) {  //  중단 조건 도달 (e.g. WA, TLE, RE...)
+        log.warn("중단 - {}", progressDto.getResult());
+        future.complete(new JudgeResponseDto(progressDto));
         close();
       }
     } catch (JsonProcessingException e) {

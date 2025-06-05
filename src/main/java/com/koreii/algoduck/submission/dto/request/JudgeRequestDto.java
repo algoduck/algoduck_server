@@ -9,6 +9,7 @@ import lombok.Getter;
 @Getter
 public class JudgeRequestDto {
   private Long problemId;
+  private Long submissionId;
   private String language;
   private String version;
   private int timeLimitation;

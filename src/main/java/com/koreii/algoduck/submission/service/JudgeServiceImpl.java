@@ -3,6 +3,7 @@ package com.koreii.algoduck.submission.service;
 import com.koreii.algoduck.submission.dto.request.JudgeRequestDto;
 import com.koreii.algoduck.submission.dto.request.SubmissionRequestDto;
 import com.koreii.algoduck.submission.dto.response.JudgeResponseDto;
+import com.koreii.algoduck.submission.sse.SubmissionProgressEmitter;
 import com.koreii.algoduck.submission.websocket.JudgeWebSocketClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,7 @@ public class  JudgeServiceImpl implements JudgeService {
   private String wsJudgeUrl;
   @Value("${judge.server.https-judge}")
   private String httpsJudgeUrl;
+  private final SubmissionProgressEmitter submissionProgressEmitter;
 
   @Async("judgeExecutor")
   @Override
@@ -34,7 +36,7 @@ public class  JudgeServiceImpl implements JudgeService {
       URI uri = new URI(wsJudgeUrl);
 
       log.info("uri = {}", uri);
-      JudgeWebSocketClient judgeWebSocketClient = new JudgeWebSocketClient(uri, judgeRequestDto, future);
+      JudgeWebSocketClient judgeWebSocketClient = new JudgeWebSocketClient(uri, judgeRequestDto, submissionProgressEmitter, future);
       judgeWebSocketClient.connect();
     } catch (URISyntaxException e) {
       log.error("잘못된 Judge 서버 URI");

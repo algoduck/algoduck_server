@@ -5,8 +5,10 @@ import com.koreii.algoduck.base.dto.page.PageResponse;
 import com.koreii.algoduck.base.dto.response.ApiResponse;
 import com.koreii.algoduck.member.security.CustomUserDetails;
 import com.koreii.algoduck.submission.dto.request.SubmissionRequestDto;
+import com.koreii.algoduck.submission.dto.response.JudgeProgressDto;
 import com.koreii.algoduck.submission.dto.response.SubmissionResponseDto;
 import com.koreii.algoduck.submission.service.SubmissionService;
+import com.koreii.algoduck.submission.sse.SubmissionProgressEmitter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
+import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,6 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class SubmissionController extends BaseApiController {
   private final SubmissionService submissionService;
+  private final SubmissionProgressEmitter submissionProgressEmitter;
 
   @Operation(summary = "제출", description = "문제에 대한 코드를 제출합니다.")
   @PostMapping
@@ -67,5 +75,10 @@ public class SubmissionController extends BaseApiController {
   ) {
     String code = submissionService.getCode(submissionId);
     return ResponseEntity.ok(ApiResponse.success(code));
+  }
+
+  @GetMapping("/{submissionId}/progress")
+  public SseEmitter subscribe(@PathVariable Long submissionId) {
+    return submissionProgressEmitter.createEmitter(submissionId);
   }
 }
