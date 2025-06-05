@@ -114,6 +114,7 @@ public class SubmissionServiceImpl implements SubmissionService {
 
     JudgeRequestDto judgeRequestDto = JudgeRequestDto.builder()
         .problemId(submissionRequestDto.getProblemId())
+        .submissionId(submissionId)
         .language(versionResponseDto.getLanguageName())
         .version(versionResponseDto.getVersionName())
         .timeLimitation(problemResponseDto.getTimeLimitation())

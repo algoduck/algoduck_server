@@ -14,6 +14,7 @@ import lombok.ToString;
 @ToString
 public class JudgeProgressDto {
   private int index;
+  private Long submissionId;
   private String result;
   private String message;
   private String stdout;
