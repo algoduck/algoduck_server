@@ -7,6 +7,9 @@ ARG JAR_FILE=build/libs/algoduck-0.0.1-SNAPSHOT.jar
 # JAR 파일을 이미지에 복사
 COPY ${JAR_FILE} app.jar
 
+COPY src/main/resources/application.yml /app/application.yml
+COPY .env /app/.env
+
 # 작업 디렉토리 설정
 WORKDIR /app
 
