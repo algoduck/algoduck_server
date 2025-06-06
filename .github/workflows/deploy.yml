@@ -93,6 +93,10 @@ jobs:
           script: |
             cd ~/algoduck
 
+            echo "🔐 파일 권한 설정"
+            chmod 600 .env || echo ".env 없음"
+            chmod 600 src/main/resources/application.yml || echo "application.yml 없음"
+
             echo "📦 컨테이너 로그 백업 (docker logs 형식)"
             CONTAINER_NAME=algoduck
             TIMESTAMP=$(date +%Y%m%d_%H%M%S)
@@ -107,8 +111,8 @@ jobs:
             echo "🚀 Spring 앱 컨테이너 빌드 및 실행"
             docker-compose up -d --build app
 
-            echo "🔒 .env 파일 권한 설정"
-            chmod 600 .env
+            echo "🧼 빌드 후 민감한 설정 파일 삭제"
+            rm -f .env src/main/resources/application.yml
 
       - name: Health Check
         run: |
