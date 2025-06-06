@@ -80,7 +80,7 @@ jobs:
             build/libs/*.jar,
             Dockerfile,
             docker-compose.yml,
-            .env
+            .env,
             src/main/resources/application.yml
           target: "~/algoduck"
 
