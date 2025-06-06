@@ -60,7 +60,6 @@ public class JudgeWebSocketClient extends WebSocketClient {
     } catch (JsonProcessingException e) {
       onError(e);
     }
-    // 결과를 DB에 저장하거나 SSE로 React에 push
   }
 
   @Override
