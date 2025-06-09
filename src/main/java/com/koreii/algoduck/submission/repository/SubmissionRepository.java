@@ -20,4 +20,9 @@ public interface SubmissionRepository {
   PageResponse<SubmissionResponseDto> findNextPage(Long lastSeenId, int pageSize);
 
   PageResponse<SubmissionResponseDto> findPrevPage(Long firstSeenId, int pageSize);
+
+  PageResponse<SubmissionResponseDto> findNextPageByMemberId(Long memberId, Long lastSeenId, int pageSize);
+
+  PageResponse<SubmissionResponseDto> findPrevPageByMemberId(Long memberId, Long firstSeenId, int pageSize);
+
 }

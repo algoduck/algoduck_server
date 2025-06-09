@@ -25,10 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import java.io.IOException;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/submissions")
@@ -68,6 +64,29 @@ public class SubmissionController extends BaseApiController {
 
     return ResponseEntity.ok(ApiResponse.success(page));
   }
+
+  @Operation(summary = "회원 제출 목록 페이지 조회", description = "특정 회원의 제출 목록을 커서 기반으로 조회합니다.")
+  @GetMapping("/page//member/{memberId}")
+  public ResponseEntity<ApiResponse<PageResponse<SubmissionResponseDto>>> getPageByMemberId(
+      @PathVariable Long memberId,
+      @RequestParam(required = false) Long lastSeenId,
+      @RequestParam(required = false) Long firstSeenId,
+      @RequestParam(defaultValue = "20") int size
+  ) {
+    PageResponse<SubmissionResponseDto> page;
+
+    if (lastSeenId == null && firstSeenId == null) {
+      // 첫 페이지는 최신순 정렬로 조회
+      page = submissionService.getNextPageByMemberId(memberId, null, size);
+    } else if (lastSeenId != null) {
+      page = submissionService.getNextPageByMemberId(memberId, lastSeenId, size);
+    } else {
+      page = submissionService.getPrevPageByMemberId(memberId, firstSeenId, size);
+    }
+
+    return ResponseEntity.ok(ApiResponse.success(page));
+  }
+
 
   @GetMapping("/{submissionId}/code")
   public ResponseEntity<ApiResponse<String>> getCode(

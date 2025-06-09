@@ -173,6 +173,16 @@ public class SubmissionServiceImpl implements SubmissionService {
   }
 
   @Override
+  public PageResponse<SubmissionResponseDto> getNextPageByMemberId(Long memberId, Long lastSeenId, int pageSize) {
+    return submissionRepository.findNextPageByMemberId(memberId, lastSeenId, pageSize);
+  }
+
+  @Override
+  public PageResponse<SubmissionResponseDto> getPrevPageByMemberId(Long memberId, Long firstSeenId, int pageSize) {
+    return submissionRepository.findPrevPageByMemberId(memberId, firstSeenId, pageSize);
+  }
+
+  @Override
   public String getCode(Long submissionId) {
     Submission submission = submissionRepository.findBySubmissionId(submissionId);
     byte[] codeBytes = fileStorageService

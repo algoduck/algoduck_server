@@ -117,4 +117,47 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
     Collections.reverse(result); // 최신순 유지
     return PageResponse.of(result, firstSeenId != null, hasPrev);
   }
+
+  @Override
+  public PageResponse<SubmissionResponseDto> findNextPageByMemberId(Long memberId, Long lastSeenId, int pageSize) {
+    String jpql = "SELECT new com.koreii.algoduck.submission.dto.response.SubmissionResponseDto(s) " +
+        "FROM Submission s " +
+        "WHERE s.member.id = :memberId AND (:lastId IS NULL OR s.id < :lastId) " +
+        "ORDER BY s.id DESC";
+
+    List<SubmissionResponseDto> result = entityManager.createQuery(jpql, SubmissionResponseDto.class)
+        .setParameter("memberId", memberId)
+        .setParameter("lastId", lastSeenId)
+        .setMaxResults(pageSize + 1)
+        .getResultList();
+
+    boolean hasNext = result.size() > pageSize;
+    if (hasNext) {
+      result.remove(pageSize);
+    }
+
+    return PageResponse.of(result, hasNext, lastSeenId != null);
+  }
+
+  @Override
+  public PageResponse<SubmissionResponseDto> findPrevPageByMemberId(Long memberId, Long firstSeenId, int pageSize) {
+    String jpql = "SELECT new com.koreii.algoduck.submission.dto.response.SubmissionResponseDto(s) " +
+        "FROM Submission s " +
+        "WHERE s.member.id = :memberId AND s.id > :firstId " +
+        "ORDER BY s.id ASC";
+
+    List<SubmissionResponseDto> result = entityManager.createQuery(jpql, SubmissionResponseDto.class)
+        .setParameter("memberId", memberId)
+        .setParameter("firstId", firstSeenId)
+        .setMaxResults(pageSize + 1)
+        .getResultList();
+
+    boolean hasPrev = result.size() > pageSize;
+    if (hasPrev) {
+      result.remove(pageSize);
+    }
+
+    Collections.reverse(result); // 최신순으로 정렬
+    return PageResponse.of(result, firstSeenId != null, hasPrev);
+  }
 }
