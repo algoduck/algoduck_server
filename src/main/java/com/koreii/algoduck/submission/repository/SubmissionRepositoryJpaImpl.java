@@ -78,6 +78,13 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
   }
 
   @Override
+  public long countAll() {
+    String jpql = "SELECT COUNT(s) FROM Submission s";
+    return entityManager.createQuery(jpql, Long.class)
+        .getSingleResult();
+  }
+
+  @Override
   public PageResponse<SubmissionResponseDto> findNextPage(Long lastSeenId, int pageSize) {
     String jpql = "SELECT new com.koreii.algoduck.submission.dto.response.SubmissionResponseDto(s) " +
         "FROM Submission s " +
@@ -119,6 +126,14 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
   }
 
   @Override
+  public long countByMemberId(Long memberId) {
+    String jpql = "SELECT COUNT(s) FROM Submission s WHERE s.member.id = :memberId";
+    return entityManager.createQuery(jpql, Long.class)
+        .setParameter("memberId", memberId)
+        .getSingleResult();
+  }
+
+  @Override
   public PageResponse<SubmissionResponseDto> findNextPageByMemberId(Long memberId, Long lastSeenId, int pageSize) {
     String jpql = "SELECT new com.koreii.algoduck.submission.dto.response.SubmissionResponseDto(s) " +
         "FROM Submission s " +
@@ -136,7 +151,9 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
       result.remove(pageSize);
     }
 
-    return PageResponse.of(result, hasNext, lastSeenId != null);
+    long totalCount = countByMemberId(memberId);
+
+    return PageResponse.of(result, hasNext, lastSeenId != null, totalCount);
   }
 
   @Override
