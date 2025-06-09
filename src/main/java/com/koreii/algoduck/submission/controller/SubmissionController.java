@@ -66,7 +66,7 @@ public class SubmissionController extends BaseApiController {
   }
 
   @Operation(summary = "회원 제출 목록 페이지 조회", description = "특정 회원의 제출 목록을 커서 기반으로 조회합니다.")
-  @GetMapping("/page//member/{memberId}")
+  @GetMapping("/page/member/{memberId}")
   public ResponseEntity<ApiResponse<PageResponse<SubmissionResponseDto>>> getPageByMemberId(
       @PathVariable Long memberId,
       @RequestParam(required = false) Long lastSeenId,
