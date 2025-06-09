@@ -24,5 +24,9 @@ public interface SubmissionService {
   // 이전 페이지 요청 (현재 첫 ID 기준으로 더 최신 데이터 조회)
   PageResponse<SubmissionResponseDto> getPrevPage(Long firstSeenId, int pageSize);
 
+  PageResponse<SubmissionResponseDto> getNextPageByMemberId(Long memberId, Long lastSeenId, int pageSize);
+
+  PageResponse<SubmissionResponseDto> getPrevPageByMemberId(Long memberId, Long firstSeenId, int pageSize);
+
   String getCode(Long submissionId);
 }
