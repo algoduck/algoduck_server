@@ -34,6 +34,15 @@ spring:
         profile_bucket: ${S3_PROFILE_BUCKET_NAME}
         submission_bucket: ${S3_SUBMISSION_BUCKET_NAME}
 
+  rabbitmq:
+    host: ${JUDGE_QUEUE_HOST}
+    port: 5671
+    username: ${JUDGE_QUEUE_USERNAME}
+    password: ${JUDGE_QUEUE_PASSWORD}
+    ssl:
+      enabled: true
+      algorithm: TLSv1.2
+
 logging:
   file:
     name: /app/algoduck.log
