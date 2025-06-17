@@ -42,6 +42,7 @@ jobs:
           EC2_JUDGE_HOST: ${{ secrets.EC2_JUDGE_HOST }}
           CLIENT_DOMAIN_NAME: ${{ secrets.CLIENT_DOMAIN_NAME }}
           JUDGE_DOMAIN_NAME: ${{ secrets.JUDGE_DOMAIN_NAME }}
+          JUDGE_QUEUE_NAME: ${{ secrets.JUDGE_QUEUE_NAME }}
           JUDGE_QUEUE_HOST: ${{ secrets.JUDGE_QUEUE_HOST }}
           JUDGE_QUEUE_USERNAME: ${{ secrets.JUDGE_QUEUE_USERNAME }}
           JUDGE_QUEUE_PASSWORD: ${{ secrets.JUDGE_QUEUE_PASSWORD }}
@@ -66,6 +67,7 @@ jobs:
           EC2_JUDGE_HOST: ${{ secrets.EC2_JUDGE_HOST }}
           CLIENT_DOMAIN_NAME: ${{ secrets.CLIENT_DOMAIN_NAME }}
           JUDGE_DOMAIN_NAME: ${{ secrets.JUDGE_DOMAIN_NAME }}
+          JUDGE_QUEUE_NAME: ${{ secrets.JUDGE_QUEUE_NAME }}
           JUDGE_QUEUE_HOST: ${{ secrets.JUDGE_QUEUE_HOST }}
           JUDGE_QUEUE_USERNAME: ${{ secrets.JUDGE_QUEUE_USERNAME }}
           JUDGE_QUEUE_PASSWORD: ${{ secrets.JUDGE_QUEUE_PASSWORD }}

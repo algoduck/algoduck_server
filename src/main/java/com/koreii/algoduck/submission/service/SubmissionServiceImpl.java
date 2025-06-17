@@ -49,11 +49,14 @@ public class SubmissionServiceImpl implements SubmissionService {
   public SubmissionResponseDto submit(SubmissionRequestDto submissionRequestDto) {
     log.info("submissionRequestDto = {}", submissionRequestDto);
 
+    //  problemId, versionId로부터 문제 정보, 제출 언어, 버전 정보 가져오기
     ProblemResponseDto problemResponseDto = problemService.findDtoByProblemId(submissionRequestDto.getProblemId());
     VersionResponseDto versionResponseDto = versionService.findByVersionId(submissionRequestDto.getVersionId());
 
+    //  데이터베이스에 제출내역 초기 저장
     SubmissionSaveRequestDto submissionSaveRequestDto = new SubmissionSaveRequestDto(submissionRequestDto);
     SubmissionResponseDto submissionResponseDto = submissionRepository.saveSubmission(submissionSaveRequestDto);
+    //  데이터베이스 초기 저장 후 제출 PK
     Long submissionId = submissionResponseDto.getSubmissionId();
 
     log.info("submissionId = {}", submissionId);
@@ -62,6 +65,7 @@ public class SubmissionServiceImpl implements SubmissionService {
 
     log.info("sourceCode = {}", sourceCode);
 
+    //  소스 파일 생성
     String codeName = problemResponseDto.getProblemNumber() + "." + versionResponseDto.getExtension();
     Path tempFile = null;
     MultipartFile multipartFile = null;
