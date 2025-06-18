@@ -9,7 +9,6 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @Getter
-@ToString
 public class JudgeResponseDto {
   private Status result;
   private String message;
