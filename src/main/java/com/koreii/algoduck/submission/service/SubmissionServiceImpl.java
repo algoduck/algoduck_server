@@ -12,6 +12,8 @@ import com.koreii.algoduck.submission.dto.request.SubmissionUpdateRequestDto;
 import com.koreii.algoduck.submission.dto.response.JudgeResponseDto;
 import com.koreii.algoduck.submission.dto.response.SubmissionResponseDto;
 import com.koreii.algoduck.submission.entity.Submission;
+import com.koreii.algoduck.submission.message.request.JudgeRequestMessage;
+import com.koreii.algoduck.submission.producer.JudgeRequestProducer;
 import com.koreii.algoduck.submission.repository.SubmissionRepository;
 import com.koreii.algoduck.version.dto.response.VersionResponseDto;
 import com.koreii.algoduck.version.service.VersionService;
@@ -43,6 +45,8 @@ public class SubmissionServiceImpl implements SubmissionService {
 
   @Value("${spring.cloud.aws.s3.submission_bucket}")
   private String bucketName;
+
+  private final JudgeRequestProducer judgeRequestProducer;
 
   @Override
   @Transactional
@@ -116,7 +120,7 @@ public class SubmissionServiceImpl implements SubmissionService {
       }
     }
 
-    JudgeRequestDto judgeRequestDto = JudgeRequestDto.builder()
+    JudgeRequestMessage judgeRequestMessage = JudgeRequestMessage.builder()
         .problemId(submissionRequestDto.getProblemId())
         .submissionId(submissionId)
         .language(versionResponseDto.getLanguageName())
@@ -126,22 +130,7 @@ public class SubmissionServiceImpl implements SubmissionService {
         .sourceCode(sourceCode)
         .build();
 
-    CompletableFuture<JudgeResponseDto> judgeResult = judgeService.requestJudge(judgeRequestDto);
-    judgeResult.thenAccept(judgeResponseDto -> {
-      log.info("judgeResponseDto = {}", judgeResponseDto);
-      SubmissionUpdateRequestDto submissionUpdateRequestDto = SubmissionUpdateRequestDto.builder()
-            .submissionId(submissionId)
-            .status(judgeResponseDto.getResult())
-            .message(judgeResponseDto.getMessage())
-            .executionTime(judgeResponseDto.getExecutionTime())
-            .memoryUsage(judgeResponseDto.getMemoryUsage())
-            .build();
-      updateSubmission(submissionUpdateRequestDto);
-    })
-        .exceptionally(ex -> {
-          log.error("채점 실패 - WebSocket 연결 또는 처리 오류", ex);
-          return null;
-        });
+    judgeRequestProducer.sendJudgeRequest(judgeRequestMessage);
 
     // 즉시 사용자에게 "채점 중" 메시지 반환
     return submissionResponseDto;
