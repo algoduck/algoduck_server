@@ -35,8 +35,6 @@ spring:
         submission_bucket: ${S3_SUBMISSION_BUCKET_NAME}
 
   rabbitmq:
-    queue:
-      name: ${JUDGE_QUEUE_NAME}
     host: ${JUDGE_QUEUE_HOST}
     port: 5671
     username: ${JUDGE_QUEUE_USERNAME}
@@ -44,6 +42,12 @@ spring:
     ssl:
       enabled: true
       algorithm: TLSv1.2
+
+rabbitmq:
+  queue:
+    request: judge-request
+    progress: judge-progress
+    result: judge-result
 
 logging:
   file:
