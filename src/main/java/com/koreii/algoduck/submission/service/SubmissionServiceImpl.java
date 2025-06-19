@@ -5,15 +5,13 @@ import com.koreii.algoduck.exceptions.file.submission.SubmissionFailureException
 import com.koreii.algoduck.file.FileStorageService;
 import com.koreii.algoduck.problem.dto.response.ProblemResponseDto;
 import com.koreii.algoduck.problem.service.ProblemService;
-import com.koreii.algoduck.submission.dto.request.JudgeRequestDto;
 import com.koreii.algoduck.submission.dto.request.SubmissionRequestDto;
 import com.koreii.algoduck.submission.dto.request.SubmissionSaveRequestDto;
 import com.koreii.algoduck.submission.dto.request.SubmissionUpdateRequestDto;
-import com.koreii.algoduck.submission.dto.response.JudgeResponseDto;
 import com.koreii.algoduck.submission.dto.response.SubmissionResponseDto;
 import com.koreii.algoduck.submission.entity.Submission;
-import com.koreii.algoduck.submission.message.request.JudgeRequestMessage;
-import com.koreii.algoduck.submission.producer.JudgeRequestProducer;
+import com.koreii.algoduck.submission.mq.message.request.JudgeRequestMessage;
+import com.koreii.algoduck.submission.mq.producer.JudgeRequestProducer;
 import com.koreii.algoduck.submission.repository.SubmissionRepository;
 import com.koreii.algoduck.version.dto.response.VersionResponseDto;
 import com.koreii.algoduck.version.service.VersionService;

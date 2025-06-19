@@ -1,6 +1,6 @@
-package com.koreii.algoduck.submission.producer;
+package com.koreii.algoduck.submission.mq.producer;
 
-import com.koreii.algoduck.submission.message.request.JudgeRequestMessage;
+import com.koreii.algoduck.submission.mq.message.request.JudgeRequestMessage;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
