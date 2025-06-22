@@ -4,6 +4,7 @@ import com.koreii.algoduck.config.TestMockConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.MySQLContainer;
@@ -11,6 +12,7 @@ import org.testcontainers.containers.RabbitMQContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+@ActiveProfiles("test")
 @Testcontainers
 @SpringBootTest(
     properties = {
@@ -46,7 +48,9 @@ class AlgoduckApplicationTests {
     registry.add("spring.rabbitmq.port", () -> rabbitMQ.getMappedPort(5672));
     registry.add("spring.rabbitmq.username", () -> "testuser");
     registry.add("spring.rabbitmq.password", () -> "testpass");
+    registry.add("spring.rabbitmq.ssl.enabled", () -> false); // ← 이 줄 추가
   }
+
 
   @Test
   void contextLoads() {
