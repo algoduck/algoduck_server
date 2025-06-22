@@ -1,7 +1,11 @@
 package com.koreii.algoduck;
 
+import com.koreii.algoduck.config.TestMockConfig;
 import org.junit.jupiter.api.Test;
+import org.springframework.amqp.core.AmqpAdmin;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.MySQLContainer;
@@ -17,7 +21,9 @@ import org.testcontainers.junit.jupiter.Testcontainers;
         "spring.cloud.aws.s3.testcase_bucket=dummy-bucket"
     }
 )
+@Import(TestMockConfig.class)
 class AlgoduckApplicationTests {
+
   @Container
   static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0")
       .withDatabaseName("testdb")
@@ -34,5 +40,5 @@ class AlgoduckApplicationTests {
   @Test
   void contextLoads() {
   }
-
 }
+
