@@ -36,11 +36,11 @@ spring:
 
   rabbitmq:
     host: ${JUDGE_QUEUE_DOMAIN_NAME}
-    port: 5671
+    port: 5672
     username: ${JUDGE_QUEUE_USERNAME}
     password: ${JUDGE_QUEUE_PASSWORD}
     ssl:
-      enabled: true
+      enabled: false
       algorithm: TLSv1.2
 
 rabbitmq:
