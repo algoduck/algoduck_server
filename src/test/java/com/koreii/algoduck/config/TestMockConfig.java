@@ -11,14 +11,12 @@ import static org.mockito.Mockito.mock;
 @TestConfiguration
 public class TestMockConfig {
 
-  @Bean
-  @ConditionalOnMissingBean(RabbitTemplate.class)
+  @Bean(name = "mockRabbitTemplate")
   public RabbitTemplate rabbitTemplate() {
     return mock(RabbitTemplate.class);
   }
 
-  @Bean
-  @ConditionalOnMissingBean(AmqpAdmin.class)
+  @Bean(name = "mockAmqpAdmin")
   public AmqpAdmin amqpAdmin() {
     return mock(AmqpAdmin.class);
   }
