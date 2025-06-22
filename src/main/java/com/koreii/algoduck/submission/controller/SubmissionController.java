@@ -8,7 +8,6 @@ import com.koreii.algoduck.submission.dto.request.SubmissionRequestDto;
 import com.koreii.algoduck.submission.dto.response.JudgeProgressDto;
 import com.koreii.algoduck.submission.dto.response.SubmissionResponseDto;
 import com.koreii.algoduck.submission.service.SubmissionService;
-import com.koreii.algoduck.submission.sse.SubmissionProgressEmitter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +31,6 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 @Slf4j
 public class SubmissionController extends BaseApiController {
   private final SubmissionService submissionService;
-  private final SubmissionProgressEmitter submissionProgressEmitter;
 
   @Operation(summary = "제출", description = "문제에 대한 코드를 제출합니다.")
   @PostMapping
@@ -94,10 +92,5 @@ public class SubmissionController extends BaseApiController {
   ) {
     String code = submissionService.getCode(submissionId);
     return ResponseEntity.ok(ApiResponse.success(code));
-  }
-
-  @GetMapping("/{submissionId}/progress")
-  public SseEmitter subscribe(@PathVariable Long submissionId) {
-    return submissionProgressEmitter.createEmitter(submissionId);
   }
 }
