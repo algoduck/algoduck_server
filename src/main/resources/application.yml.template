@@ -35,7 +35,7 @@ spring:
         submission_bucket: ${S3_SUBMISSION_BUCKET_NAME}
 
   rabbitmq:
-    host: ${JUDGE_QUEUE_HOST}
+    host: ${JUDGE_QUEUE_DOMAIN_NAME}
     port: 5671
     username: ${JUDGE_QUEUE_USERNAME}
     password: ${JUDGE_QUEUE_PASSWORD}
