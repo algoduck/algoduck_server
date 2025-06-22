@@ -44,6 +44,7 @@ jobs:
           JUDGE_DOMAIN_NAME: ${{ secrets.JUDGE_DOMAIN_NAME }}
           JUDGE_QUEUE_NAME: ${{ secrets.JUDGE_QUEUE_NAME }}
           JUDGE_QUEUE_HOST: ${{ secrets.JUDGE_QUEUE_HOST }}
+          JUDGE_QUEUE_DOMAIN_NAME: ${{ secrets.JUDGE_QUEUE_DOMAIN_NAME }}
           JUDGE_QUEUE_USERNAME: ${{ secrets.JUDGE_QUEUE_USERNAME }}
           JUDGE_QUEUE_PASSWORD: ${{ secrets.JUDGE_QUEUE_PASSWORD }}
           JUDGE_QUEUE_REQUEST_QUEUE: ${{ secrets.JUDGE_QUEUE_REQUEST_QUEUE }}
@@ -72,6 +73,7 @@ jobs:
           JUDGE_DOMAIN_NAME: ${{ secrets.JUDGE_DOMAIN_NAME }}
           JUDGE_QUEUE_NAME: ${{ secrets.JUDGE_QUEUE_NAME }}
           JUDGE_QUEUE_HOST: ${{ secrets.JUDGE_QUEUE_HOST }}
+          JUDGE_QUEUE_DOMAIN_NAME: ${{ secrets.JUDGE_QUEUE_DOMAIN_NAME }}
           JUDGE_QUEUE_USERNAME: ${{ secrets.JUDGE_QUEUE_USERNAME }}
           JUDGE_QUEUE_PASSWORD: ${{ secrets.JUDGE_QUEUE_PASSWORD }}
           JUDGE_QUEUE_REQUEST_QUEUE: ${{ secrets.JUDGE_QUEUE_REQUEST_QUEUE }}
