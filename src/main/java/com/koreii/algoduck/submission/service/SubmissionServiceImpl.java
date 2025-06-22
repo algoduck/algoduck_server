@@ -37,7 +37,6 @@ import java.util.concurrent.CompletableFuture;
 public class SubmissionServiceImpl implements SubmissionService {
   private final VersionService versionService;
   private final ProblemService problemService;
-  private final JudgeService judgeService;
   private final SubmissionRepository submissionRepository;
   private final FileStorageService fileStorageService;
 
