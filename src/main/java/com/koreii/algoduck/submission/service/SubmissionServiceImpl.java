@@ -56,9 +56,9 @@ public class SubmissionServiceImpl implements SubmissionService {
 
     //  데이터베이스에 제출내역 초기 저장
     SubmissionSaveRequestDto submissionSaveRequestDto = new SubmissionSaveRequestDto(submissionRequestDto);
-    SubmissionResponseDto submissionResponseDto = submissionRepository.saveSubmission(submissionSaveRequestDto);
+    Submission submission = submissionRepository.saveSubmission(submissionSaveRequestDto);
     //  데이터베이스 초기 저장 후 제출 PK
-    Long submissionId = submissionResponseDto.getSubmissionId();
+    Long submissionId = submission.getSubmissionId();
 
     log.info("submissionId = {}", submissionId);
 
@@ -130,7 +130,7 @@ public class SubmissionServiceImpl implements SubmissionService {
     judgeRequestProducer.sendJudgeRequest(judgeRequestMessage);
 
     // 즉시 사용자에게 "채점 중" 메시지 반환
-    return submissionResponseDto;
+    return new SubmissionResponseDto(submission);
   }
 
   @Override
@@ -141,7 +141,8 @@ public class SubmissionServiceImpl implements SubmissionService {
   @Override
   @Transactional
   public SubmissionResponseDto updateSubmission(SubmissionUpdateRequestDto submissionUpdateRequestDto) {
-    return submissionRepository.updateSubmission(submissionUpdateRequestDto);
+    Submission submission = submissionRepository.updateSubmission(submissionUpdateRequestDto);
+    return new SubmissionResponseDto(submission);
   }
 
   // 첫 페이지 (가장 최근 제출부터 시작)

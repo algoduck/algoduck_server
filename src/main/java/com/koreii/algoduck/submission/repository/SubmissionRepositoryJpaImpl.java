@@ -28,7 +28,7 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
   private final VersionRepository versionRepository;
 
   @Override
-  public SubmissionResponseDto saveSubmission(SubmissionSaveRequestDto submissionSaveRequestDto) {
+  public Submission saveSubmission(SubmissionSaveRequestDto submissionSaveRequestDto) {
     Submission submission = Submission.builder()
         .member(memberRepository.findByMemberId(submissionSaveRequestDto.getMemberId()))
         .status(Status.JUDGING)
@@ -38,7 +38,7 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
         .build();
 
     entityManager.persist(submission);
-    return new SubmissionResponseDto(submission);
+    return submission;
   }
 
   @Override
@@ -49,7 +49,7 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
 
   @Override
   @Transactional
-  public SubmissionResponseDto updateSubmission(SubmissionUpdateRequestDto submissionUpdateRequestDto) {
+  public Submission updateSubmission(SubmissionUpdateRequestDto submissionUpdateRequestDto) {
     log.info("submissionUpdateRequestDto = {}", submissionUpdateRequestDto);
 
     Submission submission = entityManager.find(Submission.class, submissionUpdateRequestDto.getSubmissionId());
@@ -74,7 +74,7 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
     if (submissionUpdateRequestDto.getMemoryUsage() != null) {
       submission.setMemoryUsage(submissionUpdateRequestDto.getMemoryUsage());
     }
-    return new SubmissionResponseDto(submission);
+    return submission;
   }
 
   @Override

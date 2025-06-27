@@ -30,13 +30,13 @@ public class ProblemImageServiceImpl implements ProblemImageService {
 
   @Override
   @Transactional
-  public ProblemImageResponseDto addProblemImage(Problem problem, MultipartFile problemImage) {
-    String problemImageName = problemImage.getName();
+  public ProblemImageResponseDto addProblemImage(Problem problem, MultipartFile problemImageFile) {
+    String problemImageName = problemImageFile.getName();
 
     String problemImageUrl = null;
 
     try {
-      problemImageUrl = fileStorageService.uploadFile(bucketName, "problem-image/" + problem.getProblemId(), problemImage).get();
+      problemImageUrl = fileStorageService.uploadFile(bucketName, "problem-image/" + problem.getProblemId(), problemImageFile).get();
     } catch (Exception e) {
       log.error("Fail to upload problem image file", e);
       throw new FileUploadFailException(e);
@@ -48,7 +48,8 @@ public class ProblemImageServiceImpl implements ProblemImageService {
           .problemImageUrl(problemImageUrl)
           .build();
 
-      return problemImageRepository.addProblemImage(problem, problemImageAddRequestDto);
+      ProblemImage problemImage = problemImageRepository.addProblemImage(problem, problemImageAddRequestDto);
+      return new ProblemImageResponseDto(problemImage);
     } catch (Exception e) {
       log.error("problem image DB insert fail");
       fileStorageService.deleteFile(bucketName, problemImageUrl);

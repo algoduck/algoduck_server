@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface TestcaseRepository {
   //  TestcaseService에서 테스트케이스가 저장소에 제대로 저장된 다음에 해당 경로를 이용해 DB에 저장
-  TestcaseResponseDto addTestcase(Problem problem, TestcaseRequestDto testcaseRequestDto);
+  Testcase addTestcase(Problem problem, TestcaseRequestDto testcaseRequestDto);
 
   Testcase findByTestcaseId(Long testcaseId);
 

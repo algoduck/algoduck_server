@@ -66,15 +66,15 @@ public class MemberServiceImpl implements MemberService {
     memberSaveRequestDto.setPassword(hashedPassword);
 
     String submitProfileImageUrl = defaultProfileImageUrl;  //  DB에 저장할 url
-    MemberResponseDto memberResponseDto = null;
+    Member member = null;
 
     try {
-      memberResponseDto = memberRepository.save(memberSaveRequestDto, submitProfileImageUrl);
+      member = memberRepository.save(memberSaveRequestDto, submitProfileImageUrl);
     } catch (Exception e) {
       throw new MemberJoinException(memberSaveRequestDto.getLoginId() + " 회원가입 실패, " + e);
     }
 
-    Long memberId = memberResponseDto.getMemberId();
+    Long memberId = member.getMemberId();
 
     CompletableFuture<String> upload = fileStorageService.uploadFile(bucketName, "profile/" + memberSaveRequestDto.getLoginId(), file);
     upload.thenAccept(profileImageUrl -> {
@@ -85,7 +85,7 @@ public class MemberServiceImpl implements MemberService {
       return null;
     });
 
-    return memberResponseDto;
+    return new MemberResponseDto(member);
   }
 
   @Override
@@ -155,10 +155,10 @@ public class MemberServiceImpl implements MemberService {
     }
 
     String beforeProfileImageUrl = memberUpdateRequestDto.getBeforeProfileImageUrl();  //  기존 프로필 이미지 url
-    MemberResponseDto memberResponseDto = null;
+    Member member = null;
 
     try {
-      memberResponseDto = memberRepository.update(memberId, memberUpdateRequestDto);
+      member = memberRepository.update(memberId, memberUpdateRequestDto);
     } catch (Exception e) {
       throw new MemberUpdateException(memberUpdateRequestDto.getLoginId() + " 회원 업데이트 실패", e);
     }
@@ -190,7 +190,7 @@ public class MemberServiceImpl implements MemberService {
       }
     }
 
-    return memberResponseDto;
+    return new MemberResponseDto(member);
   }
 
   @Override

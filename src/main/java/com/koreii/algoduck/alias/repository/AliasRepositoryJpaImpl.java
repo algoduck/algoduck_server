@@ -19,14 +19,14 @@ public class AliasRepositoryJpaImpl implements AliasRepository {
   private final EntityManager entityManager;
 
   @Override
-  public AliasResponseDto addAlias(Algorithm algorithm, String aliasName) {
+  public Alias addAlias(Algorithm algorithm, String aliasName) {
     Alias alias = Alias.builder()
         .aliasName(aliasName)
         .algorithm(algorithm)
         .build();
 
     entityManager.persist(alias);
-    return new AliasResponseDto(alias);
+    return alias;
   }
 
   @Override

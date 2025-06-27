@@ -17,7 +17,7 @@ public class ProblemImageRepositoryJpaImpl implements ProblemImageRepository {
 
   @Override
   @Transactional
-  public ProblemImageResponseDto addProblemImage(Problem problem, ProblemImageAddRequestDto problemImageAddRequestDto) {
+  public ProblemImage addProblemImage(Problem problem, ProblemImageAddRequestDto problemImageAddRequestDto) {
     ProblemImage problemImage = ProblemImage.builder()
         .problem(problem)
         .problemImageName(problemImageAddRequestDto.getProblemImageName())
@@ -25,7 +25,7 @@ public class ProblemImageRepositoryJpaImpl implements ProblemImageRepository {
         .build();
 
     entityManager.persist(problemImage);
-    return new ProblemImageResponseDto(problemImage);
+    return problemImage;
   }
 
   @Override

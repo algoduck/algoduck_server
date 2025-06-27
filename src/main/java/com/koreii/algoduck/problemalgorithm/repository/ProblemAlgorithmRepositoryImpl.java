@@ -14,13 +14,13 @@ public class ProblemAlgorithmRepositoryImpl implements ProblemAlgorithmRepositor
   private final EntityManager entityManager;
 
   @Override
-  public ProblemAlgorithmResponseDto addProblemAlgorithm(Problem problem, Algorithm algorithm) {
+  public ProblemAlgorithm addProblemAlgorithm(Problem problem, Algorithm algorithm) {
     ProblemAlgorithm problemAlgorithm = ProblemAlgorithm.builder()
         .problem(problem)
         .algorithm(algorithm)
         .build();
 
     entityManager.persist(problemAlgorithm);
-    return new ProblemAlgorithmResponseDto(problemAlgorithm);
+    return problemAlgorithm;
   }
 }

@@ -11,11 +11,11 @@ import java.util.List;
 
 @Repository
 public interface SubmissionRepository {
-  SubmissionResponseDto saveSubmission(SubmissionSaveRequestDto submissionSaveRequestDto);
+  Submission saveSubmission(SubmissionSaveRequestDto submissionSaveRequestDto);
 
   Submission findBySubmissionId(Long submissionId);
 
-  SubmissionResponseDto updateSubmission(SubmissionUpdateRequestDto submissionUpdateRequestDto);
+  Submission updateSubmission(SubmissionUpdateRequestDto submissionUpdateRequestDto);
 
   long countAll();
 

@@ -12,6 +12,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +27,7 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
   private final EntityManager entityManager;
 
   @Override
-  public MemberResponseDto save(MemberSaveRequestDto memberSaveDto, String profileImageUrl) {
+  public Member save(MemberSaveRequestDto memberSaveDto, String profileImageUrl) {
     log.info("in save, profileImageUrl = {}", profileImageUrl);
 
     Member member = Member.builder()
@@ -42,7 +44,7 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
         .build();
 
     entityManager.persist(member);
-    return new MemberResponseDto(member);
+    return member;
   }
 
   @Override
@@ -164,12 +166,13 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
   }
 
   @Override
-  public MemberResponseDto login(LoginRequestDto loginRequestDto) {
+  public Member login(LoginRequestDto loginRequestDto) {
     throw new UnsupportedOperationException("미구현된 메서드");
   }
 
   @Override
-  public MemberResponseDto update(Long memberId, MemberUpdateRequestDto updateRequestDto) {
+  @Transactional
+  public Member update(Long memberId, MemberUpdateRequestDto updateRequestDto) {
     log.info("password = {}", updateRequestDto.getPassword());
 
     Member member = entityManager.find(Member.class, memberId);
@@ -178,21 +181,15 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
       member.setPassword(updateRequestDto.getPassword());
     }
     member.setStatusMessage(updateRequestDto.getStatusMessage());
-    return new MemberResponseDto(member);
+    return member;
   }
 
   @Override
-  @Transactional
-  public MemberResponseDto updateProfileImageUrl(Long memberId, String profileImageUrl) {
-    log.info("memberId = {}",  memberId);
-    log.info("profileImageUrl = {}", profileImageUrl);
-
-    Member member = entityManager.find(Member.class, memberId);
-    member.setProfileImageUrl(profileImageUrl);
-
-    log.info("DB에 프로필 이미지 업데이트 요청: memberId={}, url={}", memberId, profileImageUrl);
-
-    return new MemberResponseDto(member);
+  public void updateProfileImageUrl(Long memberId, String profileImageUrl) {
+    entityManager.createQuery("UPDATE Member m SET m.profileImageUrl = :url WHERE m.memberId = :id")
+        .setParameter("url", profileImageUrl)
+        .setParameter("id", memberId)
+        .executeUpdate();
   }
 
   @Override
