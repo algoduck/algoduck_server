@@ -7,7 +7,10 @@ import com.koreii.algoduck.member.dto.response.MemberResponseDto;
 import com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto;
 import com.koreii.algoduck.member.entity.Member;
 import com.koreii.algoduck.member.enums.Role;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.swing.text.html.Option;
 import java.util.List;
@@ -16,7 +19,7 @@ import java.util.Optional;
 @Repository
 public interface MemberRepository {
   //  CRUD
-  MemberResponseDto save(MemberSaveRequestDto memberSaveDto, String profileImageUrl); //  회원가입, 저장 후 PK 반환
+  Member save(MemberSaveRequestDto memberSaveDto, String profileImageUrl); //  회원가입, 저장 후 PK 반환
 
   boolean isUniqueLoginId(String loginId); //  loginId가 유일한지 확인
 
@@ -42,11 +45,14 @@ public interface MemberRepository {
 
   Member findByMemberId(Long memberId);               //  특정 회원 한 명의 상세정보를 PK로 가져오기
 
-  MemberResponseDto login(LoginRequestDto loginRequestDto);                //  로그인 결과로 로그인한 회원 정보를 반환함
+  Member login(LoginRequestDto loginRequestDto);                //  로그인 결과로 로그인한 회원 정보를 반환함
 
-  MemberResponseDto update(Long memberId, MemberUpdateRequestDto updateRequestDto);       //  회원 정보를 갱신함
+  Member update(Long memberId, MemberUpdateRequestDto updateRequestDto);       //  회원 정보를 갱신함
 
-  MemberResponseDto updateProfileImageUrl(Long memberId, String profileImageUrl);
+  @Transactional
+  @Modifying
+  @Query("update Member m set m.profileImageUrl = :url where m.memberId = :id")
+  void updateProfileImageUrl(Long memberId, String profileImageUrl);
 
   void quit(Long memberId);   //  회원 탈퇴를 요청하면 해당 회원의 상태를 PENDING_DELETION으로 변경함
 
