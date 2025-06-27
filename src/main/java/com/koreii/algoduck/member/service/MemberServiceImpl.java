@@ -79,7 +79,7 @@ public class MemberServiceImpl implements MemberService {
     CompletableFuture<String> upload = fileStorageService.uploadFile(bucketName, "profile/" + memberSaveRequestDto.getLoginId(), file);
     upload.thenAccept(profileImageUrl -> {
       log.info("S3 업로드 완료: {}", profileImageUrl);
-      memberRepository.updateProfileImageUrl(memberId, profileImageUrl);
+      memberRepository.updateProfileImageUrl(memberId, profileImageUrl == null ? submitProfileImageUrl : profileImageUrl);
     }).exceptionally(ex -> {
       log.error("S3 이미지 업로드 실패", ex);
       return null;

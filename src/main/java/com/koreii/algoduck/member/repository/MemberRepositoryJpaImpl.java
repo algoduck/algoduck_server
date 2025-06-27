@@ -26,6 +26,8 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
 
   @Override
   public MemberResponseDto save(MemberSaveRequestDto memberSaveDto, String profileImageUrl) {
+    log.info("in save, profileImageUrl = {}", profileImageUrl);
+
     Member member = Member.builder()
         .loginId(memberSaveDto.getLoginId())
         .password(memberSaveDto.getPassword())
@@ -182,6 +184,9 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
   @Override
   @Transactional
   public MemberResponseDto updateProfileImageUrl(Long memberId, String profileImageUrl) {
+    log.info("memberId = {}",  memberId);
+    log.info("profileImageUrl = {}", profileImageUrl);
+
     Member member = entityManager.find(Member.class, memberId);
     member.setProfileImageUrl(profileImageUrl);
 
