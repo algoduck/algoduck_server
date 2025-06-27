@@ -3,6 +3,7 @@ package com.koreii.algoduck.testcase.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.koreii.algoduck.testcase.entitiy.Testcase;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,7 +58,8 @@ public class TestcaseServiceImpl implements TestcaseService {
           .isPublic(isPublic)
           .build();
 
-      return testcaseRepository.addTestcase(problem, testcaseRequestDto);
+      Testcase testcase = testcaseRepository.addTestcase(problem, testcaseRequestDto);
+      return new TestcaseResponseDto(testcase);
     } catch (Exception e) {
       log.error("testcase DB insert fail", e);
       fileStorageService.deleteFile(bucketName, testcaseInputUrl);

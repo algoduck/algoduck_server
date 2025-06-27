@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ProblemRepository {
   //  문제 이미지, 테스트케이스가 존재할 경우, 이미지와 테스트케이스가 정상적으로 저장된 다음에 문제를 저장함
-  ProblemResponseDto addProblem(ProblemAddRequestDto problemAddRequestDto);
+  Problem addProblem(ProblemAddRequestDto problemAddRequestDto);
 
   //  PK로 문제를 찾음
   Problem findByProblemId(Long problemId);

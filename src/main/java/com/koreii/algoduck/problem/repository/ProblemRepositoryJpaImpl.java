@@ -20,7 +20,7 @@ public class ProblemRepositoryJpaImpl implements ProblemRepository {
 
   @Override
   @Transactional
-  public ProblemResponseDto addProblem(ProblemAddRequestDto problemAddRequestDto) {
+  public Problem addProblem(ProblemAddRequestDto problemAddRequestDto) {
     Problem problem = Problem.builder()
         .problemNumber(problemAddRequestDto.getProblemNumber())
         .title(problemAddRequestDto.getTitle())
@@ -34,7 +34,7 @@ public class ProblemRepositoryJpaImpl implements ProblemRepository {
         .build();
 
     entityManager.persist(problem);
-    return new ProblemResponseDto(problem);
+    return problem;
   }
 
   @Override

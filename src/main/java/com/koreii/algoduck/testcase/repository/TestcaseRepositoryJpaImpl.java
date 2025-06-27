@@ -18,7 +18,7 @@ public class TestcaseRepositoryJpaImpl implements TestcaseRepository {
 
   @Override
   @Transactional
-  public TestcaseResponseDto addTestcase(Problem problem, TestcaseRequestDto testcaseRequestDto) {
+  public Testcase addTestcase(Problem problem, TestcaseRequestDto testcaseRequestDto) {
     Testcase testcase = Testcase.builder()
         .problem(problem)
         .testcaseInputName(testcaseRequestDto.getTestcaseInputName())
@@ -29,7 +29,7 @@ public class TestcaseRepositoryJpaImpl implements TestcaseRepository {
         .build();
 
     entityManager.persist(testcase);
-    return new TestcaseResponseDto(testcase);
+    return testcase;
   }
 
   @Override

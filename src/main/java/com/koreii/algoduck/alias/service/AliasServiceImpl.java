@@ -4,6 +4,7 @@ import com.koreii.algoduck.algorithm.entity.Algorithm;
 import com.koreii.algoduck.algorithm.repository.AlgorithmRepository;
 import com.koreii.algoduck.alias.dto.request.AliasAddRequestDto;
 import com.koreii.algoduck.alias.dto.response.AliasResponseDto;
+import com.koreii.algoduck.alias.entity.Alias;
 import com.koreii.algoduck.alias.repository.AliasRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,9 @@ public class AliasServiceImpl implements AliasService {
   @Override
   public AliasResponseDto addAlias(AliasAddRequestDto aliasAddRequestDto) {
     Algorithm algorithm = algorithmRepository.findByAlgorithmId(aliasAddRequestDto.getAlgorithmId());
-    return aliasRepository.addAlias(algorithm, aliasAddRequestDto.getAliasName());
+    Alias alias = aliasRepository.addAlias(algorithm, aliasAddRequestDto.getAliasName());
+
+    return new AliasResponseDto(alias);
   }
 
   @Override

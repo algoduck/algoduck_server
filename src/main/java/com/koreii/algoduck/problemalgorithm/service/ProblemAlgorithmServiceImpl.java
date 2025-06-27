@@ -6,7 +6,9 @@ import com.koreii.algoduck.algorithm.service.AlgorithmService;
 import com.koreii.algoduck.problem.entity.Problem;
 import com.koreii.algoduck.problem.service.ProblemService;
 import com.koreii.algoduck.problemalgorithm.dto.response.ProblemAlgorithmResponseDto;
+import com.koreii.algoduck.problemalgorithm.entity.ProblemAlgorithm;
 import com.koreii.algoduck.problemalgorithm.repository.ProblemAlgorithmRepository;
+import com.koreii.algoduck.problemalgorithm.repository.ProblemAlgorithmRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,8 @@ public class ProblemAlgorithmServiceImpl implements ProblemAlgorithmService {
   @Override
   public ProblemAlgorithmResponseDto addProblemAlgorithm(Problem problem, Long algorithmId) {
     Algorithm algorithm = algorithmService.findEntityByAlgorithmId(algorithmId);
-    return problemAlgorithmRepository.addProblemAlgorithm(problem, algorithm);
+    ProblemAlgorithm problemAlgorithm = problemAlgorithmRepository.addProblemAlgorithm(problem, algorithm);
+    return new ProblemAlgorithmResponseDto(problemAlgorithm);
   }
 
   @Override

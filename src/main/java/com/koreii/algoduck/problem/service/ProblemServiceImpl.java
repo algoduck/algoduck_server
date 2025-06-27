@@ -31,16 +31,12 @@ public class ProblemServiceImpl implements ProblemService {
   @Override
   @Transactional
   public ProblemResponseDto addProblem(ProblemAddRequestDto problemAddRequestDto, List<MultipartFile> inputTestcases, List<MultipartFile> outputTestcases, List<Boolean> isPublics, List<MultipartFile> problemImages, List<Long> algorithmIds) {
-    ProblemResponseDto problemResponseDto = problemRepository.addProblem(problemAddRequestDto);
-    Long problemId = problemResponseDto.getProblemId();
-
-    Problem problem = problemRepository.findByProblemId(problemId);
-
+    Problem problem = problemRepository.addProblem(problemAddRequestDto);
     problemImageService.addProblemImages(problem, problemImages);
     problemAlgorithmService.addProblemAlgorithms(problem, algorithmIds);
-    testcaseService.addTestcases(problemId, inputTestcases, outputTestcases, isPublics);
+    testcaseService.addTestcases(problem.getProblemId(), inputTestcases, outputTestcases, isPublics);
 
-    return problemResponseDto;
+    return new ProblemResponseDto(problem);
   }
 
   @Override
