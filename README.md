@@ -24,4 +24,4 @@ $ git config --local core.hookspath hooks
 ## Project Structure
 
 ### ER Diagram
-![image](./images/erdiagram.png)
+![image](./images/algoduck_erd.png)
