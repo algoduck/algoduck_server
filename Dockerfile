@@ -25,4 +25,11 @@ COPY .env /app/.env
 RUN echo "PS1='[\\u@\\h \\w]# '" >> /root/.bashrc
 
 # 애플리케이션 실행
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java",
+  "-Dcom.sun.management.jmxremote",
+  "-Dcom.sun.management.jmxremote.port=9010",
+  "-Dcom.sun.management.jmxremote.local.only=false",
+  "-Dcom.sun.management.jmxremote.authenticate=false",
+  "-Dcom.sun.management.jmxremote.ssl=false",
+  "-Djava.rmi.server.hostname=127.0.0.1",
+  "-jar", "app.jar"]
