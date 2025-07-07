@@ -84,13 +84,14 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics,prometheus
+        include: "*"
   endpoint:
-    health:
-      show-details: always
-  metrics:
-    enable:
-      all: true
+    prometheus:
+      enabled: true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
 
 server:
   servlet:
