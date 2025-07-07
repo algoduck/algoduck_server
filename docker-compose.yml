@@ -9,7 +9,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-      - "9404:9404"
+      - "9404:9404" # JMX Exporter
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://${EC2_DB_HOST}:3306/${DB_NAME}?serverTimezone=Asia/Seoul
       SPRING_DATASOURCE_USERNAME: ${DB_USER_NAME}
@@ -28,3 +28,19 @@ services:
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     restart: unless-stopped
+    depends_on:
+      - app
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+
+volumes:
+  grafana-storage:
