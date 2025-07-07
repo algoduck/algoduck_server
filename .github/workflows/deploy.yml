@@ -99,7 +99,8 @@ jobs:
             .env,
             src/main/resources/application.yml,
             jmx_prometheus_javaagent-0.20.0.jar,
-            jmx_exporter_config.yml
+            jmx_exporter_config.yml,
+            prometheus.yml
           target: "~/algoduck"
 
       - name: Run Spring app on EC2
@@ -131,7 +132,7 @@ jobs:
             docker-compose up -d
 
             echo "🧼 빌드 후 민감한 설정 파일 삭제"
-            rm -f .env src/main/resources/application.yml
+            rm -f .env src/main/resources/application.yml prometheus.yml
 
       - name: Health Check
         run: |
