@@ -1,9 +1,8 @@
 startDelaySeconds: 0
-hostPort: 127.0.0.1:9404
-ssl: false
-username: ""
-password: ""
 lowercaseOutputName: true
 lowercaseOutputLabelNames: true
 rules:
-  - pattern: '.*'
+  - pattern: 'java.lang<type=Memory><HeapMemoryUsage>committed'
+    name: jvm_memory_committed_bytes
+    type: GAUGE
+    help: Committed heap memory in bytes
