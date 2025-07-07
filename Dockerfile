@@ -30,9 +30,8 @@ RUN echo "PS1='[\\u@\\h \\w]# '" >> /root/.bashrc
 
 # 애플리케이션 실행
 # 애플리케이션 실행
-ENTRYPOINT [
+ENTRYPOINT [    \
   "java",   \
   "-javaagent:/app/jmx_prometheus_javaagent.jar=9404:/app/jmx_exporter_config.yml", \
   "-jar", "app.jar" \
 ]
-
