@@ -98,6 +98,8 @@ jobs:
             docker-compose.yml,
             .env,
             src/main/resources/application.yml
+            jmx_prometheus_javaagent-0.20.0.jar,
+            jmx_exporter_config.yml
           target: "~/algoduck"
 
       - name: Run Spring app on EC2
