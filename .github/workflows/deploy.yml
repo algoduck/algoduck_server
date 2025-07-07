@@ -127,7 +127,8 @@ jobs:
             docker rm algoduck || true
 
             echo "🚀 Spring 앱 컨테이너 빌드 및 실행"
-            docker-compose up -d --build app
+            docker-compose build app
+            docker-compose up -d
 
             echo "🧼 빌드 후 민감한 설정 파일 삭제"
             rm -f .env src/main/resources/application.yml
