@@ -85,13 +85,9 @@ management:
     web:
       exposure:
         include: "*"
-  endpoint:
-    prometheus:
-      enabled: true
-  prometheus:
-    metrics:
-      export:
-        enabled: true
+  metrics:
+    enable:
+      all: true
 
 server:
   servlet:
