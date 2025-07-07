@@ -18,7 +18,7 @@ ARG JAR_FILE=build/libs/algoduck-0.0.1-SNAPSHOT.jar
 COPY ${JAR_FILE} app.jar
 
 # Prometheus JMX Exporter 파일 복사
-COPY jmx_prometheus_javaagent.jar /app/
+COPY jmx_prometheus_javaagent-0.20.0.jar /app/
 COPY jmx_exporter_config.yml /app/
 
 # 설정 파일 복사
