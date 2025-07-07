@@ -17,6 +17,10 @@ WORKDIR /app
 ARG JAR_FILE=build/libs/algoduck-0.0.1-SNAPSHOT.jar
 COPY ${JAR_FILE} app.jar
 
+# Prometheus JMX Exporter 파일 복사
+COPY jmx_prometheus_javaagent.jar /app/
+COPY jmx_exporter_config.yml /app/
+
 # 설정 파일 복사
 COPY src/main/resources/application.yml /app/application.yml
 COPY .env /app/.env
@@ -25,14 +29,10 @@ COPY .env /app/.env
 RUN echo "PS1='[\\u@\\h \\w]# '" >> /root/.bashrc
 
 # 애플리케이션 실행
-ENTRYPOINT [    \
+# 애플리케이션 실행
+ENTRYPOINT [
   "java",   \
-  "-Dcom.sun.management.jmxremote", \
-  "-Dcom.sun.management.jmxremote.port=9010",   \
-  "-Dcom.sun.management.jmxremote.rmi.port=9010",   \
-  "-Dcom.sun.management.jmxremote.local.only=false",    \
-  "-Dcom.sun.management.jmxremote.authenticate=false",  \
-  "-Dcom.sun.management.jmxremote.ssl=false",   \
-  "-Djava.rmi.server.hostname=172.18.0.2",  \
+  "-javaagent:/app/jmx_prometheus_javaagent.jar=9404:/app/jmx_exporter_config.yml", \
   "-jar", "app.jar" \
-  ]
+]
+

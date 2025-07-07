@@ -1,0 +1,9 @@
+startDelaySeconds: 0
+hostPort: 127.0.0.1:9404
+ssl: false
+username: ""
+password: ""
+lowercaseOutputName: true
+lowercaseOutputLabelNames: true
+rules:
+  - pattern: '.*'

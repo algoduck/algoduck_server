@@ -9,7 +9,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-      - "9010:9010"
+      - "9404:9404"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://${EC2_DB_HOST}:3306/${DB_NAME}?serverTimezone=Asia/Seoul
       SPRING_DATASOURCE_USERNAME: ${DB_USER_NAME}
