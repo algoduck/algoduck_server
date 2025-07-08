@@ -101,7 +101,8 @@ jobs:
             Dockerfile,
             docker-compose.yml,
             .env,
-            src/main/resources/application.yml
+            src/main/resources/application.yml,
+            scouter-agent.java
           target: "~/algoduck"
 
       - name: Run Spring app on EC2
