@@ -27,15 +27,15 @@ COPY .env /app/.env
 # 보기 좋은 PS1 설정
 RUN echo "PS1='[\\u@\\h \\w]# '" >> /root/.bashrc
 
-# Scouter 환경변수 기대값
-ENV SCOUTER_SERVER_ADDR=127.0.0.1
-ENV SCOUTER_OBJ_NAME=algoduck_was
-
 # 애플리케이션 실행
 ENTRYPOINT ["/bin/bash", "-c", "\
   set -a && source /app/.env && set +a && \
-  printf 'scouter.server.addr=%s\n' \"$SCOUTER_SERVER_ADDR\" > /scouter-agent/conf/scouter.conf && \
-  printf 'obj_name=%s\n' \"$SCOUTER_OBJ_NAME\" >> /scouter-agent/conf/scouter.conf && \
+  grep -q '^scouter.server.addr=' /scouter-agent/conf/scouter.conf && \
+    sed -i \"s|^scouter.server.addr=.*|scouter.server.addr=$SCOUTER_SERVER_ADDR|\" /scouter-agent/conf/scouter.conf || \
+    echo \"scouter.server.addr=$SCOUTER_SERVER_ADDR\" >> /scouter-agent/conf/scouter.conf && \
+  grep -q '^obj_name=' /scouter-agent/conf/scouter.conf && \
+    sed -i \"s|^obj_name=.*|obj_name=$SCOUTER_OBJ_NAME|\" /scouter-agent/conf/scouter.conf || \
+    echo \"obj_name=$SCOUTER_OBJ_NAME\" >> /scouter-agent/conf/scouter.conf && \
   java -javaagent:/scouter-agent/scouter.agent.jar \
   -Dscouter.config=/scouter-agent/conf/scouter.conf \
   -jar /app/app.jar"]
