@@ -17,6 +17,9 @@ WORKDIR /app
 ARG JAR_FILE=build/libs/algoduck-0.0.1-SNAPSHOT.jar
 COPY ${JAR_FILE} app.jar
 
+# Scouter Agent 복사
+COPY scouter-agent.java /scouter-agent
+
 # 설정 파일 복사
 COPY src/main/resources/application.yml /app/application.yml
 COPY .env /app/.env
@@ -24,5 +27,15 @@ COPY .env /app/.env
 # 보기 좋은 PS1 설정
 RUN echo "PS1='[\\u@\\h \\w]# '" >> /root/.bashrc
 
+# Scouter 환경변수 기대값
+ENV SCOUTER_SERVER_ADDR=127.0.0.1
+ENV SCOUTER_OBJ_NAME=algoduck_was
+
 # 애플리케이션 실행
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["/bin/bash", "-c", "\
+  set -a && source /app/.env && set +a && \
+  echo scouter.server.addr=$SCOUTER_SERVER_ADDR > /scouter-agent/conf/scouter.conf && \
+  echo obj_name=$SCOUTER_OBJ_NAME >> /scouter-agent/conf/scouter.conf && \
+  java -javaagent:/scouter-agent/scouter.agent.jar \
+  -Dscouter.config=/scouter-agent/conf/scouter.conf \
+  -jar /app/app.jar"]

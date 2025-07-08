@@ -50,6 +50,8 @@ jobs:
           JUDGE_QUEUE_REQUEST_QUEUE: ${{ secrets.JUDGE_QUEUE_REQUEST_QUEUE }}
           JUDGE_QUEUE_PROGRESS_QUEUE: ${{ secrets.JUDGE_QUEUE_PROGRESS_QUEUE }}
           JUDGE_QUEUE_RESULT_QUEUE: ${{ secrets.JUDGE_QUEUE_RESULT_QUEUE }}
+          SCOUTER_SERVER_ADDR: ${{ secrets.SCOUTER_SERVER_ADDR }}
+          SCOUTER_OBJ_NAME: ${{ secrets.SCOUTER_OBJ_NAME }}
 
       - name: Generate .env from template
         run: |
@@ -79,6 +81,8 @@ jobs:
           JUDGE_QUEUE_REQUEST_QUEUE: ${{ secrets.JUDGE_QUEUE_REQUEST_QUEUE }}
           JUDGE_QUEUE_PROGRESS_QUEUE: ${{ secrets.JUDGE_QUEUE_PROGRESS_QUEUE }}
           JUDGE_QUEUE_RESULT_QUEUE: ${{ secrets.JUDGE_QUEUE_RESULT_QUEUE }}
+          SCOUTER_SERVER_ADDR: ${{ secrets.SCOUTER_SERVER_ADDR }}
+          SCOUTER_OBJ_NAME: ${{ secrets.SCOUTER_OBJ_NAME }}
 
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x ./gradlew
