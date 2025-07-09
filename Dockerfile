@@ -33,6 +33,9 @@ ENTRYPOINT ["/bin/bash", "-c", "\
   grep -q '^scouter.server.addr=' /scouter-agent/conf/scouter.conf && \
     sed -i \"s|^scouter.server.addr=.*|scouter.server.addr=$SCOUTER_SERVER_ADDR|\" /scouter-agent/conf/scouter.conf || \
     echo \"scouter.server.addr=$SCOUTER_SERVER_ADDR\" >> /scouter-agent/conf/scouter.conf && \
+  grep -q '^net_collector_ip=' /scouter-agent/conf/scouter.conf && \
+    sed -i \"s|^net_collector_ip=.*|net_collector_ip=$SCOUTER_SERVER_ADDR|\" /scouter-agent/conf/scouter.conf || \
+    echo \"net_collector_ip=$SCOUTER_SERVER_ADDR\" >> /scouter-agent/conf/scouter.conf && \
   grep -q '^obj_name=' /scouter-agent/conf/scouter.conf && \
     sed -i \"s|^obj_name=.*|obj_name=$SCOUTER_OBJ_NAME|\" /scouter-agent/conf/scouter.conf || \
     echo \"obj_name=$SCOUTER_OBJ_NAME\" >> /scouter-agent/conf/scouter.conf && \
