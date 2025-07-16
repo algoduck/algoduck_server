@@ -40,7 +40,6 @@ public class SolvedProblemRepositoryJpaImpl implements SolvedProblemRepository {
 
     log.info("HELLO");
     entityManager.persist(solvedProblem);
-    entityManager.flush();
     log.info("WORLD");
   }
 }
