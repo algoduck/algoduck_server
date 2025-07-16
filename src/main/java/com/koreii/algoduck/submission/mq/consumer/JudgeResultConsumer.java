@@ -26,6 +26,10 @@ public class JudgeResultConsumer {
         .memoryUsage(resultMessage.getMemoryUsage())
         .build();
 
-    submissionService.updateSubmission(updateDto);
+    try {
+      submissionService.updateSubmission(updateDto);
+    } catch (Exception e) {
+      log.info("채점 결과 처리 중 무시할 예외 발생");
+    }
   }
 }

@@ -19,9 +19,11 @@ public class SolvedProblemServiceImpl implements SolvedProblemService {
   @Transactional
   public void addSolvedProblem(Member member, Problem problem) {
     try {
+      log.info("HERE!!!!");
       solvedProblemRepository.addSolvedProblem(member, problem);
+      log.info("THERE!!!!");
       member.increaseSolved();
-    } catch (PersistenceException e) {
+    } catch (Exception e) {
       log.warn("이미 푼 문제입니다. 중복 INSERT 시도 무시");
     }
   }

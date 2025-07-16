@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
+
 @Repository
 @RequiredArgsConstructor
 @Slf4j
@@ -29,13 +31,16 @@ public class SolvedProblemRepositoryJpaImpl implements SolvedProblemRepository {
   }
 
   @Override
-  @Transactional
+  @Transactional(propagation = REQUIRES_NEW)
   public void addSolvedProblem(Member member, Problem problem) {
     SolvedProblem solvedProblem = SolvedProblem.builder()
         .member(member)
         .problem(problem)
         .build();
 
+    log.info("HELLO");
     entityManager.persist(solvedProblem);
+    entityManager.flush();
+    log.info("WORLD");
   }
 }
