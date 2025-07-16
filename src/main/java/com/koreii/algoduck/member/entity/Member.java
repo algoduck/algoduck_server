@@ -10,6 +10,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,14 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "members")
+@Table(name = "members",
+    indexes = {
+        @Index(
+            name = "idx_solved_created_at",
+            columnList = "solved DESC, created_at ASC"
+        )
+    }
+)
 @SequenceGenerator(
     name = "MEMBERS_SEQ_GENERATOR",
     sequenceName = "MEMBERS_SEQ",
@@ -74,4 +82,8 @@ public class Member extends BaseTimeEntity {
   @Column(name = "quit_request_time")
   @Setter
   private LocalDateTime quitRequestTime;
+
+  public void increaseSolved() {
+    this.solved++;
+  }
 }
