@@ -3,13 +3,17 @@ package com.koreii.algoduck.submission.service;
 import com.koreii.algoduck.base.dto.page.PageResponse;
 import com.koreii.algoduck.exceptions.file.submission.SubmissionFailureException;
 import com.koreii.algoduck.file.FileStorageService;
+import com.koreii.algoduck.member.entity.Member;
 import com.koreii.algoduck.problem.dto.response.ProblemResponseDto;
+import com.koreii.algoduck.problem.entity.Problem;
 import com.koreii.algoduck.problem.service.ProblemService;
+import com.koreii.algoduck.solved.service.SolvedProblemService;
 import com.koreii.algoduck.submission.dto.request.SubmissionRequestDto;
 import com.koreii.algoduck.submission.dto.request.SubmissionSaveRequestDto;
 import com.koreii.algoduck.submission.dto.request.SubmissionUpdateRequestDto;
 import com.koreii.algoduck.submission.dto.response.SubmissionResponseDto;
 import com.koreii.algoduck.submission.entity.Submission;
+import com.koreii.algoduck.submission.enums.Status;
 import com.koreii.algoduck.submission.mq.message.request.JudgeRequestMessage;
 import com.koreii.algoduck.submission.mq.producer.JudgeRequestProducer;
 import com.koreii.algoduck.submission.repository.SubmissionRepository;
@@ -37,6 +41,7 @@ import java.util.concurrent.CompletableFuture;
 public class SubmissionServiceImpl implements SubmissionService {
   private final VersionService versionService;
   private final ProblemService problemService;
+  private final SolvedProblemService solvedProblemService;
   private final SubmissionRepository submissionRepository;
   private final FileStorageService fileStorageService;
 
@@ -142,6 +147,13 @@ public class SubmissionServiceImpl implements SubmissionService {
   @Transactional
   public SubmissionResponseDto updateSubmission(SubmissionUpdateRequestDto submissionUpdateRequestDto) {
     Submission submission = submissionRepository.updateSubmission(submissionUpdateRequestDto);
+    Member member = submission.getMember();
+    Problem problem = submission.getProblem();
+
+    if (submissionUpdateRequestDto.getStatus() == Status.AC) { //  제출 결과가 맞았을 경우
+      solvedProblemService.addSolvedProblem(member, problem);
+    }
+
     return new SubmissionResponseDto(submission);
   }
 
