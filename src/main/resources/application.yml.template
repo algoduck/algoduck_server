@@ -76,6 +76,7 @@ springdoc:
   api-docs:
     path: /api-docs
   swagger-ui:
+    url: https://algoduck.duckdns.org/api-docs
     path: /swagger-ui.html
     operationsSorter: alpha
     defaultModelsExpandDepth: -1
