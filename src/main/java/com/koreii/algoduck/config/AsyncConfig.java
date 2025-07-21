@@ -10,17 +10,6 @@ import java.util.concurrent.Executor;
 @Configuration
 @EnableAsync
 public class AsyncConfig {
-  @Bean(name = "judgeExecutor")
-  public Executor judgeExecutor() {
-    ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-    executor.setCorePoolSize(10);
-    executor.setMaxPoolSize(20);
-    executor.setQueueCapacity(100);
-    executor.setThreadNamePrefix("Judge-");
-    executor.initialize();
-    return executor;
-  }
-
   @Bean(name = "fileExecutor")
   public Executor fileExecutor() {
     ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();

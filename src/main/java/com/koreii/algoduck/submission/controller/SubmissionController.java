@@ -43,6 +43,15 @@ public class SubmissionController extends BaseApiController {
     return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(submissionResponseDto));
   }
 
+  @Operation(summary = "제출 id로 제출 내역 가져오기", description = "제출 id로 특정 제출을 가져옵니다.")
+  @GetMapping("/{submissionId}")
+  public ResponseEntity<ApiResponse<SubmissionResponseDto>> getSubmission(
+      @PathVariable Long submissionId
+  ) {
+    SubmissionResponseDto submissionResponseDto = submissionService.findBySubmissionId(submissionId);
+    return ResponseEntity.ok(ApiResponse.success(submissionResponseDto));
+  }
+
   // 첫 페이지 (lastSeenId 없이)
   @GetMapping("/page")
   public ResponseEntity<ApiResponse<PageResponse<SubmissionResponseDto>>> getPage(
