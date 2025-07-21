@@ -4,6 +4,7 @@ import com.koreii.algoduck.base.dto.response.ApiResponse;
 import com.koreii.algoduck.submission.dto.request.SubmissionRequestDto;
 import com.koreii.algoduck.submission.dto.response.SubmissionResponseDto;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,6 +30,7 @@ class TestSubmissionControllerTest {
   private TestRestTemplate restTemplate;
 
   @Test
+  @Tag("stress")
   void simulateMassiveMaliciousSubmissionsWithResultCheck() throws InterruptedException {
     int totalSubmissions = 100;
 
@@ -92,6 +94,7 @@ class TestSubmissionControllerTest {
   }
 
   @Test
+  @Tag("stress")
   void simulateConcurrentMaliciousSubmissionsWithDelayedResultCheck() throws InterruptedException {
     int totalSubmissions = 1000;
     List<Long> submissionIds = new ArrayList<>();
