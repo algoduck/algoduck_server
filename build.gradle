@@ -60,5 +60,11 @@ dependencies {
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+	useJUnitPlatform() {}
+}
+
+test {
+	useJUnitPlatform {
+		excludeTags 'stress'
+	}
 }
