@@ -69,9 +69,9 @@ public class ProblemController extends BaseApiController {
   }
 
   @Operation(summary = "특정 회원이 푼 문제 조회", description = "특정 회원이 문제를 페이징 처리하여 반환합니다.")
-  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(path = "/solved/{memberId}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ApiResponse<ProblemPagingResponseDto>> getSolvedProblems(
-      @RequestParam long memberId,
+      @PathVariable long memberId,
       @RequestParam int pageNumber,
       @RequestParam int pageSize) {
     long totalCount = solvedProblemService.getSolvedProblemsCount(memberId);

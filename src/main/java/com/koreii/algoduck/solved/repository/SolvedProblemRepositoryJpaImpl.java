@@ -60,7 +60,7 @@ public class SolvedProblemRepositoryJpaImpl implements SolvedProblemRepository {
   public List<ProblemSimpleResponseDto> getSolvedProblems(Long memberId, int pageNumber, int pageSize) {
     int offset = (pageNumber - 1) * pageSize;
 
-    String jpql = "SELECT new com.koreii.algoduck.problem.dto.response.ProblemSimpleResponseDto(sp) "
+    String jpql = "SELECT new com.koreii.algoduck.problem.dto.response.ProblemSimpleResponseDto(sp.problem) "
         + "FROM SolvedProblem sp "
         + "WHERE sp.member.memberId =: memberId "
         + "ORDER BY sp.problem.problemId";
@@ -68,6 +68,7 @@ public class SolvedProblemRepositoryJpaImpl implements SolvedProblemRepository {
     return entityManager.createQuery(jpql, ProblemSimpleResponseDto.class)
         .setFirstResult(offset)
         .setMaxResults(pageSize)
+        .setParameter("memberId", memberId)
         .getResultList();
   }
 }
