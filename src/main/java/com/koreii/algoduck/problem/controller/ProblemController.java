@@ -12,6 +12,7 @@ import com.koreii.algoduck.problem.dto.response.ProblemPagingResponseDto;
 import com.koreii.algoduck.problem.dto.response.ProblemResponseDto;
 import com.koreii.algoduck.problem.dto.response.ProblemSimpleResponseDto;
 import com.koreii.algoduck.problem.service.ProblemService;
+import com.koreii.algoduck.solved.service.SolvedProblemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,7 @@ import java.util.List;
 @Slf4j
 public class ProblemController extends BaseApiController {
   private final ProblemService problemService;
+  private final SolvedProblemService solvedProblemService;
 
   @Operation(summary = "모든 문제 조회", description = "모든 회원 문제를 페이징 처리하여 반환합니다.")
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -64,5 +66,22 @@ public class ProblemController extends BaseApiController {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.failure("해당 문제를 찾을 수 없습니다."));
     }
     return ResponseEntity.ok(ApiResponse.success(problem));
+  }
+
+  @Operation(summary = "특정 회원이 푼 문제 조회", description = "특정 회원이 문제를 페이징 처리하여 반환합니다.")
+  @GetMapping(path = "/solved/{memberId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ApiResponse<ProblemPagingResponseDto>> getSolvedProblems(
+      @PathVariable long memberId,
+      @RequestParam int pageNumber,
+      @RequestParam int pageSize) {
+    long totalCount = solvedProblemService.getSolvedProblemsCount(memberId);
+    List<ProblemSimpleResponseDto> problems = solvedProblemService.getSolvedProblems(memberId, pageNumber, pageSize);
+
+    ProblemPagingResponseDto responseDto = ProblemPagingResponseDto.builder()
+        .totalCount(totalCount)
+        .problems(problems)
+        .build();
+
+    return ResponseEntity.ok(ApiResponse.success(responseDto));
   }
 }
