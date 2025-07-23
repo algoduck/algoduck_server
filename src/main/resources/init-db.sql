@@ -145,14 +145,15 @@ SET
 UPDATE testcases_seq SET next_val = 51;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TX7U8lkduef2',
            'T3Gqpx',
            'TX7U8lkduef2@gmail.com',
            '$2a$04$x7LoW4GGCGQYSZoziKKazOWZZ1AQwGWcaARFCb9vAjYQM6Vo5uRmm',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -161,14 +162,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'Tbl6HfYyR',
            'T9jAhz',
            'Tbl6HfYyR@naver.com',
            '$2a$04$F8rWLzR7TwayFX0LfANsZupYNCL.1x59fyGzSoCVwdVV5HlvwvKRC',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -177,14 +179,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T1bKUQMyyJ',
            'TwGM8Y나bq',
            'T1bKUQMyyJ@yahoo.com',
            '$2a$04$QCL.rkS.WQhF8z17ygD3AehyFfECH98qKlZZkDSj6MoS/FKMdXEYq',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -193,14 +196,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'Tra4IGCkLPMAC1M',
            'TR99나8K8cJ',
            'Tra4IGCkLPMAC1M@gmail.com',
            '$2a$04$kBy6oe/n1nV/LhZi8XYU1utWxEZD4TkaWGLIRB9qGsmcS22mb4DiO',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -209,14 +213,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T2nOVhv',
            'TPpq',
            'T2nOVhv@icloud.com',
            '$2a$04$5pk78jDT/vlQc8BzvKya6uoSA7AmzUng/iOWtw1DANrGhP/dG.5Sm',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -225,14 +230,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TldvL7I6q',
            'T6사WPb2Y마',
            'TldvL7I6q@icloud.com',
            '$2a$04$Gw5eu19chHn59yezP/HJde8jzCUwueZcrj7QK2ENqwSk0TfXHAelq',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -241,14 +247,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TeYOrN71js',
            'Tbm9O',
            'TeYOrN71js@yahoo.com',
            '$2a$04$QxOeO4V.h7CUb7IyBucfh.w2A91tRSZtBbuIqpdTKh7BPPXcE0BS2',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -257,14 +264,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TjS7Zk7kMyJS8UQ',
            'TC하or라pY',
            'TjS7Zk7kMyJS8UQ@icloud.com',
            '$2a$04$lqf2iJtlGK90Vr.q6X0y8.SDC/wSi0KKG.3h5WQ3Uz.ia0TgjjQS2',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -273,14 +281,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TXfCPIn1eEw3ZWP',
            'TOq가0MT3h',
            'TXfCPIn1eEw3ZWP@yahoo.com',
            '$2a$04$hU4o/oJ4.7n8fpDXsLNAwOAOI39BzyogwayYj2eeRfO37OZIZQWMG',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -289,14 +298,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TxqpTH1K',
            'T681사8',
            'TxqpTH1K@gmail.com',
            '$2a$04$614BC16WQEn/OZLAAUg/c.iUKnP/5YfUcdoyydIKXAQ3y1KdRTAXm',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -305,14 +315,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T4bC6npn9VxYZVL',
            'T7Oy',
            'T4bC6npn9VxYZVL@hanmail.net',
            '$2a$04$U12lMrz8txyfzCfkcD6eyu6/OpjtTF7U9wZRbq7czGLaClmzps97e',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -321,14 +332,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'Tg7GCWqs',
            'TK6A마y',
            'Tg7GCWqs@gmail.com',
            '$2a$04$EdcvPW3f8rJOQnk.j9zE5O8U0esY.OQjIrM4d47B6LyNiyiO.hRrK',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -337,14 +349,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TlufR7lAFQ7sj2',
            'TcM1',
            'TlufR7lAFQ7sj2@gmail.com',
            '$2a$04$wZp5XJ2MyejxwMCvvGqpwe9V57ZUn0hcCcWPAWtIcVEJFvvMmBv0q',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -353,14 +366,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'Tw7iPqS9LMlhtMva',
            'Tq하타OLe1',
            'Tw7iPqS9LMlhtMva@naver.com',
            '$2a$04$voneyHt5HvHJaoRpeFL5.u4OyTY4e3zY70tV5bT6XbZ9wqWyYOqwW',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -369,14 +383,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T73HB3tm7znxxaJ1dw86',
            'TPde1',
            'T73HB3tm7znxxaJ1dw86@yahoo.com',
            '$2a$04$wrAsZ8l1lWhLrT9SAbRxHOoatQm52SQSAzmWZ4ahc37R7M9N6ht76',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -385,14 +400,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'Tq0WApKwubGfZu1P',
            'T2ws8G나자',
            'Tq0WApKwubGfZu1P@yahoo.com',
            '$2a$04$knoDW8FeyO8lOpsAD/wm1uyaDgRwmMZE8o1kHweGISS8GiNN38bLi',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -401,14 +417,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TSfmHabfNrok551Ji',
            'T3z5다8바tA',
            'TSfmHabfNrok551Ji@hanmail.net',
            '$2a$04$5NI0oYhzfASsFaM5dQDu6endzIKun6aQ7pQMBKg1s.ZGq0EiK/0Au',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -417,14 +434,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'Tc2R4nIlVW',
            'T바카U',
            'Tc2R4nIlVW@yahoo.com',
            '$2a$04$/BAbj9usrab6d/meUUNoWurc4y4.OqNtXI289zw5bgA7oD27hPVW2',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -433,14 +451,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'Tf9ChXtv4YLGtJ',
            'Tq아No7아Tm',
            'Tf9ChXtv4YLGtJ@naver.com',
            '$2a$04$rA5orNemv2O2unFNF83yROrMDFNwqifvrtWs/Q38DfLC6cHFLGkr.',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -449,14 +468,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TprKx1Be2g7',
            'TmIa사g',
            'TprKx1Be2g7@naver.com',
            '$2a$04$CrR80IBoAzRCOYdPaePVaOT9HZBv3bd2SMNsnJ5YuCoQPOEl7byq.',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -465,14 +485,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'Tq3xXFM8f73Ef',
            'TT하70',
            'Tq3xXFM8f73Ef@icloud.com',
            '$2a$04$VYjtbsxC7M098fmh2drNNeNcmL31bjqzN0m6F9iBj5FBVS8ZxMXyC',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -481,14 +502,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TooR93D98i91L',
            'Tift아',
            'TooR93D98i91L@yahoo.com',
            '$2a$04$5C4wKi8gxbyZJNj9sDTKy.cJZ9tYetRtKfwsehpfTAvf7UudbwYD6',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -497,14 +519,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'Tl0FGQKE7bABuO',
            'T7마V다',
            'Tl0FGQKE7bABuO@icloud.com',
            '$2a$04$BVvhKgrPA2rvtBVF.K0K0uqXkuL4gQHjuyDpxjyX2sbvRQkwSaE/O',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -513,14 +536,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T5nw0AYO',
            'TT나Zoz',
            'T5nw0AYO@hanmail.net',
            '$2a$04$70lbefDsPPXKQ1nZrJwv8.qC9.5RTqC6ocmc9RWWzbFtGBvDrBDGG',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -529,14 +553,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'Tu1I1jeNNmiGC9hm2b',
            'T가하바mFfwF',
            'Tu1I1jeNNmiGC9hm2b@naver.com',
            '$2a$04$SD3w8Uis22PNVCKJM9cHde7PbtMv3eFqfrqL4mUQBdBESxvjClJwe',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -545,14 +570,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T8Qki4LwI3WXPe0i',
            'Td타c하T',
            'T8Qki4LwI3WXPe0i@yahoo.com',
            '$2a$04$15xfazfVmLmfrWN1EoVduOPy4m4j8Cqk0R4ZSOONe/OKnxhwsp/ja',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -561,14 +587,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TdJ484K6Pp',
            'T카T5가가jh',
            'TdJ484K6Pp@naver.com',
            '$2a$04$LYcfPprk5hbO7Cn1VnZ5Ke/goziomXHlw4hPb2etmTEStFsVRD8Ci',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -577,14 +604,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TsixxUsSim4izWx9VMG',
            'Ty2Nxl',
            'TsixxUsSim4izWx9VMG@naver.com',
            '$2a$04$/TG37q7nBiKV3WlQwtKCn./FnRx6oqF4O.pvlPX8QvH9TVeUZYXKu',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -593,14 +621,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TL50ZPIjNV6axoH',
            'TPDIh9K',
            'TL50ZPIjNV6axoH@naver.com',
            '$2a$04$71xkZvzpvq19P/8KyfoGlu5vx7EcBlk6wAJZrAMFD2FAjelbk1ypq',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -609,14 +638,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TeHpkh3kOhKtWPS6m',
            'TqLG3b파가',
            'TeHpkh3kOhKtWPS6m@icloud.com',
            '$2a$04$rg28bi2lNBfx7A4kF2MT5OcMgrSCvZeb4FYIhyHn7/Lltymf8FV6i',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -625,14 +655,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T80UrOY7qEjMMVI',
            'Tqvpc',
            'T80UrOY7qEjMMVI@gmail.com',
            '$2a$04$zCM7UtXnuApPtjLaWBa.7eD.Kxi9FnwQDThY5utKaQOjOXCUvfizS',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -641,14 +672,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TDwX4K99t2SSvhjLM4',
            'TnJq0',
            'TDwX4K99t2SSvhjLM4@hanmail.net',
            '$2a$04$FIh5XKlLgm8ezJxVy5WTf.BzxygG0HzM/b.x9SZ8XzwJ352VOZZvK',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -657,14 +689,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'ThKcKQB30UZDBpbvqs',
            'TusMl0fYb',
            'ThKcKQB30UZDBpbvqs@gmail.com',
            '$2a$04$BbF2PqzZ/LOsUAwIU2dEZuzu9duRX1nh810J1DP/WiKoURVIALKSK',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -673,14 +706,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TSo4up1Hzs5ml13h2ma',
            'Tq가fd',
            'TSo4up1Hzs5ml13h2ma@naver.com',
            '$2a$04$QwjVlrICigmRoc5ayG8wruSuj3Dgo6aq4QvklyiPMjjlW.ku5N38y',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -689,14 +723,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T3j5LEjPpyknfMa',
            'TgC자qjWh',
            'T3j5LEjPpyknfMa@naver.com',
            '$2a$04$NqioBrpalGhUHUokitgz6eadFD7EuMTnX8S7kTV0rqYkjPiroB3g.',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -705,14 +740,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TS25SGn',
            'TkDksd',
            'TS25SGn@icloud.com',
            '$2a$04$eUhLQZk/JMe8hNZhThrnd.BgtoikXI2.O.U719qp2/Lcbc2FOp/HS',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -721,14 +757,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'THs0Nv94CwHMa4',
            'T하C1QspYN',
            'THs0Nv94CwHMa4@gmail.com',
            '$2a$04$rQ/lSjOfFjJBkQlCWHtynepOsfQhHAJkry.loyLNqZtAGOYBNaKxm',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -737,14 +774,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TBskNmY63GQaq7n',
            'T2y바aDa마dx',
            'TBskNmY63GQaq7n@gmail.com',
            '$2a$04$Be0nfHmXKYYvZTR06912DOhbtnV/CgUBgJetbIfuAg7LxRCbKTKta',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -753,14 +791,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TP2DUpktk',
            'TKX아s',
            'TP2DUpktk@hanmail.net',
            '$2a$04$CAowUpVEBMXUuG/iS0Y5LeINdsNjfpe.VgbehJ3fLJtKhLZWfLUxu',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -769,14 +808,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T3Bc5Z0ms',
            'TWY나하3FZcx',
            'T3Bc5Z0ms@gmail.com',
            '$2a$04$U.Z4uZehoqI4di3NJzqMUe4BlUhj0CRCyy4Fv4r22hReximoCpgLG',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -785,14 +825,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TQ3AX9SiGJ8sbj8wVJ',
            'TGpj',
            'TQ3AX9SiGJ8sbj8wVJ@yahoo.com',
            '$2a$04$ICB7349smu/a1PddvyOM3.IKOtwjJF63xDt9.ijYQaYADth3kI4SO',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -801,14 +842,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T2uwB4dBfkbc4r3',
            'T6l차44차자카',
            'T2uwB4dBfkbc4r3@yahoo.com',
            '$2a$04$9p2YzjCQQzEsLxcignvePeN6WVQAzeaewOJqyN.WXFL7wRVPHKaja',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -817,14 +859,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TvckL5I1YQod3vVTO2',
            'T7IJ타GC',
            'TvckL5I1YQod3vVTO2@gmail.com',
            '$2a$04$44cnCxSrRqI/Noychou1XuUtxhXnBHVYAIq/JL2p9knnfoFGJwVcm',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -833,14 +876,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TPGHqz3vHIKniv59EYSV',
            'TqXCSBhd',
            'TPGHqz3vHIKniv59EYSV@naver.com',
            '$2a$04$GDmRi3Nwk67t5A.agqlLou3NmWr2WfZiXT4dScVa/XBi3I8DAXo4S',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -849,14 +893,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TcR45y7yOnoi1U5OZp',
            'TTBg',
            'TcR45y7yOnoi1U5OZp@yahoo.com',
            '$2a$04$nZalc0AQwLWofy7ADmDoi.2nKJthASOEI3sDicRekec.IeAygv/jq',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -865,14 +910,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T8iWERHJVg7',
            'T카PR타Q다',
            'T8iWERHJVg7@icloud.com',
            '$2a$04$2cPlR7jeA6EUmgNh5I.CK.V./y2pbf0a82ny2dk1.6.wM/hKBbQem',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -881,14 +927,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T809c0b20fXMWwIAogw',
            'Tpfo아1u사W사',
            'T809c0b20fXMWwIAogw@icloud.com',
            '$2a$04$ucmil9hzLseBuqNzLMv3cOzEZP5TbNGZvei8X7e8U3pgC1XQ/3hs.',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -897,14 +944,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TY0nuRDmeeNcMBG4',
            'TLT라Jl차OI7',
            'TY0nuRDmeeNcMBG4@gmail.com',
            '$2a$04$p4UOBY9ofy8or7ILLNE42e9EqsL4RIyWx6VfPpoWVjcHKAl70Xz3.',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -913,14 +961,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TFGd8SAv07Yrrz5Q',
            'TSFQQ바lR마M',
            'TFGd8SAv07Yrrz5Q@yahoo.com',
            '$2a$04$J4L/T/PaTxtkvVofcJYx2umCvzNAuyMm2HMqS2daD4fTudUTKT5jC',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -929,14 +978,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TlaHpEiCMHK10',
            'TFzVZFDk',
            'TlaHpEiCMHK10@naver.com',
            '$2a$04$xSbxNXGZWsUci.53Qzcem.KbKaY65788NNk.qHsNtbwAPSyQi7WYm',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -945,14 +995,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TXUlg56Ojq',
            'TP하T카WCOXJ',
            'TXUlg56Ojq@hanmail.net',
            '$2a$04$XpOvhIcJzC6H3xqTp2Td3.Y7rUP1pHxT2KQ38490ea85PnNyTQOO2',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -961,14 +1012,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TyKCtxN3axOSF9QV2s',
            'TCyN',
            'TyKCtxN3axOSF9QV2s@naver.com',
            '$2a$04$a4L2I939gqoas1tghNto9uz9ZPb.AkZipik0harR5o/vtr99HwxVW',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -977,14 +1029,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TjoTTOSP1qw393kOfky',
            'TU3바n',
            'TjoTTOSP1qw393kOfky@icloud.com',
            '$2a$04$b74r0M6Ltb8zYjhMwtxLyuU9lCkPOISAFPdryEx4QTEZQcoyuMmuG',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -993,14 +1046,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'ToU56E7',
            'TtoQw자3q아',
            'ToU56E7@gmail.com',
            '$2a$04$71EapPzrtr65QLr2ILXRDO1q8HN7ICN1TgFnR/DDDrFA2LxDxvCtq',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1009,14 +1063,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TkXewkaxIyR2jzM',
            'TsAv',
            'TkXewkaxIyR2jzM@hanmail.net',
            '$2a$04$7bKzKwMy6THw7dLNdBwXL.J9k/nE0B62SqsybQFXa5XAv.Kfbuq9q',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1025,14 +1080,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TIDp0hpm',
            'Tr차bScYy',
            'TIDp0hpm@naver.com',
            '$2a$04$87fh1uXVwcIK6aatQtY2OusrlfMIDb/16L6kGbo78rKsmm3jd0nw.',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1041,14 +1097,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TWTBuNyM34lO6xW',
            'TG81사c',
            'TWTBuNyM34lO6xW@icloud.com',
            '$2a$04$.wYuR9IXEG0Wx3EIVDRj1OtygaWiqJPzU/CE/2kp3w.6kaFdBhiOC',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1057,14 +1114,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TyuRHAkxhoJuNt61',
            'TxtyY2G나RP',
            'TyuRHAkxhoJuNt61@hanmail.net',
            '$2a$04$HO7O5pDwhh/kABD52zeY2.CmJWhxa8dCrLV6hbn9aaZkmi3d60aJK',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1073,14 +1131,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TTzTYzLezklP9whQ3w',
            'T4p마L',
            'TTzTYzLezklP9whQ3w@yahoo.com',
            '$2a$04$jvGb9s.yGddkZzotSn9S5efuYofaPFDIH0LOUHto9VG93f4ILfpr2',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1089,14 +1148,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TBJ06jd',
            'T타UydC카H차',
            'TBJ06jd@icloud.com',
            '$2a$04$kNccp8DMFGKe52Ne1a9zCOZubpQWULm.pJw/wXFSQBFjpJpBL6Ese',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1105,14 +1165,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'Tbx8SAmkSx',
            'TXgnoB',
            'Tbx8SAmkSx@gmail.com',
            '$2a$04$X7LUMrvP0WJ62ERmKCThROU0urKlzGdDRvgS97zTh5r0DueIP6x..',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1121,14 +1182,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T4heSt0',
            'TC6nM',
            'T4heSt0@gmail.com',
            '$2a$04$2Gf/X24YJPqwT1hCK8bZt.BdAGUA0OzU6pdLIyDvFS3lcA0nJ5G7a',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1137,14 +1199,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T2q8z9Fw',
            'TU파Z0K',
            'T2q8z9Fw@naver.com',
            '$2a$04$NLhxaVyOlcF5m/p5kmI42OpVuYjh4mDYCf9F55kfD4z3.8Sg4NgbO',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1153,14 +1216,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TbzJEm5',
            'T2바zjl자Z자a',
            'TbzJEm5@icloud.com',
            '$2a$04$Mm7yMHht3yoRfPWY6E5dieITuATrR0ADMYdZnDeiCrBCutMhBYiHa',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1169,14 +1233,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'Tchje0XemrP',
            'TlChf',
            'Tchje0XemrP@hanmail.net',
            '$2a$04$3nT.mBCn6uxV06eHGClVNOEYmPQXIfeKv1GPK3auuiFAMXEdvmpFS',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1185,14 +1250,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TLDS4bIm1dvEWgQS04t',
            'TH7kWpO',
            'TLDS4bIm1dvEWgQS04t@gmail.com',
            '$2a$04$hr2OXC8wKJfQxAC/5uJ.3u4kYuCUccW89ODYjZdbZBhZCNAZchYX.',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1201,14 +1267,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T8FYLB1G9SMWQlgJ',
            'T아나x3iA사hS',
            'T8FYLB1G9SMWQlgJ@hanmail.net',
            '$2a$04$n6WGMHfuZGpS5RSOCWxxj.MakiFat5bk.Y34io5qvn/W7Io0LEwwC',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1217,14 +1284,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TZavMUQkP5Mn3Y0TygO',
            'TC0a',
            'TZavMUQkP5Mn3Y0TygO@gmail.com',
            '$2a$04$OI56hLxmScWXbIc8d5Su8.xjMX4MqobqxT96wK0fA35/5w/qX/Tf.',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1233,14 +1301,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'Tvy3WCb7qiEbV8Rvs',
            'TipFq바Lqla',
            'Tvy3WCb7qiEbV8Rvs@hanmail.net',
            '$2a$04$XBnp0fv2rNn21IodeQVE8ersAI.AX5/D6Z.y/N9c8LB4nHhHIN1Q.',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1249,14 +1318,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TOwGBkp3A6g0Mi',
            'TQctfp',
            'TOwGBkp3A6g0Mi@yahoo.com',
            '$2a$04$M9Kyjl/nqapnsNf7NkgJquIvw3OlHSswnJbbswMl9bU.9pemWODG6',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1265,14 +1335,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T4TPflQUlVbF',
            'Tjdcnj',
            'T4TPflQUlVbF@naver.com',
            '$2a$04$Semqa1Ulw4vxB3jvoT9eAuzgsEdzGuD3OyOImX9BELWu5LSxgfR2.',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1281,14 +1352,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T3VHQ9hZHBwbbPDBoF',
            'Tn8DW0c',
            'T3VHQ9hZHBwbbPDBoF@gmail.com',
            '$2a$04$nXDdrJEBV.mKQxnROqg0IuSWjM8Xxf1cUAqREW7AlmNdlFcERfYui',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1297,14 +1369,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TJu33OhUl0A96IDWDwcn',
            'To차rli9',
            'TJu33OhUl0A96IDWDwcn@gmail.com',
            '$2a$04$u3mdgf2g0XkAq2kozdE5QOrbdYZ/icynuGctt3jP2eqcQPx9FC5BK',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1313,14 +1386,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T05JPGw47fO',
            'T6Ro',
            'T05JPGw47fO@gmail.com',
            '$2a$04$/A1J3uSpenRZsUd.QGZtPu6OJp4LhYTglmgNCOQzEhX7fntXKy11G',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1329,14 +1403,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TYJjFPiAPkK5NFSsF690',
            'TRHs자PW',
            'TYJjFPiAPkK5NFSsF690@gmail.com',
            '$2a$04$ElvyZ1dT0AbweUzkraInguumD5DONSdWtdEtOeT1ZQKXbHFDkWeXe',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1345,14 +1420,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T0MI6BCcTHTCbl0Rq',
            'TbJ7자UXRk',
            'T0MI6BCcTHTCbl0Rq@gmail.com',
            '$2a$04$kQwwWPEKnXFN/77z3hhgs.hEWXcUUq4mI8Z6T0D3eRvTCCOaI6U4.',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1361,14 +1437,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TEIOr5i819q0zgs91Nu',
            'TX마HUF',
            'TEIOr5i819q0zgs91Nu@gmail.com',
            '$2a$04$TUbvPILYuESmCceUe/2id..8qBhc6m/0TF6PBUdYvAEoFEJtiQpR.',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1377,14 +1454,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T1MKxWEFeOqUDxka',
            'T나hc',
            'T1MKxWEFeOqUDxka@icloud.com',
            '$2a$04$PSNirRfiG15KvWWS/1Rxn.46oY2LONTaDVYp0FQyn7G6HrfBxH6hW',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1393,14 +1471,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T0Tv6uAxaiE2OFj',
            'ToTpGIZ',
            'T0Tv6uAxaiE2OFj@naver.com',
            '$2a$04$IE3ERRqL32hscXBUAu8wl.cO/k1bneuPGMdRjcwo.I1zySqU449Vu',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1409,14 +1488,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TFqCk3RR4ESc4WZR',
            'T나W나s바파1',
            'TFqCk3RR4ESc4WZR@hanmail.net',
            '$2a$04$8DqlxxS0v5LbjJ4q7zI3jOk5s5IJpPCQdHS1cnbvfId0aljF/3VQC',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1425,14 +1505,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T09laiO',
            'TuR차maPk',
            'T09laiO@yahoo.com',
            '$2a$04$tFEaQRIqWXhNvfAytajz.u.QEnJkHJXI4bSkOAslJp.sXzxIARi8C',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1441,14 +1522,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TO7uEBM',
            'TjQsth하라u',
            'TO7uEBM@hanmail.net',
            '$2a$04$oTA69EQ.LQEjst2Rvv6kSO5jlOEH9jQzp215vRT.aqOSiHJjKtGY6',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1457,14 +1539,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TusHxqIer8Fk0BSrxR',
            'Ta하QZ0ls타자',
            'TusHxqIer8Fk0BSrxR@naver.com',
            '$2a$04$ROazyhWEyBG638OPYKRfye0CEpG5Q8TqmXWLo5BbVtjlIUa.XOYii',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1473,14 +1556,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T6oQ19WHv8pbfXp9J',
            'T자yb라xM',
            'T6oQ19WHv8pbfXp9J@icloud.com',
            '$2a$04$v6Oth3eBuumdbMMqxtyC.O3u2EN/WZbfb8e75tbwwX2MAVDI96FMq',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1489,14 +1573,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'Tyu0qcCi77EAI3TU',
            'T9사gpX자H',
            'Tyu0qcCi77EAI3TU@naver.com',
            '$2a$04$o1049WprES6PYXGMVczg.OhKHg2vkewp3XK6GMv5rNGOw8fGOC49G',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1505,14 +1590,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'Tl3w2ri',
            'T4nAIND',
            'Tl3w2ri@naver.com',
            '$2a$04$Quy07bIQf2prlEMGz7nJJO1J43jyhe3Uo0fcZhLpe6FADvZMmvFM.',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1521,14 +1607,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TOeUu7uGe0N3NW9Cp',
            'TES아다N',
            'TOeUu7uGe0N3NW9Cp@hanmail.net',
            '$2a$04$XWnUhQ7wZXiyitHdwb5EE.bmWtmUMgAPOAd8iv4i8rzxSF88hDtnK',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1537,14 +1624,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TXeS4Oplh',
            'TIG5카9u0Y',
            'TXeS4Oplh@gmail.com',
            '$2a$04$e2YxSGKhWP7rg7UUcBaKlONuiP9V0qrBPMesASpa1jYZds.AI.1aW',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1553,14 +1641,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'Tg3snzJQG',
            'Tv766Gt바',
            'Tg3snzJQG@naver.com',
            '$2a$04$vIxMiQqe0bg0WM9uRKYbaOxbmn0SMUBbaEslkKF6Oq0.3scj6V1Tq',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1569,14 +1658,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TUa80KbC4X9g3ovh3UDS',
            'TNoQGly바',
            'TUa80KbC4X9g3ovh3UDS@gmail.com',
            '$2a$04$aF2H0EVJw3.FBFb5UGYkdOSFBAGcEsNFQBn.d5TACAi9UKaV.4Tv6',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1585,14 +1675,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TbuMDOBG6mtq5ABT',
            'TOhQI',
            'TbuMDOBG6mtq5ABT@naver.com',
            '$2a$04$aZuwU2j2hz/qvkYl6ZTS2O5HrpKniVOaH605PaNcVXnMTk78YYpHy',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1601,14 +1692,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TL3Ko2A8V87UQQvd',
            'TS라2사HCp7S',
            'TL3Ko2A8V87UQQvd@icloud.com',
            '$2a$04$X8A9Z2l03.9c2YhHvTum1eQeENiekIeVY6BRaefq0p/7sm94.3IBm',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1617,14 +1709,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'ToyX450NcLZt62Skb',
            'T77나다e',
            'ToyX450NcLZt62Skb@yahoo.com',
            '$2a$04$h/biqPCpXCHJQFkovoBsR.qUz2tvFkC05l8QqUGyeQm/J9VVk8lSm',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1633,14 +1726,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T0AOwttNdeKGYu4',
            'TM9나j3가F3M',
            'T0AOwttNdeKGYu4@icloud.com',
            '$2a$04$WOKTvvAMeVK1mKjBtNAJ3ORpbxuZJQB8r2wA3wGhdtZBhVJPFAbdK',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1649,14 +1743,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TEjrKd3l4PX',
            'TTw7k자uK카',
            'TEjrKd3l4PX@yahoo.com',
            '$2a$04$nTeg6WP4RI.XEsI.p.aFkuzP68q7z0m/5cubHM59H.5O2Flk4U.wa',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1665,14 +1760,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'Tdgiw9o8',
            'TN바마aE',
            'Tdgiw9o8@icloud.com',
            '$2a$04$H4Vu.i.gnNkF0.96TfZUj.smRhJwvqn9Hw1Nlv2dYEpfR90c1N..O',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1681,14 +1777,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TDfkyDrmtm58',
            'Thp사B',
            'TDfkyDrmtm58@icloud.com',
            '$2a$04$PZA/.IyZlFC.bGgxw6A6Hu8elOswwAufhutlFhnCSuS4mmTkU0NfK',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1697,14 +1794,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TkDakynsSdQpp3PDA',
            'T가8다oniRL',
            'TkDakynsSdQpp3PDA@gmail.com',
            '$2a$04$NS56v.R/MHj9UZpL1gy1telyPwf3RBdHnoM1W/F34c7GzuPuUQiQq',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1713,14 +1811,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'T0g5aIkpP',
            'T라YC',
            'T0g5aIkpP@naver.com',
            '$2a$04$h3oKogyvlJ2dQWl./c6L9.1IqEFPCNKndEl.IwCahb74fAlkPrJ4u',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
@@ -1729,14 +1828,15 @@ VALUES (
 UPDATE members_seq SET next_val = next_val + 1;
 
 -- INSERT member
-INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, created_at)
+INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
+                     created_at)
 VALUES (
            (SELECT next_val FROM members_seq),
            'TZRoUMt9Bf2mCaBS54e',
            'TOIWVuGo타마',
            'TZRoUMt9Bf2mCaBS54e@gmail.com',
            '$2a$04$CUrd3obgUrfflq.ZkCF9luAVKoTJryQt0GVi3JbM1Oi2.wQgg2q26',
-           'GENERAL',
+           'GENERAL', 'https://algoduck-profile-bucket-local-437512315.s3.ap-northeast-2.amazonaws.com/default-duck.png'
            'ACTIVE',
            0,
            now()
