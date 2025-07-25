@@ -108,13 +108,18 @@ public class SubmissionController extends BaseApiController {
     }
 
     Long loginMemberId = userDetails.getMemberId(); //  코드 확인하려는 회원 PK
+    //  log.info("코드 확인 시도 memberId = {}", loginMemberId);
 
     SubmissionResponseDto submissionResponseDto = submissionService.findBySubmissionId(submissionId);
 
     Long ownerId = submissionResponseDto.getMemberId();     //  코드를 제출한 회원 PK
-    Long problemId = submissionResponseDto.getProblemId();  //  코드를 제출한 문제 PK
 
-    if (!loginMemberId.equals(ownerId) && solvedProblemService.hasSolved(loginMemberId, problemId)) {  //  본인이 제출한 코드가 아니고, 본인이 푼 문제도 아닐 경우
+    //  log.info("코드 주인 memberId = {}", ownerId);
+
+    Long problemId = submissionResponseDto.getProblemId();  //  코드를 제출한 문제 PK
+    //  log.info("코드에 해당하는 problemId = {}", problemId);
+
+    if (!loginMemberId.equals(ownerId) && !solvedProblemService.hasSolved(loginMemberId, problemId)) {  //  본인이 제출한 코드가 아니고, 본인이 푼 문제도 아닐 경우
       return ResponseEntity
           .status(HttpStatus.FORBIDDEN)
           .body(ApiResponse.failure("해당 문제를 푼 경우에만 다른 사람의 코드를 볼 수 있습니다."));
