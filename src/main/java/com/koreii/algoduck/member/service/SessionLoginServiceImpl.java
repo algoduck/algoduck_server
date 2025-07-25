@@ -8,7 +8,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 
 import static com.koreii.algoduck.util.constants.Constants.LOGIN_MEMBER;
@@ -38,9 +41,17 @@ public class SessionLoginServiceImpl implements LoginService {
   }
 
   public void logout(HttpServletRequest request) {
-    HttpSession session = request.getSession(false);
-    if (session != null) {
-      session.invalidate();
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    log.info("authentication = {}", authentication);
+
+    if (authentication != null) {
+      new SecurityContextLogoutHandler().logout(request, null, authentication);
+    } else {
+      HttpSession session = request.getSession(false);
+      if (session != null) {
+        session.invalidate();
+      }
+      SecurityContextHolder.clearContext();
     }
   }
 }
