@@ -71,4 +71,14 @@ public class SolvedProblemRepositoryJpaImpl implements SolvedProblemRepository {
         .setParameter("memberId", memberId)
         .getResultList();
   }
+
+  @Override
+  public boolean hasSolved(Long memberId, Long problemId) {
+    String jpql = "SELECT COUNT(sp) FROM SolvedProblem sp WHERE sp.member.id = :memberId AND sp.problem.id = :problemId";
+    Long count = entityManager.createQuery(jpql, Long.class)
+        .setParameter("memberId", memberId)
+        .setParameter("problemId", problemId)
+        .getSingleResult();
+    return count > 0;
+  }
 }

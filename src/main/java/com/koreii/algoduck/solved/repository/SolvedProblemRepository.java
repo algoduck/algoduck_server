@@ -16,4 +16,6 @@ public interface SolvedProblemRepository {
   void addSolvedProblem(Member member, Problem problem);
 
   List<ProblemSimpleResponseDto> getSolvedProblems(Long memberId, int pageNumber, int pageSize);
+
+  boolean hasSolved(Long memberId, Long problemId);
 }
