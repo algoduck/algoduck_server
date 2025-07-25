@@ -39,4 +39,9 @@ public class SolvedProblemServiceImpl implements SolvedProblemService {
   public List<ProblemSimpleResponseDto> getSolvedProblems(Long memberId, int pageNumber, int pageSize) {
     return solvedProblemRepository.getSolvedProblems(memberId, pageNumber, pageSize);
   }
+
+  @Override
+  public boolean hasSolved(Long memberId, Long problemId) {
+    return solvedProblemRepository.hasSolved(memberId, problemId);
+  }
 }

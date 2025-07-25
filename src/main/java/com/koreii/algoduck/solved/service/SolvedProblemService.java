@@ -15,4 +15,6 @@ public interface SolvedProblemService {
   long getSolvedProblemsCount(long memberId);
 
   List<ProblemSimpleResponseDto> getSolvedProblems(Long memberId, int pageNumber, int pageSize);
+
+  boolean hasSolved(Long memberId, Long problemId);
 }
