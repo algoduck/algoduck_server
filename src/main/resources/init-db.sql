@@ -55,9 +55,26 @@ VALUES (1000,
         2,
         192,
         0,
+        now()),
+       (1004,
+        1004,
+        '제초하기',
+        'Algoduck 국가의 수도 콰코어(Quackcore)의 중앙에는 직사각형 모양의 광장 덕고라(Duckgora)가 존재한다. 덕고라는 1 * 1 크기의 정사각형 격자가 세로로 N개, 가로로 M개, 총 NM개의 정사각형 격자로 이루어져있다. 각각의 정사각형 격자는 좌표로 나타낼 수 있는데 북서쪽 격자는 (1, 1), 남동쪽 격자는 (N, M)으로 나타낼 수 있다.
+   Koreii가 덕고라를 만들 당시 NM개의 정사각형 격자 중 임의의 격자에 풀을 심었다. Koreii는 여기저기 난잡하게 심어진 풀이 꼴 보기 싫어져서 크기가 가장 큰 풀밭의 풀들을 제외한 모든 풀을 제거하기로 결정했다. 풀밭이란 풀이 심어진 격자들이 직사각형을 이룬 집합이다.
+   Koreii가 남겨둘 풀밭의 크기와 풀밭의 북서쪽 격자 좌표, 남동쪽 격자 좌표를 찾아보자.',
+        '• 첫번째 줄에 덕고라의 세로 크기 N, 가로 크기 M이 주어진다. (1 ≤ N ≤ 444, 1 ≤ M ≤ 444)
+   • 다음 N개의 줄에는 덕고라의 각 줄의 격자 상태를 나타내는 정수가 공백으로 구분되어 주어진다.
+       ◦ 0 : 풀이 심어지지 않은 격자
+       ◦ 1 : 풀이 심어진 격자',
+        '• 첫 번째 줄에는 남겨둘 풀밭의 크기를 출력한다. 풀밭의 크기란 풀밭에 포함된 풀이 심어진 격자의 개수이다.
+   • 두 번째 줄에는 남겨둘 풀밭의 북서쪽 격자 좌표 (y1, x1)과 남동쪽 격자 좌표 (y2, x2)를 출력한다. (1 ≤ y1 ≤ y2 ≤ N, 1 ≤ x1 ≤ x2 ≤ M) 크기가 가장 큰 풀밭이 여러개일 경우 y1이 가장 작은 것, y1이 가장 작은 것이 여러개일 경우 x1이 가장 작은 것, x1이 가장 작은 것이 여러개일 경우, y2가 가장 작은 것, y2가 가장 작은 것이 여러개일 경우 x2가 가장 작은 것을 출력한다.',
+        2,
+        128,
+        0,
         now());
 
-UPDATE problems_seq SET next_val = 1004;
+UPDATE problems_seq
+SET next_val = 1005;
 
 INSERT INTO languages (language_id, name, extension, created_at) VALUES (1001, "Java", "java", now());
 INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES (1001, 1001, "Java 8", now());
@@ -134,15 +151,37 @@ VALUES (32, 1003, "input01", "", null, "output01", "", null, false, now()),
        (46, 1003, "input15", "", null, "output15", "", null, false, now()),
        (47, 1003, "input16", "", null, "output16", "", null, false, now()),
        (48, 1003, "input17", "", null, "output17", "", null, false, now()),
-       (49, 1003, "input18", "", null, "output18", "", null, false, now()),
-       (50, 1003, "input19", "", null, "output19", "", null, false, now());
+       (49, 1003, "input18", "", null, "output18", "", null, false, now());
+
+INSERT INTO testcases (testcase_id, problem_id, testcase_input_name, testcase_input_url, testcase_input_data,
+                       testcase_output_name, testcase_output_url, testcase_output_data, is_public, created_at)
+VALUES (50, 1003, "input19", "", null, "output19", "", null, false, now()),
+       (51, 1004, "input01", "", null, "output01", "", null, false, now()),
+       (52, 1004, "input02", "", null, "output02", "", null, false, now()),
+       (53, 1004, "input03", "", null, "output03", "", null, false, now()),
+       (54, 1004, "input04", "", null, "output04", "", null, false, now()),
+       (55, 1004, "input05", "", null, "output05", "", null, false, now()),
+       (56, 1004, "input06", "", null, "output06", "", null, false, now()),
+       (57, 1004, "input07", "", null, "output07", "", null, false, now()),
+       (58, 1004, "input08", "", null, "output08", "", null, false, now()),
+       (59, 1004, "input09", "", null, "output09", "", null, false, now()),
+       (60, 1004, "input10", "", null, "output10", "", null, false, now()),
+       (61, 1004, "input11", "", null, "output11", "", null, false, now()),
+       (62, 1004, "input12", "", null, "output12", "", null, false, now()),
+       ( 63, 1004, "input13", ""
+       , "6 9\n0 0 0 0 0 0 1 1 1\n1 1 1 0 0 0 1 1 1\n1 1 1 1 1 0 1 1 1\n0 1 1 1 1 1 1 1 1\n0 0 0 0 0 0 1 1 0\n1 1 1 0 0 0 1 1 0"
+       , "output13", "", "12\n1 7 4 9", true, now()),
+       ( 64, 1004, "input14", "", "3 3\n1 1 1\n1 1 0\n0 1 1"
+       , "output14", "", "4\n1 1 2 2"
+       , true, now()),
+       (65, 1004, "input15", "", null, "output15", "", null, false, now());
 
 UPDATE testcases
 SET
     testcase_input_url = CONCAT('https://algoduck-testcase-bucket-ec2-810270402.s3.ap-northeast-2.amazonaws.com/prob_', LPAD(problem_id, 5, '0'), '/', testcase_input_name),
     testcase_output_url = CONCAT('https://algoduck-testcase-bucket-ec2-810270402.s3.ap-northeast-2.amazonaws.com/prob_', LPAD(problem_id, 5, '0'), '/', testcase_output_name);
 
-UPDATE testcases_seq SET next_val = 51;
+UPDATE testcases_seq SET next_val = 66;
 
 -- INSERT member
 INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
