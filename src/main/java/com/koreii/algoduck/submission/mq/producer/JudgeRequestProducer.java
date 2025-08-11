@@ -8,6 +8,10 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static com.koreii.algoduck.util.constants.Constants.SHARD_COUNT;
+
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -15,10 +19,14 @@ public class JudgeRequestProducer {
   private final RabbitTemplate rabbitTemplate;
 
   @Value("${rabbitmq.queue.request}")
-  private String queueName;
+  private String requestQueuePrefix;
+  private final AtomicInteger roundRobin = new AtomicInteger(0);
 
   public void sendJudgeRequest(JudgeRequestMessage message) {
     log.info("message = {}", message);
-    rabbitTemplate.convertAndSend(queueName, message);
+    int idx = Math.floorMod(roundRobin.getAndIncrement(), SHARD_COUNT); // 0..shardCount-1
+    String queue = requestQueuePrefix + "-" + idx;             // judge-request-0/1/2/3
+    log.info("send to {}, msg={}", queue, message);
+    rabbitTemplate.convertAndSend(queue, message);
   }
 }
