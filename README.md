@@ -2,6 +2,8 @@
 
 AlgoDuck Server
 
+알고오리의 Backend 서버
+
 ## Prerequisites
 
 #### clone repo
