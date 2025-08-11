@@ -48,9 +48,9 @@ spring:
 
 rabbitmq:
   queue:
-    request: judge-request
-    progress: judge-progress
-    result: judge-result
+    request: ${JUDGE_QUEUE_REQUEST_QUEUE}
+    progress: ${JUDGE_QUEUE_PROGRESS_QUEUE}
+    result: ${JUDGE_QUEUE_RESULT_QUEUE}
 
 logging:
   file:
