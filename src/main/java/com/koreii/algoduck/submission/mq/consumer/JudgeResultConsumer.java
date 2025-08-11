@@ -14,7 +14,13 @@ import org.springframework.stereotype.Component;
 public class JudgeResultConsumer {
   private final SubmissionService submissionService;
 
-  @RabbitListener(queues = "${rabbitmq.queue.result}")
+  // judge-result-0/1/2/3 동시에 감시
+  @RabbitListener(queues = {
+      "${rabbitmq.queue.result}-0",
+      "${rabbitmq.queue.result}-1",
+      "${rabbitmq.queue.result}-2",
+      "${rabbitmq.queue.result}-3"
+  })
   public void receiveJudgeResult(JudgeResultMessage resultMessage) {
     log.info("채점 결과 수신: {}", resultMessage);
 
