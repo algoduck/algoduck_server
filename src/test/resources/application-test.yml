@@ -1,5 +1,10 @@
 spring:
   rabbitmq:
+    listener:
+      simple:
+        auto-startup: false
+      direct:
+        auto-startup: false
     ssl:
       enabled: false
   main:
