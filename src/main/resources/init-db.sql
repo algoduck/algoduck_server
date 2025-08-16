@@ -63,18 +63,32 @@ VALUES (1000,
    Koreii가 덕고라를 만들 당시 NM개의 정사각형 격자 중 임의의 격자에 풀을 심었다. Koreii는 여기저기 난잡하게 심어진 풀이 꼴 보기 싫어져서 크기가 가장 큰 풀밭의 풀들을 제외한 모든 풀을 제거하기로 결정했다. 풀밭이란 풀이 심어진 격자들이 직사각형을 이룬 집합이다.
    Koreii가 남겨둘 풀밭의 크기와 풀밭의 북서쪽 격자 좌표, 남동쪽 격자 좌표를 찾아보자.',
         '• 첫번째 줄에 덕고라의 세로 크기 N, 가로 크기 M이 주어진다. (1 ≤ N ≤ 444, 1 ≤ M ≤ 444)
-   • 다음 N개의 줄에는 덕고라의 각 줄의 격자 상태를 나타내는 정수가 공백으로 구분되어 주어진다.
-       ◦ 0 : 풀이 심어지지 않은 격자
-       ◦ 1 : 풀이 심어진 격자',
+• 다음 N개의 줄에는 덕고라의 각 줄의 격자 상태를 나타내는 정수가 공백으로 구분되어 주어진다.
+    ◦ 0 : 풀이 심어지지 않은 격자
+    ◦ 1 : 풀이 심어진 격자
+• 적어도 하나의 격자에는 풀이 심어져 있음이 보장된다.',
         '• 첫 번째 줄에는 남겨둘 풀밭의 크기를 출력한다. 풀밭의 크기란 풀밭에 포함된 풀이 심어진 격자의 개수이다.
    • 두 번째 줄에는 남겨둘 풀밭의 북서쪽 격자 좌표 (y1, x1)과 남동쪽 격자 좌표 (y2, x2)를 출력한다. (1 ≤ y1 ≤ y2 ≤ N, 1 ≤ x1 ≤ x2 ≤ M) 크기가 가장 큰 풀밭이 여러개일 경우 y1이 가장 작은 것, y1이 가장 작은 것이 여러개일 경우 x1이 가장 작은 것, x1이 가장 작은 것이 여러개일 경우, y2가 가장 작은 것, y2가 가장 작은 것이 여러개일 경우 x2가 가장 작은 것을 출력한다.',
         2,
         128,
         0,
-        now());
+        now()),
+    (1005,
+     1005,
+     '독립',
+     'Algoduck 국가의 숲에는 오리가 살고 있는 나무가 많다. 그 중 어떤 나무에는 어미 오리와 새끼 오리들이 살고 있다. 어미 오리는 새끼 오리들을 독립시키기 위해 나는 법을 가르쳐야 한다. 새끼 오리들을 강하게 기르기 위해 어미 오리는 새끼 오리들을 나무의 특정 높이에서 밀어서 땅으로 떨어뜨린다.
+새끼 오리들은 매우 가볍기 때문에 나무의 어떤 높이에서 땅에 떨어지더라도 전혀 다치지 않는다. 새끼 오리들 또한 이를 잘 알고있기에 어지간한 높이에서는 떨어지더라도 날개짓조차 하지 않는다. 하지만 특정 높이 이상의 높이에서 떨어질 경우 본능적으로 두려움을 느끼고 날개짓을 하며 날아가버린다. 날아가버린 새끼 오리는 그 순간 독립하여 다시는 돌아오지 않는다.
+새끼 오리의 수 N, 나무의 높이 H가 주어질 때 새끼 오리들이 떨어질 때 두려움을 느끼고 날개짓을 하는 최소 높이를 구하기 위해 새끼 오리를 떨어뜨리는 시행을 최소 몇 번 해야하는지를 구하시오. 나무의 높이 H는 m 단위이며 오리가 떨어지는 높이 또한 1m 단위로 정해져 있다. 모든 새끼 오리가 두려움을 느끼는 높이는 동일하며 1m에서도 두려움을 느낄 수도 있고, Hm에서조차도 두려움을 느끼지 않을 수도 있다. (이 경우에는 새끼 오리들은 영원히 독립하지 못할 것이다.)'
+       ,
+     '• 새끼 오리의 수 N, 나무의 높이 H가 주어진다. (1 ≤ N ≤ 100, 1 ≤ H ≤ 1,000)',
+     '• 문제에서 요구하는 최소 시행 횟수를 출력한다.',
+     2,
+     128,
+     0,
+     now());
 
 UPDATE problems_seq
-SET next_val = 1005;
+SET next_val = 1006;
 
 INSERT INTO languages (language_id, name, extension, created_at) VALUES (1001, "Java", "java", now());
 INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES (1001, 1001, "Java 8", now());
@@ -176,12 +190,53 @@ VALUES (50, 1003, "input19", "", null, "output19", "", null, false, now()),
        , true, now()),
        (65, 1004, "input15", "", null, "output15", "", null, false, now());
 
+INSERT INTO testcases (testcase_id, problem_id, testcase_input_name, testcase_input_url, testcase_input_data,
+                       testcase_output_name, testcase_output_url, testcase_output_data, is_public, created_at)
+VALUES (66, 1005, "input01", "", null, "output01", "", null, false, now()),
+       (67, 1005, "input02", "", null, "output02", "", null, false, now()),
+       (68, 1005, "input03", "", null, "output03", "", null, false, now()),
+       (69, 1005, "input04", "", null, "output04", "", null, false, now()),
+       (70, 1005, "input05", "", null, "output05", "", null, false, now()),
+       (71, 1005, "input06", "", null, "output06", "", null, false, now()),
+       (72, 1005, "input07", "", null, "output07", "", null, false, now()),
+       (73, 1005, "input08", "", null, "output08", "", null, false, now()),
+       (74, 1005, "input09", "", null, "output09", "", null, false, now()),
+       (75, 1005, "input10", "", null, "output10", "", null, false, now()),
+       (76, 1005, "input11", "", null, "output11", "", null, false, now()),
+       (77, 1005, "input12", "", null, "output12", "", null, false, now()),
+       (78, 1005, "input13", "", null, "output13", "", null, false, now()),
+       (79, 1005, "input14", "", null, "output14", "", null, false, now()),
+       (80, 1005, "input15", "", null, "output15", "", null, false, now()),
+       (81, 1005, "input16", "", null, "output16", "", null, false, now()),
+       (82, 1005, "input17", "", null, "output17", "", null, false, now()),
+       (83, 1005, "input18", "", null, "output18", "", null, false, now()),
+       (84, 1005, "input19", "", null, "output19", "", null, false, now()),
+       (85, 1005, "input20", "", null, "output20", "", null, false, now()),
+       (86, 1005, "input21", "", null, "output21", "", null, false, now()),
+       (87, 1005, "input22", "", null, "output22", "", null, false, now()),
+       (88, 1005, "input23", "", null, "output23", "", null, false, now()),
+       (89, 1005, "input24", "", null, "output24", "", null, false, now()),
+       (90, 1005, "input25", "", null, "output25", "", null, false, now()),
+       (91, 1005, "input26", "", null, "output26", "", null, false, now()),
+       (92, 1005, "input27", "", null, "output27", "", null, false, now()),
+       (93, 1005, "input28", "", null, "output28", "", null, false, now()),
+       (94, 1005, "input29", "", null, "output29", "", null, false, now()),
+       (95, 1005, "input30", "", null, "output30", "", null, false, now()),
+       (96, 1005, "input31", "", "2 10", "output31", "", "4", true, now()),
+       (97, 1005, "input32", "", null, "output32", "", null, false, now()),
+       (98, 1005, "input33", "", null, "output33", "", null, false, now()),
+       (99, 1005, "input34", "", null, "output34", "", null, false, now()),
+       (100, 1005, "input35", "", "49 11", "output35", "", "4", true, now()),
+       (101, 1005, "input36", "", null, "output36", "", null, false, now()),
+       (102, 1005, "input37", "", "1 100", "output37", "", "100", true, now()),
+       (103, 1005, "input38", "", null, "output38", "", null, false, now());
+
 UPDATE testcases
 SET
     testcase_input_url = CONCAT('https://algoduck-testcase-bucket-ec2-810270402.s3.ap-northeast-2.amazonaws.com/prob_', LPAD(problem_id, 5, '0'), '/', testcase_input_name),
     testcase_output_url = CONCAT('https://algoduck-testcase-bucket-ec2-810270402.s3.ap-northeast-2.amazonaws.com/prob_', LPAD(problem_id, 5, '0'), '/', testcase_output_name);
 
-UPDATE testcases_seq SET next_val = 66;
+UPDATE testcases_seq SET next_val = 104;
 
 -- INSERT member
 INSERT INTO members (member_id, login_id, nickname, email, password, role, member_status, solved, profile_image_url,
