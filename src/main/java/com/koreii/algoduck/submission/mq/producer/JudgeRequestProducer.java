@@ -20,12 +20,12 @@ public class JudgeRequestProducer {
 
   @Value("${rabbitmq.queue.request}")
   private String requestQueuePrefix;
-  private final AtomicInteger roundRobin = new AtomicInteger(0);
+  //  private final AtomicInteger roundRobin = new AtomicInteger(0);
 
   public void sendJudgeRequest(JudgeRequestMessage message) {
     log.info("message = {}", message);
-    int idx = Math.floorMod(roundRobin.getAndIncrement(), SHARD_COUNT); // 0..shardCount-1
-    String queue = requestQueuePrefix + "-" + idx;             // judge-request-0/1/2/3
+    //    int idx = Math.floorMod(roundRobin.getAndIncrement(), SHARD_COUNT); // 0..shardCount-1
+    String queue = requestQueuePrefix + "-" + 0;             // judge-request-0/1/2/3
     log.info("send to {}, msg={}", queue, message);
     rabbitTemplate.convertAndSend(queue, message);
   }
