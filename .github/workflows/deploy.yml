@@ -2,7 +2,7 @@ name: Deploy Algoduck Spring App to EC2
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ develop, test ]
   workflow_dispatch:
     inputs:
       triggerReason:
