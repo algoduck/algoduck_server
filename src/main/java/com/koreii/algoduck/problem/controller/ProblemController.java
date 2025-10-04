@@ -47,12 +47,18 @@ public class ProblemController extends BaseApiController {
       @RequestParam int pageNumber,
       @RequestParam int pageSize) {
     long totalCount = problemService.countAllProblems();
+
+    long start = System.currentTimeMillis();
+
     List<ProblemSimpleResponseDto> problems = problemService.selectAllProblems(pageNumber, pageSize);
 
     ProblemPagingResponseDto responseDto = ProblemPagingResponseDto.builder()
         .totalCount(totalCount)
         .problems(problems)
         .build();
+
+    long end = System.currentTimeMillis();
+    log.info("문제 전체 조회 소요 시간: {} ms", (end - start));
 
     return ResponseEntity.ok(ApiResponse.success(responseDto));
   }
