@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/submissions")
@@ -67,6 +69,49 @@ public class SubmissionController extends BaseApiController {
       page = submissionService.getNextPage(lastSeenId, size);
     } else {
       page = submissionService.getPrevPage(firstSeenId, size);
+    }
+
+    return ResponseEntity.ok(ApiResponse.success(page));
+  }
+
+  @GetMapping("/search")
+  public ResponseEntity<ApiResponse<PageResponse<SubmissionResponseDto>>> searchSubmission(
+      @RequestParam(required = false) String loginId,
+      @RequestParam(required = false) Long problemNumber,
+      @RequestParam(required = false) String status,
+      @RequestParam(required = false) String language,
+      @RequestParam(required = false) Long submissionId,
+      @RequestParam(required = false) Long lastSeenId,
+      @RequestParam(required = false) Long firstSeenId,
+      @RequestParam(defaultValue = "20") int size
+  ) {
+    PageResponse<SubmissionResponseDto> page;
+
+    boolean noSearchConditions = loginId == null && problemNumber == null && status == null && language == null && submissionId == null;
+
+    if (noSearchConditions) {
+      // getPage()를 직접 호출하지 말고, 그 내부에서 쓰는 service 메서드 호출
+      PageResponse<SubmissionResponseDto> firstPage = submissionService.getFirstPage(size);
+      return ResponseEntity.ok(ApiResponse.success(firstPage));
+    }
+
+    //  제출 번호로 단건 조회
+    if (submissionId != null) {
+      SubmissionResponseDto submissionResponseDto = submissionService.findBySubmissionId(submissionId);
+      List<SubmissionResponseDto> list = submissionResponseDto == null
+          ? List.of()
+          : List.of(submissionResponseDto);
+      page = PageResponse.of(list, false, false, list.size());
+      return ResponseEntity.ok(ApiResponse.success(page));
+    }
+
+    //  나머지 조건 조합 검색
+    if (lastSeenId == null && firstSeenId == null) { //  첫 페이지
+      page = submissionService.searchSubmissions(loginId, problemNumber, status, language, null, null, size);
+    } else if (lastSeenId != null) {
+      page = submissionService.searchSubmissions(loginId, problemNumber, status, language, lastSeenId, null, size);
+    } else {
+      page = submissionService.searchSubmissions(loginId, problemNumber, status, language, null, firstSeenId, size);
     }
 
     return ResponseEntity.ok(ApiResponse.success(page));
