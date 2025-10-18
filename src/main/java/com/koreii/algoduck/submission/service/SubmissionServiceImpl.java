@@ -186,6 +186,12 @@ public class SubmissionServiceImpl implements SubmissionService {
   }
 
   @Override
+  public PageResponse<SubmissionResponseDto> searchSubmissions(String loginId, Long problemNumber, String status, String language, Long lastSeenId, Long firstSeenId, int pageSize) {
+    // Repository에 복합 검색 위임
+    return submissionRepository.searchSubmissions(loginId, problemNumber, status, language, lastSeenId, firstSeenId, pageSize);
+  }
+
+  @Override
   public String getCode(Long submissionId) {
     Submission submission = submissionRepository.findBySubmissionId(submissionId);
     byte[] codeBytes = fileStorageService

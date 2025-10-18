@@ -6,8 +6,6 @@ import com.koreii.algoduck.submission.dto.request.SubmissionUpdateRequestDto;
 import com.koreii.algoduck.submission.dto.response.SubmissionResponseDto;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public interface SubmissionService {
   SubmissionResponseDto submit(SubmissionRequestDto submissionRequestDto);
@@ -27,6 +25,8 @@ public interface SubmissionService {
   PageResponse<SubmissionResponseDto> getNextPageByMemberId(Long memberId, Long lastSeenId, int pageSize);
 
   PageResponse<SubmissionResponseDto> getPrevPageByMemberId(Long memberId, Long firstSeenId, int pageSize);
+
+  PageResponse<SubmissionResponseDto> searchSubmissions(String loginId, Long problemNumber, String status, String language, Long lastSeenId, Long firstSeenId, int pageSize);
 
   String getCode(Long submissionId);
 }

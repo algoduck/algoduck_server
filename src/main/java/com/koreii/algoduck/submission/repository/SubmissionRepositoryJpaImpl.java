@@ -10,6 +10,7 @@ import com.koreii.algoduck.submission.entity.Submission;
 import com.koreii.algoduck.submission.enums.Status;
 import com.koreii.algoduck.version.repository.VersionRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -123,6 +124,107 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
 
     Collections.reverse(result); // 최신순 유지
     return PageResponse.of(result, firstSeenId != null, hasPrev);
+  }
+
+  @Override
+  public PageResponse<SubmissionResponseDto> searchSubmissions(
+      String loginId,
+      Long problemNumber,
+      String status,
+      String language,
+      Long lastSeenId,
+      Long firstSeenId,
+      int pageSize
+  ) {
+    // 1️기본 쿼리 시작
+    StringBuilder jpql = new StringBuilder(
+        "SELECT new com.koreii.algoduck.submission.dto.response.SubmissionResponseDto(s) FROM Submission s WHERE 1=1"
+    );
+    StringBuilder countJpql = new StringBuilder("SELECT COUNT(s) FROM Submission s WHERE 1=1");
+
+    // 2️동적 조건 추가
+    if (loginId != null) {
+      jpql.append(" AND s.member.loginId = :loginId");
+      countJpql.append(" AND s.member.loginId = :loginId");
+    }
+    if (problemNumber != null) {
+      jpql.append(" AND s.problem.problemNumber = :problemNumber");
+      countJpql.append(" AND s.problem.problemNumber = :problemNumber");
+    }
+    if (status != null) {
+      jpql.append(" AND s.status = :status");
+      countJpql.append(" AND s.status = :status");
+    }
+    if (language != null) {
+      jpql.append(" AND s.language = :language");
+      countJpql.append(" AND s.language = :language");
+    }
+
+    // 3️커서 기반 조건 (submissionId 기준)
+    if (lastSeenId != null) {
+      jpql.append(" AND s.id < :lastSeenId");
+      countJpql.append(" AND s.id < :lastSeenId");
+    }
+    if (firstSeenId != null) {
+      jpql.append(" AND s.id > :firstSeenId");
+      countJpql.append(" AND s.id > :firstSeenId");
+    }
+
+    // 4️정렬 (내림차순 = 최신순)
+    jpql.append(" ORDER BY s.id DESC");
+
+    // 5️TypedQuery 생성
+    TypedQuery<SubmissionResponseDto> query = entityManager.createQuery(jpql.toString(), SubmissionResponseDto.class);
+    TypedQuery<Long> countQuery = entityManager.createQuery(countJpql.toString(), Long.class);
+
+    // 6️파라미터 바인딩
+    if (loginId != null) {
+      query.setParameter("loginId", loginId);
+      countQuery.setParameter("loginId", loginId);
+    }
+    if (problemNumber != null) {
+      query.setParameter("problemNumber", problemNumber);
+      countQuery.setParameter("problemNumber", problemNumber);
+    }
+    if (status != null) {
+      query.setParameter("status", Status.valueOf(status));
+      countQuery.setParameter("status", Status.valueOf(status));
+    }
+    if (language != null) {
+      query.setParameter("language", language);
+      countQuery.setParameter("language", language);
+    }
+    if (lastSeenId != null) {
+      query.setParameter("lastSeenId", lastSeenId);
+      countQuery.setParameter("lastSeenId", lastSeenId);
+    }
+    if (firstSeenId != null) {
+      query.setParameter("firstSeenId", firstSeenId);
+      countQuery.setParameter("firstSeenId", firstSeenId);
+    }
+
+    // 7️limit (커서 기반, 다음 페이지 판단용)
+    query.setMaxResults(pageSize + 1);
+
+    List<SubmissionResponseDto> result = query.getResultList();
+
+    boolean hasNext = result.size() > pageSize;
+    boolean hasPrev = (lastSeenId != null || firstSeenId != null);
+
+    if (hasNext) {
+      result = result.subList(0, pageSize);
+    }
+
+    // 8️totalCount (조건 동일)
+    long totalCount = countQuery.getSingleResult();
+
+    // 9️이전 페이지 처리 (ASC 정렬 후 reverse)
+    if (firstSeenId != null) {
+      Collections.reverse(result);
+    }
+
+    // PageResponse 구성
+    return PageResponse.of(result, hasNext, hasPrev, totalCount);
   }
 
   @Override

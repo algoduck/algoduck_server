@@ -2,12 +2,6 @@ package com.koreii.algoduck.problem.controller;
 
 import com.koreii.algoduck.base.controller.BaseApiController;
 import com.koreii.algoduck.base.dto.response.ApiResponse;
-import com.koreii.algoduck.member.dto.request.MemberSaveRequestDto;
-import com.koreii.algoduck.member.dto.response.MemberPagingResponseDto;
-import com.koreii.algoduck.member.dto.response.MemberResponseDto;
-import com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto;
-import com.koreii.algoduck.member.service.MemberService;
-import com.koreii.algoduck.problem.dto.request.ProblemAddRequestDto;
 import com.koreii.algoduck.problem.dto.response.ProblemPagingResponseDto;
 import com.koreii.algoduck.problem.dto.response.ProblemResponseDto;
 import com.koreii.algoduck.problem.dto.response.ProblemSimpleResponseDto;
@@ -22,14 +16,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -89,5 +80,44 @@ public class ProblemController extends BaseApiController {
         .build();
 
     return ResponseEntity.ok(ApiResponse.success(responseDto));
+  }
+
+  @Operation(summary = "문제 리스트에서 문제 검색", description = "조건에 맞는 문제를 검색합니다.")
+  @GetMapping("/search")
+  public ResponseEntity<ApiResponse<ProblemPagingResponseDto>> searchProblems(
+      @RequestParam String type,
+      @RequestParam String query,
+      @RequestParam int pageNumber,
+      @RequestParam int pageSize
+  ) {
+    List<ProblemSimpleResponseDto> problemSimpleResponseDtos = null;
+    long totalCount = 0;
+
+    switch (type) {
+      case "number":
+        totalCount = problemService.countProblemsWithProblemNumber(query);
+        problemSimpleResponseDtos = problemService.selectProblemsWithProblemNumber(query, pageNumber, pageSize);
+        break;
+      case "title":
+        totalCount = problemService.countProblemsWithTitle(query);
+        problemSimpleResponseDtos = problemService.selectProblemsWithTitle(query, pageNumber, pageSize);
+        break;
+      default:
+        List<Integer> difficulties = new ArrayList<>();
+        String[] difficultiesArray = query.split(",");
+        for (String difficulty : difficultiesArray) {
+          difficulties.add(Integer.parseInt(difficulty));
+        }
+        totalCount = problemService.countProblemsWithDifficulty(difficulties);
+        problemSimpleResponseDtos = problemService.selectProblemsWithDifficulty(difficulties, pageNumber, pageSize);
+        break;
+    }
+
+    ProblemPagingResponseDto problemPagingResponseDto = ProblemPagingResponseDto.builder()
+        .totalCount(totalCount)
+        .problems(problemSimpleResponseDtos)
+        .build();
+
+    return ResponseEntity.ok(ApiResponse.success(problemPagingResponseDto));
   }
 }
