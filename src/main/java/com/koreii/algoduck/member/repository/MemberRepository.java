@@ -39,6 +39,14 @@ public interface MemberRepository {
 
   List<MemberSimpleResponseDto> findWithNickname(String nickname, int pageNumber, int pageSize);  //  닉네임에 nickname이 포함돤 회원 리스트를 보여주기 (100명 단위로 페이지네이션)
 
+  long countMembersWithSolvedCount(long minimum, long maximum);
+
+  List<MemberSimpleResponseDto> findMembersWithSolvedCount(long minimum, long maximum, int pageNumber, int pageSize);
+
+  long countMembersWithRank(long rank);
+
+  List<MemberSimpleResponseDto> findMembersWithRank(long rank, int pageNumber, int pageSize);
+
   long countWithRole(Role role);
 
   List<MemberSimpleResponseDto> findByRole(Role role, int pageNumber, int pageSize);            //  역할이 role인 회원 리스트를 보여주기 (100명 단위로 페이지네이션)

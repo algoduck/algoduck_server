@@ -55,6 +55,7 @@ public class SubmissionController extends BaseApiController {
   }
 
   // 첫 페이지 (lastSeenId 없이)
+  @Operation(summary = "전체 제출 내역 가져오기", description = "전체 제출 내역을 첫 번째 페이지부터 가져옵니다.")
   @GetMapping("/page")
   public ResponseEntity<ApiResponse<PageResponse<SubmissionResponseDto>>> getPage(
       @RequestParam(required = false) Long lastSeenId,
@@ -74,6 +75,7 @@ public class SubmissionController extends BaseApiController {
     return ResponseEntity.ok(ApiResponse.success(page));
   }
 
+  @Operation(summary = "제출 내역 조회", description = "조건에 따른 제출 내역을 커서 기반으로 조회합니다.")
   @GetMapping("/search")
   public ResponseEntity<ApiResponse<PageResponse<SubmissionResponseDto>>> searchSubmission(
       @RequestParam(required = false) String loginId,
@@ -139,7 +141,7 @@ public class SubmissionController extends BaseApiController {
     return ResponseEntity.ok(ApiResponse.success(page));
   }
 
-
+  @Operation(summary = "제출 코드 열람", description = "본인이 제출한 코드나, 푼 문제에 대한 코드를 열람합니다.")
   @GetMapping("/{submissionId}/code")
   public ResponseEntity<ApiResponse<String>> getCode(
       @PathVariable Long submissionId,

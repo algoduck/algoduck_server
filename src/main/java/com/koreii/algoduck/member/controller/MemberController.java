@@ -1,6 +1,7 @@
 package com.koreii.algoduck.member.controller;
 
 import com.koreii.algoduck.base.controller.BaseApiController;
+import com.koreii.algoduck.base.dto.page.PageResponse;
 import com.koreii.algoduck.base.dto.response.ApiResponse;
 import com.koreii.algoduck.member.dto.request.LoginRequestDto;
 import com.koreii.algoduck.member.dto.request.MemberSaveRequestDto;
@@ -12,6 +13,8 @@ import com.koreii.algoduck.member.entity.Member;
 import com.koreii.algoduck.member.enums.Role;
 import com.koreii.algoduck.member.security.CustomUserDetails;
 import com.koreii.algoduck.member.service.MemberService;
+import com.koreii.algoduck.problem.dto.response.ProblemPagingResponseDto;
+import com.koreii.algoduck.problem.dto.response.ProblemSimpleResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,6 +40,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -156,6 +160,56 @@ public class MemberController extends BaseApiController {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.failure("해당 회원을 찾을 수 없습니다."));
     }
     return ResponseEntity.ok(ApiResponse.success(member));
+  }
+
+  @Operation(summary = "회원 목록 조회", description = "특정 조건에 맞는 회원 목록을 조회합니다.")
+  @GetMapping("/search")
+  public ResponseEntity<ApiResponse<MemberPagingResponseDto>> searchSubmissions(
+      @RequestParam String type,
+      @RequestParam String query,
+      @RequestParam int pageNumber,
+      @RequestParam int pageSize) {
+    List<MemberSimpleResponseDto> memberSimpleResponseDtos = null;
+    long totalCount = 0;
+
+    switch (type) {
+      case "loginId":
+        totalCount = memberService.countMembersWithLoginId(query);
+        memberSimpleResponseDtos = memberService.findMembersWithLoginId(query, pageNumber, pageSize);
+        break;
+      case "nickname":
+        totalCount = memberService.countMembersWithNickname(query);
+        memberSimpleResponseDtos = memberService.findMembersWithNickname(query, pageNumber, pageSize);
+        break;
+      case "count":
+        String[] split = query.split(",");
+        long minimum = Long.parseLong(split[0]);
+        long maximum = Long.parseLong(split[1]);
+        totalCount = memberService.countMembersWithSolvedCount(minimum, maximum);
+        memberSimpleResponseDtos = memberService.findMembersWithSolvedCount(minimum, maximum, pageNumber, pageSize);
+        break;
+      case "role":
+        Role role = Role.valueOf(query.toUpperCase());
+        totalCount = memberService.countMembersWithRole(role);
+        memberSimpleResponseDtos = memberService.findMembersWithRole(role, pageNumber, pageSize);
+        break;
+      case "rank":
+        long rank = Long.parseLong(query.split(",")[0]);
+        totalCount = memberService.countMembersWithRank(rank);
+        memberSimpleResponseDtos = memberService.findMembersWithRank(rank, pageNumber, pageSize);
+        break;
+      default:
+        totalCount = memberService.countAllMembers();
+        memberSimpleResponseDtos = memberService.findAllMembers(pageNumber, pageSize);
+        break;
+    }
+
+    MemberPagingResponseDto memberPagingResponseDto = MemberPagingResponseDto.builder()
+        .totalCount(totalCount)
+        .members(memberSimpleResponseDtos)
+        .build();
+
+    return ResponseEntity.ok(ApiResponse.success(memberPagingResponseDto));
   }
 
   @Operation(summary = "회원 정보 업데이트", description = "회원 정보를 업데이트합니다.")
