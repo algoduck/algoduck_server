@@ -131,18 +131,24 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
       String loginId,
       Long problemNumber,
       String status,
-      String language,
+      List<Long> languageVersionIds,
       Long lastSeenId,
       Long firstSeenId,
       int pageSize
   ) {
-    // 1️기본 쿼리 시작
+    log.info("searchSubmissions ");
+    log.info("loginId = {}", loginId);
+    log.info("problemNumber = {}", problemNumber);
+    log.info("status = {}", status);
+    log.info("languageVersionIds = {}", languageVersionIds);
+
+    // 기본 쿼리 시작
     StringBuilder jpql = new StringBuilder(
         "SELECT new com.koreii.algoduck.submission.dto.response.SubmissionResponseDto(s) FROM Submission s WHERE 1=1"
     );
     StringBuilder countJpql = new StringBuilder("SELECT COUNT(s) FROM Submission s WHERE 1=1");
 
-    // 2️동적 조건 추가
+    // 동적 조건 추가
     if (loginId != null) {
       jpql.append(" AND s.member.loginId = :loginId");
       countJpql.append(" AND s.member.loginId = :loginId");
@@ -155,12 +161,12 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
       jpql.append(" AND s.status = :status");
       countJpql.append(" AND s.status = :status");
     }
-    if (language != null) {
-      jpql.append(" AND s.language = :language");
-      countJpql.append(" AND s.language = :language");
+    if (languageVersionIds != null && !languageVersionIds.isEmpty()) {
+      jpql.append(" AND s.version.versionId IN :languageVersionIds");
+      countJpql.append(" AND s.version.versionId IN :languageVersionIds");
     }
 
-    // 3️커서 기반 조건 (submissionId 기준)
+    // 커서 기반 조건 (submissionId 기준)
     if (lastSeenId != null) {
       jpql.append(" AND s.id < :lastSeenId");
       countJpql.append(" AND s.id < :lastSeenId");
@@ -170,14 +176,14 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
       countJpql.append(" AND s.id > :firstSeenId");
     }
 
-    // 4️정렬 (내림차순 = 최신순)
+    // 정렬 (내림차순 = 최신순)
     jpql.append(" ORDER BY s.id DESC");
 
-    // 5️TypedQuery 생성
+    // TypedQuery 생성
     TypedQuery<SubmissionResponseDto> query = entityManager.createQuery(jpql.toString(), SubmissionResponseDto.class);
     TypedQuery<Long> countQuery = entityManager.createQuery(countJpql.toString(), Long.class);
 
-    // 6️파라미터 바인딩
+    // 파라미터 바인딩
     if (loginId != null) {
       query.setParameter("loginId", loginId);
       countQuery.setParameter("loginId", loginId);
@@ -190,9 +196,9 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
       query.setParameter("status", Status.valueOf(status));
       countQuery.setParameter("status", Status.valueOf(status));
     }
-    if (language != null) {
-      query.setParameter("language", language);
-      countQuery.setParameter("language", language);
+    if (languageVersionIds != null) {
+      query.setParameter("languageVersionIds", languageVersionIds);
+      countQuery.setParameter("languageVersionIds", languageVersionIds);
     }
     if (lastSeenId != null) {
       query.setParameter("lastSeenId", lastSeenId);
