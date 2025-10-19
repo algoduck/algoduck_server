@@ -3,7 +3,6 @@ package com.koreii.algoduck.member.repository;
 import com.koreii.algoduck.member.dto.request.LoginRequestDto;
 import com.koreii.algoduck.member.dto.request.MemberSaveRequestDto;
 import com.koreii.algoduck.member.dto.request.MemberUpdateRequestDto;
-import com.koreii.algoduck.member.dto.response.MemberResponseDto;
 import com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto;
 import com.koreii.algoduck.member.entity.Member;
 import com.koreii.algoduck.member.enums.MemberStatus;
@@ -12,8 +11,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -135,6 +132,81 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
         .setFirstResult(offset)
         .setMaxResults(pageSize)
         .getResultList();
+  }
+
+  @Override
+  public long countMembersWithSolvedCount(long minimum, long maximum) {
+    String jpql = "SELECT COUNT(m) FROM Member m WHERE m.solved BETWEEN :min AND :max";
+    return entityManager.createQuery(jpql, Long.class)
+        .setParameter("min", minimum)
+        .setParameter("max", maximum)
+        .getSingleResult();
+  }
+
+  @Override
+  public List<MemberSimpleResponseDto> findMembersWithSolvedCount(long minimum, long maximum, int pageNumber, int pageSize) {
+    int offset = (pageNumber - 1) * pageSize;
+
+    String jpql = "SELECT new com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto(m) " +
+        "FROM Member m " +
+        "WHERE m.solved BETWEEN :min AND :max " +
+        "ORDER BY m.solved DESC, m.createdAt ASC";
+
+    return entityManager.createQuery(jpql, MemberSimpleResponseDto.class)
+        .setParameter("min", minimum)
+        .setParameter("max", maximum)
+        .setFirstResult(offset)
+        .setMaxResults(pageSize)
+        .getResultList();
+  }
+
+  @Override
+  public long countMembersWithRank(long rank) {
+    // 해당 랭크의 푼 문제 수를 가진 인원 수 반환
+    Long solvedCountAtRank = getSolvedCountAtRank(rank);
+    if (solvedCountAtRank == null) {
+      return 0L;
+    }
+
+    String jpql = "SELECT COUNT(m) FROM Member m WHERE m.solved = :solved";
+    return entityManager.createQuery(jpql, Long.class)
+        .setParameter("solved", solvedCountAtRank)
+        .getSingleResult();
+  }
+
+  @Override
+  public List<MemberSimpleResponseDto> findMembersWithRank(long rank, int pageNumber, int pageSize) {
+    // 1️rank번째 solved 수 구하기
+    Long solvedCountAtRank = getSolvedCountAtRank(rank);
+    if (solvedCountAtRank == null) {
+      return List.of();
+    }
+
+    // 해당 solvedCount 가진 모든 회원 조회
+    int offset = (pageNumber - 1) * pageSize;
+
+    String jpql = "SELECT new com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto(m) " +
+        "FROM Member m " +
+        "WHERE m.solved = :solved " +
+        "ORDER BY m.createdAt ASC";
+
+    return entityManager.createQuery(jpql, MemberSimpleResponseDto.class)
+        .setParameter("solved", solvedCountAtRank)
+        .setFirstResult(offset)
+        .setMaxResults(pageSize)
+        .getResultList();
+  }
+
+  private Long getSolvedCountAtRank(long rank) {
+    String jpql = "SELECT DISTINCT m.solved FROM Member m " +
+        "ORDER BY m.solved DESC, m.createdAt ASC";
+
+    List<Long> solvedDistinctList = entityManager.createQuery(jpql, Long.class)
+        .setFirstResult((int) (rank - 1))
+        .setMaxResults(1)
+        .getResultList();
+
+    return solvedDistinctList.isEmpty() ? null : solvedDistinctList.get(0);
   }
 
   @Override

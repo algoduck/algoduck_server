@@ -119,6 +119,26 @@ public class MemberServiceImpl implements MemberService {
   }
 
   @Override
+  public Long countMembersWithSolvedCount(long minimum, long maximum) {
+    return memberRepository.countMembersWithSolvedCount(minimum, maximum);
+  }
+
+  @Override
+  public List<MemberSimpleResponseDto> findMembersWithSolvedCount(long minimum, long maximum, int pageNumber, int pageSize) {
+    return memberRepository.findMembersWithSolvedCount(minimum, maximum, pageNumber, pageSize);
+  }
+
+  @Override
+  public Long countMembersWithRank(long rank) {
+    return memberRepository.countMembersWithRank(rank);
+  }
+
+  @Override
+  public List<MemberSimpleResponseDto> findMembersWithRank(long rank, int pageNumber, int pageSize) {
+    return memberRepository.findMembersWithRank(rank, pageNumber, pageSize);
+  }
+
+  @Override
   public long countMembersWithRole(Role role) {
     return memberRepository.countWithRole(role);
   }

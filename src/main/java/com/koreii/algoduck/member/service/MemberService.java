@@ -33,6 +33,14 @@ public interface MemberService {
 
   List<MemberSimpleResponseDto> findMembersWithNickname(String nickname, int pageNumber, int pageSize);
 
+  Long countMembersWithSolvedCount(long minimum, long maximum);
+
+  List<MemberSimpleResponseDto> findMembersWithSolvedCount(long minimum, long maximum, int pageNumber, int pageSize);
+
+  Long countMembersWithRank(long rank);
+
+  List<MemberSimpleResponseDto> findMembersWithRank(long rank, int pageNumber, int pageSize);
+
   long countMembersWithRole(Role role);
 
   List<MemberSimpleResponseDto> findMembersWithRole(Role role, int pageNumber, int pageSize);
