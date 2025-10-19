@@ -81,7 +81,7 @@ public class SubmissionController extends BaseApiController {
       @RequestParam(required = false) String loginId,
       @RequestParam(required = false) Long problemNumber,
       @RequestParam(required = false) String status,
-      @RequestParam(required = false) String language,
+      @RequestParam(required = false) List<Long> languageVersionIds,
       @RequestParam(required = false) Long submissionId,
       @RequestParam(required = false) Long lastSeenId,
       @RequestParam(required = false) Long firstSeenId,
@@ -89,7 +89,7 @@ public class SubmissionController extends BaseApiController {
   ) {
     PageResponse<SubmissionResponseDto> page;
 
-    boolean noSearchConditions = loginId == null && problemNumber == null && status == null && language == null && submissionId == null;
+    boolean noSearchConditions = loginId == null && problemNumber == null && status == null && languageVersionIds == null && submissionId == null;
 
     if (noSearchConditions) {
       // getPage()를 직접 호출하지 말고, 그 내부에서 쓰는 service 메서드 호출
@@ -109,11 +109,11 @@ public class SubmissionController extends BaseApiController {
 
     //  나머지 조건 조합 검색
     if (lastSeenId == null && firstSeenId == null) { //  첫 페이지
-      page = submissionService.searchSubmissions(loginId, problemNumber, status, language, null, null, size);
+      page = submissionService.searchSubmissions(loginId, problemNumber, status, languageVersionIds, null, null, size);
     } else if (lastSeenId != null) {
-      page = submissionService.searchSubmissions(loginId, problemNumber, status, language, lastSeenId, null, size);
+      page = submissionService.searchSubmissions(loginId, problemNumber, status, languageVersionIds, lastSeenId, null, size);
     } else {
-      page = submissionService.searchSubmissions(loginId, problemNumber, status, language, null, firstSeenId, size);
+      page = submissionService.searchSubmissions(loginId, problemNumber, status, languageVersionIds, null, firstSeenId, size);
     }
 
     return ResponseEntity.ok(ApiResponse.success(page));

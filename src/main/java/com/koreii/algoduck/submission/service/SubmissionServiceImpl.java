@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -186,9 +187,9 @@ public class SubmissionServiceImpl implements SubmissionService {
   }
 
   @Override
-  public PageResponse<SubmissionResponseDto> searchSubmissions(String loginId, Long problemNumber, String status, String language, Long lastSeenId, Long firstSeenId, int pageSize) {
+  public PageResponse<SubmissionResponseDto> searchSubmissions(String loginId, Long problemNumber, String status, List<Long> languageVersionIds, Long lastSeenId, Long firstSeenId, int pageSize) {
     // Repository에 복합 검색 위임
-    return submissionRepository.searchSubmissions(loginId, problemNumber, status, language, lastSeenId, firstSeenId, pageSize);
+    return submissionRepository.searchSubmissions(loginId, problemNumber, status, languageVersionIds, lastSeenId, firstSeenId, pageSize);
   }
 
   @Override

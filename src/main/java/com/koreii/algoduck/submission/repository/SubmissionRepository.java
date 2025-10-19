@@ -7,6 +7,8 @@ import com.koreii.algoduck.submission.dto.response.SubmissionResponseDto;
 import com.koreii.algoduck.submission.entity.Submission;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface SubmissionRepository {
   Submission saveSubmission(SubmissionSaveRequestDto submissionSaveRequestDto);
@@ -21,7 +23,7 @@ public interface SubmissionRepository {
 
   PageResponse<SubmissionResponseDto> findPrevPage(Long firstSeenId, int pageSize);
 
-  PageResponse<SubmissionResponseDto> searchSubmissions(String loginId, Long problemNumber, String status, String language, Long lastSeenId, Long firstSeenId, int pageSize);
+  PageResponse<SubmissionResponseDto> searchSubmissions(String loginId, Long problemNumber, String status, List<Long> languageVersionIds, Long lastSeenId, Long firstSeenId, int pageSize);
 
   long countByMemberId(Long memberId);
 
