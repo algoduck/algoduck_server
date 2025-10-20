@@ -89,8 +89,8 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
   public PageResponse<SubmissionResponseDto> findNextPage(Long lastSeenId, int pageSize) {
     String jpql = "SELECT new com.koreii.algoduck.submission.dto.response.SubmissionResponseDto(s) " +
         "FROM Submission s " +
-        "WHERE (:lastId IS NULL OR s.id < :lastId) " +
-        "ORDER BY s.id DESC";
+        "WHERE (:lastId IS NULL OR s.submissionId < :lastId) " +
+        "ORDER BY s.submissionId DESC";
 
     List<SubmissionResponseDto> result = entityManager.createQuery(jpql, SubmissionResponseDto.class)
         .setParameter("lastId", lastSeenId)
@@ -109,8 +109,8 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
   public PageResponse<SubmissionResponseDto> findPrevPage(Long firstSeenId, int pageSize) {
     String jpql = "SELECT new com.koreii.algoduck.submission.dto.response.SubmissionResponseDto(s) " +
         "FROM Submission s " +
-        "WHERE s.id > :firstId " +
-        "ORDER BY s.id ASC";
+        "WHERE s.submissionId > :firstId " +
+        "ORDER BY s.submissionId ASC";
 
     List<SubmissionResponseDto> result = entityManager.createQuery(jpql, SubmissionResponseDto.class)
         .setParameter("firstId", firstSeenId)
@@ -168,16 +168,16 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
 
     // 커서 기반 조건 (submissionId 기준)
     if (lastSeenId != null) {
-      jpql.append(" AND s.id < :lastSeenId");
-      countJpql.append(" AND s.id < :lastSeenId");
+      jpql.append(" AND s.submissionId < :lastSeenId");
+      countJpql.append(" AND s.submissionId < :lastSeenId");
     }
     if (firstSeenId != null) {
-      jpql.append(" AND s.id > :firstSeenId");
-      countJpql.append(" AND s.id > :firstSeenId");
+      jpql.append(" AND s.submissionId > :firstSeenId");
+      countJpql.append(" AND s.submissionId > :firstSeenId");
     }
 
     // 정렬 (내림차순 = 최신순)
-    jpql.append(" ORDER BY s.id DESC");
+    jpql.append(" ORDER BY s.submissionId DESC");
 
     // TypedQuery 생성
     TypedQuery<SubmissionResponseDto> query = entityManager.createQuery(jpql.toString(), SubmissionResponseDto.class);
@@ -245,8 +245,8 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
   public PageResponse<SubmissionResponseDto> findNextPageByMemberId(Long memberId, Long lastSeenId, int pageSize) {
     String jpql = "SELECT new com.koreii.algoduck.submission.dto.response.SubmissionResponseDto(s) " +
         "FROM Submission s " +
-        "WHERE s.member.id = :memberId AND (:lastId IS NULL OR s.id < :lastId) " +
-        "ORDER BY s.id DESC";
+        "WHERE s.member.id = :memberId AND (:lastId IS NULL OR s.submissionId < :lastId) " +
+        "ORDER BY s.submissionId DESC";
 
     List<SubmissionResponseDto> result = entityManager.createQuery(jpql, SubmissionResponseDto.class)
         .setParameter("memberId", memberId)
@@ -268,8 +268,8 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
   public PageResponse<SubmissionResponseDto> findPrevPageByMemberId(Long memberId, Long firstSeenId, int pageSize) {
     String jpql = "SELECT new com.koreii.algoduck.submission.dto.response.SubmissionResponseDto(s) " +
         "FROM Submission s " +
-        "WHERE s.member.id = :memberId AND s.id > :firstId " +
-        "ORDER BY s.id ASC";
+        "WHERE s.member.id = :memberId AND s.submissionId > :firstId " +
+        "ORDER BY s.submissionId ASC";
 
     List<SubmissionResponseDto> result = entityManager.createQuery(jpql, SubmissionResponseDto.class)
         .setParameter("memberId", memberId)
