@@ -28,7 +28,7 @@ public interface SubmissionService {
 
   PageResponse<SubmissionResponseDto> getPrevPageByMemberId(Long memberId, Long firstSeenId, int pageSize);
 
-  PageResponse<SubmissionResponseDto> searchSubmissions(String loginId, Long problemNumber, String status, List<Long> languageVersionIds, Long lastSeenId, Long firstSeenId, int pageSize);
+  PageResponse<SubmissionResponseDto> searchSubmissions(String nickname, Long problemNumber, String status, List<Long> languageVersionIds, Long lastSeenId, Long firstSeenId, int pageSize);
 
   String getCode(Long submissionId);
 }

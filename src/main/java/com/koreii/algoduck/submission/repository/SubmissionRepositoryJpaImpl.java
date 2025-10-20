@@ -128,7 +128,7 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
 
   @Override
   public PageResponse<SubmissionResponseDto> searchSubmissions(
-      String loginId,
+      String nickname,
       Long problemNumber,
       String status,
       List<Long> languageVersionIds,
@@ -137,7 +137,7 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
       int pageSize
   ) {
     log.info("searchSubmissions ");
-    log.info("loginId = {}", loginId);
+    log.info("nickname = {}", nickname);
     log.info("problemNumber = {}", problemNumber);
     log.info("status = {}", status);
     log.info("languageVersionIds = {}", languageVersionIds);
@@ -149,9 +149,9 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
     StringBuilder countJpql = new StringBuilder("SELECT COUNT(s) FROM Submission s WHERE 1=1");
 
     // 동적 조건 추가
-    if (loginId != null) {
-      jpql.append(" AND s.member.loginId = :loginId");
-      countJpql.append(" AND s.member.loginId = :loginId");
+    if (nickname != null) {
+      jpql.append(" AND s.member.nickname = :nickname");
+      countJpql.append(" AND s.member.nickname = :nickname");
     }
     if (problemNumber != null) {
       jpql.append(" AND s.problem.problemNumber = :problemNumber");
@@ -184,9 +184,9 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
     TypedQuery<Long> countQuery = entityManager.createQuery(countJpql.toString(), Long.class);
 
     // 파라미터 바인딩
-    if (loginId != null) {
-      query.setParameter("loginId", loginId);
-      countQuery.setParameter("loginId", loginId);
+    if (nickname != null) {
+      query.setParameter("nickname", nickname);
+      countQuery.setParameter("nickname", nickname);
     }
     if (problemNumber != null) {
       query.setParameter("problemNumber", problemNumber);

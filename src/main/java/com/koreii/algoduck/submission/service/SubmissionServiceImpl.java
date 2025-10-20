@@ -187,9 +187,9 @@ public class SubmissionServiceImpl implements SubmissionService {
   }
 
   @Override
-  public PageResponse<SubmissionResponseDto> searchSubmissions(String loginId, Long problemNumber, String status, List<Long> languageVersionIds, Long lastSeenId, Long firstSeenId, int pageSize) {
+  public PageResponse<SubmissionResponseDto> searchSubmissions(String nickname, Long problemNumber, String status, List<Long> languageVersionIds, Long lastSeenId, Long firstSeenId, int pageSize) {
     // Repository에 복합 검색 위임
-    return submissionRepository.searchSubmissions(loginId, problemNumber, status, languageVersionIds, lastSeenId, firstSeenId, pageSize);
+    return submissionRepository.searchSubmissions(nickname, problemNumber, status, languageVersionIds, lastSeenId, firstSeenId, pageSize);
   }
 
   @Override
