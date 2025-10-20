@@ -95,9 +95,20 @@ INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES 
 INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES (1002, 1001, "Java 11", now());
 INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES (1003, 1001, "Java 15", now());
 INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES (1004, 1001, "Java 17", now());
+INSERT INTO languages (language_id, name, extension, created_at) VALUES (1002, "C++", "cpp", now());
+INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES (1005, 1002, "C++98", now());
+INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES (1006, 1002, "C++11", now());
+INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES (1007, 1002, "C++14", now());
+INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES (1008, 1002, "C++20", now());
+INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES (1009, 1002, "C++23", now());
+INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES (1010, 1002, "C++26", now());
+INSERT INTO languages (language_id, name, extension, created_at) VALUES (1003, "Python", "py", now());
+INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES (1011, 1003, "Python 3", now());
+INSERT INTO languages (language_id, name, extension, created_at) VALUES (1004, "Javascript", "js", now());
+INSERT INTO versions (version_id, language_id, version_name, created_at) VALUES (1012, 1004, "ES6", now());
 
-UPDATE languages_seq SET next_val = 1002;
-UPDATE versions_seq SET next_val = 1005;
+UPDATE languages_seq SET next_val = 1005;
+UPDATE versions_seq SET next_val = 1013;
 
 UPDATE testcases_seq SET next_val = 0;
 
