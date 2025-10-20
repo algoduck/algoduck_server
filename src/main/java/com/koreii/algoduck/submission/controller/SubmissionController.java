@@ -78,7 +78,7 @@ public class SubmissionController extends BaseApiController {
   @Operation(summary = "제출 내역 조회", description = "조건에 따른 제출 내역을 커서 기반으로 조회합니다.")
   @GetMapping("/search")
   public ResponseEntity<ApiResponse<PageResponse<SubmissionResponseDto>>> searchSubmission(
-      @RequestParam(required = false) String loginId,
+      @RequestParam(required = false) String nickname,
       @RequestParam(required = false) Long problemNumber,
       @RequestParam(required = false) String status,
       @RequestParam(required = false) List<Long> languageVersionIds,
@@ -90,7 +90,7 @@ public class SubmissionController extends BaseApiController {
     PageResponse<SubmissionResponseDto> page;
 
     boolean noSearchConditions =
-        loginId == null && problemNumber == null && status == null &&
+        nickname == null && problemNumber == null && status == null &&
             (languageVersionIds == null || languageVersionIds.isEmpty()) &&
             submissionId == null;
 
@@ -118,11 +118,11 @@ public class SubmissionController extends BaseApiController {
 
     // ③ 조건 검색 + 커서 기반
     if (lastSeenId == null && firstSeenId == null) { // 첫 페이지
-      page = submissionService.searchSubmissions(loginId, problemNumber, status, languageVersionIds, null, null, size);
+      page = submissionService.searchSubmissions(nickname, problemNumber, status, languageVersionIds, null, null, size);
     } else if (lastSeenId != null) { // 다음 페이지
-      page = submissionService.searchSubmissions(loginId, problemNumber, status, languageVersionIds, lastSeenId, null, size);
+      page = submissionService.searchSubmissions(nickname, problemNumber, status, languageVersionIds, lastSeenId, null, size);
     } else { // 이전 페이지
-      page = submissionService.searchSubmissions(loginId, problemNumber, status, languageVersionIds, null, firstSeenId, size);
+      page = submissionService.searchSubmissions(nickname, problemNumber, status, languageVersionIds, null, firstSeenId, size);
     }
 
     return ResponseEntity.ok(ApiResponse.success(page));

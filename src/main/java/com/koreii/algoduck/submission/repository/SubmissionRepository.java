@@ -23,7 +23,7 @@ public interface SubmissionRepository {
 
   PageResponse<SubmissionResponseDto> findPrevPage(Long firstSeenId, int pageSize);
 
-  PageResponse<SubmissionResponseDto> searchSubmissions(String loginId, Long problemNumber, String status, List<Long> languageVersionIds, Long lastSeenId, Long firstSeenId, int pageSize);
+  PageResponse<SubmissionResponseDto> searchSubmissions(String nickname, Long problemNumber, String status, List<Long> languageVersionIds, Long lastSeenId, Long firstSeenId, int pageSize);
 
   long countByMemberId(Long memberId);
 
