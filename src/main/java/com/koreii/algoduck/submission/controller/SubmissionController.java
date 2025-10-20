@@ -89,15 +89,12 @@ public class SubmissionController extends BaseApiController {
   ) {
     PageResponse<SubmissionResponseDto> page;
 
-    boolean noSearchConditions = loginId == null && problemNumber == null && status == null && languageVersionIds == null && submissionId == null;
+    boolean noSearchConditions =
+        loginId == null && problemNumber == null && status == null &&
+            (languageVersionIds == null || languageVersionIds.isEmpty()) &&
+            submissionId == null;
 
-    if (noSearchConditions) {
-      // getPage()를 직접 호출하지 말고, 그 내부에서 쓰는 service 메서드 호출
-      PageResponse<SubmissionResponseDto> firstPage = submissionService.getFirstPage(size);
-      return ResponseEntity.ok(ApiResponse.success(firstPage));
-    }
-
-    //  제출 번호로 단건 조회
+    // ① 단건 조회 (submissionId)
     if (submissionId != null) {
       SubmissionResponseDto submissionResponseDto = submissionService.findBySubmissionId(submissionId);
       List<SubmissionResponseDto> list = submissionResponseDto == null
@@ -107,17 +104,30 @@ public class SubmissionController extends BaseApiController {
       return ResponseEntity.ok(ApiResponse.success(page));
     }
 
-    //  나머지 조건 조합 검색
-    if (lastSeenId == null && firstSeenId == null) { //  첫 페이지
+    // ② 조건 없는 전체 조회 (커서 기반 포함)
+    if (noSearchConditions) {
+      if (lastSeenId == null && firstSeenId == null) {
+        page = submissionService.getFirstPage(size);
+      } else if (lastSeenId != null) {
+        page = submissionService.getNextPage(lastSeenId, size);
+      } else {
+        page = submissionService.getPrevPage(firstSeenId, size);
+      }
+      return ResponseEntity.ok(ApiResponse.success(page));
+    }
+
+    // ③ 조건 검색 + 커서 기반
+    if (lastSeenId == null && firstSeenId == null) { // 첫 페이지
       page = submissionService.searchSubmissions(loginId, problemNumber, status, languageVersionIds, null, null, size);
-    } else if (lastSeenId != null) {
+    } else if (lastSeenId != null) { // 다음 페이지
       page = submissionService.searchSubmissions(loginId, problemNumber, status, languageVersionIds, lastSeenId, null, size);
-    } else {
+    } else { // 이전 페이지
       page = submissionService.searchSubmissions(loginId, problemNumber, status, languageVersionIds, null, firstSeenId, size);
     }
 
     return ResponseEntity.ok(ApiResponse.success(page));
   }
+
 
   @Operation(summary = "회원 제출 목록 페이지 조회", description = "특정 회원의 제출 목록을 커서 기반으로 조회합니다.")
   @GetMapping("/page/member/{memberId}")
