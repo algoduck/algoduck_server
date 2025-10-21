@@ -5,6 +5,7 @@ import com.koreii.algoduck.base.entity.BaseTimeEntity;
 import com.koreii.algoduck.problem.entity.Problem;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,11 +34,11 @@ public class ProblemAlgorithm extends BaseTimeEntity {
   @Column(name = "problem_algorithm_id")
   private Long problemAlgorithmId;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "problemId", nullable = false)
   private Problem problem;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "algorithmId", nullable = false)
   private Algorithm algorithm;
 }
