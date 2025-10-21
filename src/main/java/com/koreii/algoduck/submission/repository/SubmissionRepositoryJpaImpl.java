@@ -190,9 +190,9 @@ public class SubmissionRepositoryJpaImpl implements SubmissionRepository {
 
     StringBuilder countJpql = new StringBuilder("SELECT COUNT(s) FROM Submission s WHERE 1=1");
 
-    if (nickname != null) {
-      jpql.append(" AND s.member.nickname = :nickname");
-      countJpql.append(" AND s.member.nickname = :nickname");
+    if (nickname != null && !nickname.isEmpty()) {
+      jpql.append(" AND LOWER(s.member.nickname) LIKE LOWER(CONCAT('%', :nickname, '%'))");
+      countJpql.append(" AND LOWER(s.member.nickname) LIKE LOWER(CONCAT('%', :nickname, '%'))");
     }
     if (problemNumber != null) {
       jpql.append(" AND s.problem.problemNumber = :problemNumber");
