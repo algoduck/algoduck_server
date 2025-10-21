@@ -4,6 +4,7 @@ import com.koreii.algoduck.base.entity.BaseTimeEntity;
 import com.koreii.algoduck.problem.entity.Problem;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,7 +34,7 @@ public class ProblemImage extends BaseTimeEntity {
   @Column(name = "problem_image_id")
   private Long problemImageId;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "problem_id", nullable = false)
   private Problem problem;
 
