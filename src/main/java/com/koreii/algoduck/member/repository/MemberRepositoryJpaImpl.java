@@ -90,7 +90,7 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
 
   @Override
   public long countWithLoginId(String loginId) {
-    String jpql = "SELECT COUNT(m) FROM Member m WHERE m.loginId LIKE :loginId";
+    String jpql = "SELECT COUNT(m) FROM Member m WHERE m.loginId  LIKE CONCAT(:loginId, '%')";
     return entityManager.createQuery(jpql, Long.class).setParameter("loginId", "%" + loginId + "%").getSingleResult();
   }
 
@@ -99,15 +99,15 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
     log.info("loginId = {}", loginId);
 
     int offset = (pageNumber - 1) * pageSize;
-    String jpql = "SELECT new com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto(m) "
-        + "FROM Member m "
-        + "WHERE m.loginId LIKE :loginId "
-        + "ORDER BY m.solved DESC, m.createdAt ASC";
-
-    log.info("jpql = {}", jpql);
+    String jpql = """
+        SELECT new com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto(m)
+        FROM Member m
+        WHERE m.loginId LIKE CONCAT(:loginId, '%')
+        ORDER BY m.solved DESC, m.createdAt ASC
+        """;
 
     return entityManager.createQuery(jpql, MemberSimpleResponseDto.class)
-        .setParameter("loginId", "%" + loginId + "%")
+        .setParameter("loginId", loginId)
         .setFirstResult(offset)
         .setMaxResults(pageSize)
         .getResultList();
@@ -115,20 +115,24 @@ public class MemberRepositoryJpaImpl implements MemberRepository {
 
   @Override
   public long countWithNickname(String nickname) {
-    String jpql = "SELECT COUNT(m) FROM Member m WHERE m.nickname LIKE :nickname";
-    return entityManager.createQuery(jpql, Long.class).setParameter("nickname", "%" + nickname + "%").getSingleResult();
+    String jpql = "SELECT COUNT(m) FROM Member m WHERE m.nickname LIKE CONCAT(:nickname, '%')";
+    return entityManager.createQuery(jpql, Long.class)
+        .setParameter("nickname", nickname)
+        .getSingleResult();
   }
 
   @Override
   public List<MemberSimpleResponseDto> findWithNickname(String nickname, int pageNumber, int pageSize) {
     int offset = (pageNumber - 1) * pageSize;
-    String jpql = "SELECT new com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto(m) "
-        + "FROM Member m "
-        + "WHERE m.nickname LIKE :nickname "
-        + "ORDER BY m.solved DESC, m.createdAt ASC";
+    String jpql = """
+        SELECT new com.koreii.algoduck.member.dto.response.MemberSimpleResponseDto(m)
+        FROM Member m
+        WHERE m.nickname LIKE CONCAT(:nickname, '%')
+        ORDER BY m.solved DESC, m.createdAt ASC
+        """;
 
     return entityManager.createQuery(jpql, MemberSimpleResponseDto.class)
-        .setParameter("nickname", "%" + nickname + "%")
+        .setParameter("nickname", nickname)
         .setFirstResult(offset)
         .setMaxResults(pageSize)
         .getResultList();
