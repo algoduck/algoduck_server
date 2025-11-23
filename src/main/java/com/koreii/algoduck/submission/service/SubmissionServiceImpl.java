@@ -123,16 +123,7 @@ public class SubmissionServiceImpl implements SubmissionService {
       }
     }
 
-    JudgeRequestMessage judgeRequestMessage = JudgeRequestMessage.builder()
-        .problemId(submissionRequestDto.getProblemId())
-        .submissionId(submissionId)
-        .language(versionResponseDto.getLanguageName())
-        .version(versionResponseDto.getVersionName())
-        .timeLimitation(problemResponseDto.getTimeLimitation())
-        .memoryLimitation(problemResponseDto.getMemoryLimitation())
-        .sourceCode(sourceCode)
-        .build();
-
+    JudgeRequestMessage judgeRequestMessage = new JudgeRequestMessage(submissionRequestDto.getProblemId(), submissionId, versionResponseDto.getLanguageName(), versionResponseDto.getVersionName(), problemResponseDto.getTimeLimitation(), problemResponseDto.getMemoryLimitation(), sourceCode);
     judgeRequestProducer.sendJudgeRequest(judgeRequestMessage);
 
     // 즉시 사용자에게 "채점 중" 메시지 반환
