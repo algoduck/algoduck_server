@@ -25,11 +25,11 @@ public class JudgeResultConsumer {
     log.info("채점 결과 수신: {}", resultMessage);
 
     SubmissionUpdateRequestDto updateDto = SubmissionUpdateRequestDto.builder()
-        .submissionId(resultMessage.getSubmissionId())
-        .status(resultMessage.getResult())
-        .message(resultMessage.getMessage())
-        .executionTime(resultMessage.getExecutionTime())
-        .memoryUsage(resultMessage.getMemoryUsage())
+        .submissionId(resultMessage.submissionId())
+        .status(resultMessage.result())
+        .message(resultMessage.message())
+        .executionTime(resultMessage.executionTime())
+        .memoryUsage(resultMessage.memoryUsage())
         .build();
 
     try {
